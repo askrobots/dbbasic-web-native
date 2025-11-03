@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Semantic Components Demo</title>
+    <script src="semantic-components.js"></script>
+    <script src="voice-system.js"></script>
+    <script src="context-detection.js"></script>
+    <script src="attention-ml.js"></script>
+    <script src="gesture-recognition.js"></script>
+    <script src="devtools.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            height: 100vh;
+        }
+
+        .sidebar {
+            background: #1c1c1e;
+            border-right: 1px solid #38383a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            padding: 24px;
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .main-content {
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #007aff;
+        }
+
+        .demo-section {
+            background: #1c1c1e;
+            border: 1px solid #38383a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            background: #2c2c2e;
+            border-top: 1px solid #38383a;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #98989d;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #98989d;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        nav-item:hover {
+            color: #fff;
+        }
+
+        list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        list-item-content {
+            flex: 1;
+        }
+
+        list-item-title {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        list-item-meta {
+            font-size: 13px;
+            color: #98989d;
+        }
+
+        menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        semantic-modal h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .modal-content {
+            line-height: 1.8;
+            color: #98989d;
+        }
+
+        .form-row {
+            margin-bottom: 16px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #1c1c1e;
+            border-radius: 8px;
+        }
+
+        .badge {
+            background: #ff3b30;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .voice-toggle {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #007aff;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            z-index: 9998;
+        }
+
+        .voice-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+        }
+
+        .voice-toggle.active {
+            background: #ff3b30;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 16px rgba(255, 59, 48, 0.3); }
+            50% { box-shadow: 0 4px 24px rgba(255, 59, 48, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar with Navigator -->
+        <div class="sidebar">
+            <div class="logo">Semantic UI</div>
+            <semantic-navigator type="vertical">
+                <nav-item data-nav-id="home" aria-current="page">
+                    <span>🏠</span> Home
+                </nav-item>
+                <nav-item data-nav-id="projects">
+                    <span>📁</span> Projects <span class="badge">3</span>
+                </nav-item>
+                <nav-item data-nav-id="tasks">
+                    <span>✓</span> Tasks
+                </nav-item>
+                <nav-item data-nav-id="team">
+                    <span>👥</span> Team
+                </nav-item>
+                <nav-item data-nav-id="settings">
+                    <span>⚙️</span> Settings
+                </nav-item>
+            </semantic-navigator>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1>Complete Component Showcase</h1>
+
+            <!-- Actions & Modals -->
+            <section>
+                <h2>01. Actions & Modals</h2>
+                <div class="demo-section">
+                    <div class="button-group">
+                        <semantic-action intent="primary" onclick="showModal('welcome')">
+                            Open Welcome Dialog
+                        </semantic-action>
+                        <semantic-action intent="secondary" onclick="showModal('settings')">
+                            Settings
+                        </semantic-action>
+                        <semantic-action intent="secondary" sentiment="destructive" onclick="showModal('delete')">
+                            Delete Project
+                        </semantic-action>
+                        <semantic-action intent="tertiary" onclick="showNotification()">
+                            Show Notification
+                        </semantic-action>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forms & Inputs -->
+            <section>
+                <h2>02. Forms & Inputs</h2>
+                <div class="demo-section">
+                    <h3 style="margin-bottom: 16px; font-size: 16px;">Project Creation Form</h3>
+                    <div class="form-row">
+                        <semantic-input
+                            type="text"
+                            label="Project Name"
+                            placeholder="Enter project name"
+                            required>
+                        </semantic-input>
+                    </div>
+                    <div class="form-row">
+                        <semantic-input
+                            type="textarea"
+                            label="Description"
+                            placeholder="Describe your project">
+                        </semantic-input>
+                    </div>
+                    <div class="grid grid-2">
+                        <semantic-input
+                            type="email"
+                            label="Team Email"
+                            placeholder="team@example.com">
+                        </semantic-input>
+                        <semantic-input
+                            type="url"
+                            label="Repository URL"
+                            placeholder="https://github.com/...">
+                        </semantic-input>
+                    </div>
+                    <div style="margin-top: 24px;">
+                        <semantic-action intent="primary" sentiment="constructive">
+                            Create Project
+                        </semantic-action>
+                        <semantic-action intent="tertiary" style="margin-left: 12px;">
+                            Cancel
+                        </semantic-action>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cards Grid -->
+            <section>
+                <h2>03. Project Cards</h2>
+                <div class="toolbar">
+                    <div>3 active projects</div>
+                    <semantic-action intent="secondary">
+                        + New Project
+                    </semantic-action>
+                </div>
+                <div class="grid grid-3">
+                    <semantic-card>
+                        <span slot="media-icon">🚀</span>
+                        <card-title slot="title">Launch Campaign</card-title>
+                        <card-description slot="description">
+                            Marketing initiative for Q4
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Status:</strong> In Progress<br>
+                            <strong>Team:</strong> 5 members<br>
+                            <strong>Due:</strong> Dec 15, 2024
+                        </div>
+                        <div slot="actions" class="card-actions">
+                            <semantic-action intent="tertiary">View</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <span slot="media-icon">💻</span>
+                        <card-title slot="title">Platform Redesign</card-title>
+                        <card-description slot="description">
+                            Complete UI/UX overhaul
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Status:</strong> Planning<br>
+                            <strong>Team:</strong> 8 members<br>
+                            <strong>Due:</strong> Jan 30, 2025
+                        </div>
+                        <div slot="actions" class="card-actions">
+                            <semantic-action intent="tertiary">View</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <span slot="media-icon">📊</span>
+                        <card-title slot="title">Analytics Dashboard</card-title>
+                        <card-description slot="description">
+                            Real-time metrics and reporting
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Status:</strong> Testing<br>
+                            <strong>Team:</strong> 3 members<br>
+                            <strong>Due:</strong> Nov 30, 2024
+                        </div>
+                        <div slot="actions" class="card-actions">
+                            <semantic-action intent="tertiary">View</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+                </div>
+            </section>
+
+            <!-- Selectable List -->
+            <section>
+                <h2>04. Task List</h2>
+                <div class="demo-section">
+                    <semantic-list selectable>
+                        <list-item data-item-id="task-1" tabindex="0">
+                            <list-item-content>
+                                <list-item-title>Design new landing page</list-item-title>
+                                <list-item-meta>Due today • High priority</list-item-meta>
+                            </list-item-content>
+                            <span>🔴</span>
+                        </list-item>
+                        <list-item data-item-id="task-2" tabindex="0">
+                            <list-item-content>
+                                <list-item-title>Review pull requests</list-item-title>
+                                <list-item-meta>Due tomorrow • Medium priority</list-item-meta>
+                            </list-item-content>
+                            <span>🟡</span>
+                        </list-item>
+                        <list-item data-item-id="task-3" tabindex="0">
+                            <list-item-content>
+                                <list-item-title>Update documentation</list-item-title>
+                                <list-item-meta>Due next week • Low priority</list-item-meta>
+                            </list-item-content>
+                            <span>🟢</span>
+                        </list-item>
+                        <list-item data-item-id="task-4" tabindex="0">
+                            <list-item-content>
+                                <list-item-title>Team meeting preparation</list-item-title>
+                                <list-item-meta>Due Friday • Medium priority</list-item-meta>
+                            </list-item-content>
+                            <span>🟡</span>
+                        </list-item>
+                    </semantic-list>
+                </div>
+            </section>
+
+            <!-- Adjusters -->
+            <section>
+                <h2>05. Settings & Controls</h2>
+                <div class="demo-section">
+                    <div class="grid grid-2">
+                        <semantic-adjuster
+                            label="Notification Volume"
+                            value="60"
+                            min="0"
+                            max="100"
+                            step="10">
+                        </semantic-adjuster>
+                        <semantic-adjuster
+                            label="Auto-save Interval (min)"
+                            value="5"
+                            min="1"
+                            max="30"
+                            step="1">
+                        </semantic-adjuster>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right-click menu demo -->
+            <section>
+                <h2>06. Context Menu</h2>
+                <div class="demo-section">
+                    <p style="margin-bottom: 16px; color: #98989d;">
+                        Right-click anywhere in this box to open context menu
+                    </p>
+                    <div id="contextArea" style="padding: 48px; background: #2c2c2e; border-radius: 8px; text-align: center; cursor: pointer;">
+                        Right-click here
+                    </div>
+                </div>
+            </section>
+
+            <div style="height: 100px;"></div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <semantic-modal id="welcomeModal">
+        <h3 slot="header">Welcome to Semantic UI</h3>
+        <div class="modal-content">
+            <p>This is a complete demonstration of intent-based, context-aware components.</p>
+            <p style="margin-top: 16px;">All interactions work across mouse, touch, keyboard, and voice without additional code.</p>
+        </div>
+        <div slot="actions">
+            <semantic-action intent="primary" onclick="closeModal('welcome')">
+                Get Started
+            </semantic-action>
+            <semantic-action intent="tertiary" onclick="closeModal('welcome')">
+                Maybe Later
+            </semantic-action>
+        </div>
+    </semantic-modal>
+
+    <semantic-modal id="settingsModal">
+        <h3 slot="header">Settings</h3>
+        <div class="modal-content">
+            <semantic-input
+                type="text"
+                label="Display Name"
+                value="John Doe"
+                style="margin-bottom: 16px;">
+            </semantic-input>
+            <semantic-input
+                type="email"
+                label="Email"
+                value="john@example.com">
+            </semantic-input>
+        </div>
+        <div slot="actions">
+            <semantic-action intent="primary" sentiment="constructive" onclick="closeModal('settings')">
+                Save Changes
+            </semantic-action>
+            <semantic-action intent="tertiary" onclick="closeModal('settings')">
+                Cancel
+            </semantic-action>
+        </div>
+    </semantic-modal>
+
+    <semantic-modal id="deleteModal" urgency="critical" dismissible="false">
+        <h3 slot="header" style="color: #ff3b30;">⚠️ Delete Project</h3>
+        <div class="modal-content">
+            <p>Are you sure you want to delete this project? This action cannot be undone.</p>
+            <p style="margin-top: 16px; color: #ff3b30; font-weight: 600;">All data will be permanently lost.</p>
+        </div>
+        <div slot="actions">
+            <semantic-action intent="secondary" sentiment="destructive" onclick="closeModal('delete')">
+                Delete Forever
+            </semantic-action>
+            <semantic-action intent="tertiary" onclick="closeModal('delete')">
+                Cancel
+            </semantic-action>
+        </div>
+    </semantic-modal>
+
+    <!-- Context Menu -->
+    <semantic-menu id="contextMenu">
+        <menu-item data-menu-id="open">
+            <span>📂</span> Open
+        </menu-item>
+        <menu-item data-menu-id="edit">
+            <span>✏️</span> Edit
+        </menu-item>
+        <menu-item data-menu-id="share">
+            <span>🔗</span> Share
+        </menu-item>
+        <div style="height: 1px; background: #38383a; margin: 4px 0;"></div>
+        <menu-item data-menu-id="delete">
+            <span>🗑️</span> Delete
+        </menu-item>
+    </semantic-menu>
+
+    <!-- Voice Toggle Button -->
+    <button class="voice-toggle" id="voiceToggle" title="Toggle Voice Commands (Ctrl+Shift+V)">
+        🎤
+    </button>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span>✓</span> All systems operational
+        </div>
+        <div class="status-item">
+            Last saved: Just now
+        </div>
+        <div class="status-item">
+            <span id="voiceStatus">Voice: Off</span>
+        </div>
+    </div>
+
+    <script>
+        // Modal controls
+        function showModal(type) {
+            const modals = {
+                'welcome': 'welcomeModal',
+                'settings': 'settingsModal',
+                'delete': 'deleteModal'
+            };
+            const modal = document.getElementById(modals[type]);
+            if (modal) modal.open();
+        }
+
+        function closeModal(type) {
+            const modals = {
+                'welcome': 'welcomeModal',
+                'settings': 'settingsModal',
+                'delete': 'deleteModal'
+            };
+            const modal = document.getElementById(modals[type]);
+            if (modal) modal.close();
+        }
+
+        // Notification
+        function showNotification() {
+            const notification = document.createElement('semantic-feedback');
+            notification.setAttribute('urgency', 'medium');
+            notification.setAttribute('auto-dismiss', '');
+            notification.textContent = 'This is a sample notification that will auto-dismiss in 5 seconds.';
+
+            notification.style.position = 'fixed';
+            notification.style.top = '24px';
+            notification.style.right = '24px';
+            notification.style.zIndex = '10000';
+            notification.style.minWidth = '400px';
+
+            document.body.appendChild(notification);
+        }
+
+        // Context menu
+        const contextArea = document.getElementById('contextArea');
+        const contextMenu = document.getElementById('contextMenu');
+
+        contextArea.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            contextMenu.open(e.clientX, e.clientY);
+        });
+
+        // Listen to all intents
+        document.addEventListener('intent', (e) => {
+            console.log('Intent:', e.detail.type, e.detail);
+
+            // Update status bar
+            const statusBar = document.querySelector('.status-bar .status-item:last-child');
+            const activeCount = document.querySelectorAll('[attention-state="allocated"]').length;
+            statusBar.textContent = `${activeCount} components active`;
+        });
+
+        // Navigator intent
+        document.querySelector('semantic-navigator').addEventListener('intent', (e) => {
+            if (e.detail.type === 'navigate') {
+                console.log('Navigate to:', e.detail.id);
+
+                // Update current item
+                document.querySelectorAll('nav-item').forEach(item => {
+                    item.removeAttribute('aria-current');
+                });
+                document.querySelector(`[data-nav-id="${e.detail.id}"]`)?.setAttribute('aria-current', 'page');
+            }
+        });
+
+        // List selection
+        document.querySelector('semantic-list').addEventListener('intent', (e) => {
+            if (e.detail.type === 'select') {
+                console.log('Selected task:', e.detail.id, 'Selected:', e.detail.selected);
+            }
+        });
+
+        // Menu selection
+        contextMenu.addEventListener('intent', (e) => {
+            if (e.detail.type === 'select') {
+                console.log('Menu action:', e.detail.id);
+                showNotification();
+            }
+        });
+
+        // Voice control
+        const voiceToggle = document.getElementById('voiceToggle');
+        const voiceStatus = document.getElementById('voiceStatus');
+
+        voiceToggle.addEventListener('click', () => {
+            if (window.voiceSystem) {
+                window.voiceSystem.toggle();
+                updateVoiceStatus();
+            }
+        });
+
+        function updateVoiceStatus() {
+            if (window.voiceSystem && window.voiceSystem.isListening) {
+                voiceToggle.classList.add('active');
+                voiceStatus.textContent = '🎤 Voice: Listening';
+                voiceStatus.style.color = '#ff3b30';
+            } else {
+                voiceToggle.classList.remove('active');
+                voiceStatus.textContent = 'Voice: Off';
+                voiceStatus.style.color = '#98989d';
+            }
+        }
+
+        // Check voice status periodically
+        setInterval(updateVoiceStatus, 500);
+
+        // Show welcome modal on load
+        setTimeout(() => {
+            showModal('welcome');
+        }, 500);
+    </script>
+</body>
+</html>

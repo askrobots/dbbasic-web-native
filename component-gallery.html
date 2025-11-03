@@ -1,0 +1,2066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Gallery - All States & Variations</title>
+    <script src="semantic-components.js?v=8"></script>
+    <script src="voice-system.js"></script>
+    <script src="context-detection.js"></script>
+    <script src="attention-ml.js"></script>
+    <script src="gesture-recognition.js"></script>
+    <script src="devtools.js?v=6"></script>
+    <script src="visual-test-suite.js?v=6"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            padding: 48px 24px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 64px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #ababab; /* WCAG AA compliant - 4.6:1 contrast on black */
+        }
+
+        /* Component Section */
+        .component-section {
+            margin-bottom: 120px;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #38383a;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-description {
+            font-size: 16px;
+            color: #ababab;
+        }
+
+        /* Variation Groups */
+        .variation-group {
+            margin-bottom: 64px;
+            background: #1c1c1e;
+            border: 1px solid #38383a;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .variation-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #409cff; /* Lighter blue for WCAG AA compliance: 5.5:1 on #1c1c1e */
+        }
+
+        .variation-description {
+            font-size: 14px;
+            color: #ababab;
+            margin-bottom: 24px;
+        }
+
+        .variation-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-1 { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        .grid-auto { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        /* Example Cards */
+        .example-card {
+            background: #2c2c2e;
+            border: 1px solid #38383a;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .example-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ababab;
+            margin-bottom: 16px;
+        }
+
+        .example-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .example-code {
+            width: 100%;
+            margin-top: 16px;
+            padding: 16px;
+            background: #000;
+            border: 1px solid #38383a;
+            border-radius: 8px;
+            font-family: 'Monaco', monospace;
+            font-size: 12px;
+            color: #34c759;
+            overflow-x: auto;
+        }
+
+        /* State Indicators */
+        .state-indicator {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .state-default { background: rgba(0, 102, 204, 0.2); color: #ffffff; font-weight: 900; }
+        .state-hover { background: rgba(0, 102, 204, 0.3); color: #ffffff; font-weight: 900; }
+        .state-active { background: rgba(0, 102, 204, 0.4); color: #ffffff; font-weight: 900; }
+        .state-disabled { background: rgba(142, 142, 147, 0.3); color: #ffffff; font-weight: 900; }
+        .state-focus { background: rgba(52, 199, 89, 0.3); color: #ffffff; font-weight: 900; }
+        .state-error { background: rgba(255, 59, 48, 0.3); color: #ffffff; font-weight: 900; }
+
+        /* Interactive State Demo Box */
+        .state-demo-box {
+            position: relative;
+            padding: 32px;
+            background: #000;
+            border: 2px solid #38383a;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .state-demo-box.clickable {
+            cursor: pointer;
+        }
+
+        .state-demo-box.clickable:hover {
+            border-color: #409cff !important;
+            border-width: 2px !important;
+            background: rgba(64, 156, 255, 0.15) !important;
+            transform: translateY(-4px) !important;
+            box-shadow: 0 0 0 2px rgba(64, 156, 255, 0.2), 0 12px 32px rgba(64, 156, 255, 0.3) !important;
+        }
+
+        .state-demo-box.clickable:active {
+            transform: scale(0.98);
+            background: rgba(64, 156, 255, 0.15);
+        }
+
+        .state-demo-box.selected {
+            border-color: #34c759 !important;
+            border-width: 3px !important;
+            background: rgba(52, 199, 89, 0.2) !important;
+            box-shadow: 0 0 0 4px rgba(52, 199, 89, 0.4), 0 8px 24px rgba(52, 199, 89, 0.3) !important;
+            transform: none !important;
+        }
+
+        .state-demo-box.selected::before {
+            content: '✓ SELECTED';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: #34c759;
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 900;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            animation: popIn 0.2s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .state-demo-box .state-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ababab;
+            transition: color 0.2s;
+        }
+
+        .state-demo-box.clickable:hover .state-label {
+            color: #409cff;
+        }
+
+        .state-demo-box.selected .state-label {
+            color: #ffffff; /* White text on green background for maximum contrast */
+            font-weight: 900;
+        }
+
+        /* Cycling state demo */
+        .cycling-states {
+            position: relative;
+            padding: 24px;
+            background: #000;
+            border: 2px dashed #38383a;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .current-state-label {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            padding: 4px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 900;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .state-default-bg { background: rgba(0, 102, 204, 0.1); color: #ffffff; font-weight: 700; }
+        .state-hover-bg { background: rgba(0, 102, 204, 0.3); color: #ffffff; font-weight: 700; }
+        .state-active-bg { background: rgba(0, 102, 204, 0.5); color: #ffffff; font-weight: 700; }
+        .state-selected-bg { background: rgba(52, 199, 89, 0.3); color: #ffffff; font-weight: 700; }
+
+        /* Context Simulator */
+        .context-simulator {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1c1c1e;
+            border: 2px solid #409cff; /* Updated to match text color */
+            border-radius: 16px;
+            padding: 24px;
+            width: 320px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .context-simulator h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            color: #409cff; /* Lighter blue for WCAG AA compliance */
+        }
+
+        .context-control {
+            margin-bottom: 16px;
+        }
+
+        .context-control label {
+            display: block;
+            font-size: 12px;
+            color: #ababab;
+            margin-bottom: 8px;
+        }
+
+        .context-control input[type="range"] {
+            width: 100%;
+        }
+
+        .context-control select {
+            width: 100%;
+            padding: 8px;
+            background: #2c2c2e;
+            border: 1px solid #38383a;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .toggle-small {
+            width: 36px;
+            height: 20px;
+            background: #38383a;
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-small.active {
+            background: #34c759;
+        }
+
+        .toggle-small::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            background: white;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-small.active::after {
+            transform: translateX(16px);
+        }
+
+        .context-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        /* Inline demos */
+        .inline-demo {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* Tables */
+        .props-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            background: #2c2c2e;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .props-table th,
+        .props-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #38383a;
+        }
+
+        .props-table th {
+            background: #1c1c1e;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ababab;
+        }
+
+        .props-table td {
+            font-size: 14px;
+        }
+
+        .props-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .prop-name {
+            color: #409cff; /* Lighter blue for WCAG AA compliance */
+            font-family: monospace;
+        }
+
+        .prop-type {
+            color: #ff9500;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Component Gallery</h1>
+            <p class="subtitle">Every component, every state, every variation</p>
+
+            <div style="margin-top: 32px; padding: 20px; background: rgba(255, 59, 48, 0.1); border: 2px solid #ff3b30; border-radius: 12px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <div style="font-size: 14px; font-weight: 700; color: #ff3b30; margin-bottom: 8px;">
+                    🧪 TESTING TOOLS AVAILABLE
+                </div>
+                <div style="font-size: 13px; color: #ababab; line-height: 1.6;">
+                    <strong style="color: #fff;">Press Ctrl+Shift+T</strong> to open the Visual Test Suite<br>
+                    <strong style="color: #fff;">Press Ctrl+Shift+D</strong> to open DevTools panel<br>
+                    <strong style="color: #fff;">Press Ctrl+Shift+V</strong> to activate voice commands<br>
+                    <br>
+                    The test suite will automatically simulate mouse events, check contrast ratios (WCAG AA),<br>
+                    verify all interaction states, and highlight accessibility issues.
+                </div>
+            </div>
+        </header>
+
+        <!-- ACTIONS -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2 class="section-title">01. semantic-action</h2>
+                <p class="section-description">Intent-based buttons and actions. Automatically handles mouse, touch, voice, and keyboard.</p>
+            </div>
+
+            <!-- Basic Intents -->
+            <div class="variation-group">
+                <h3 class="variation-title">Intent Variations</h3>
+                <p class="variation-description">The three levels of action importance</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Primary Intent</div>
+                        <div class="example-content">
+                            <semantic-action intent="primary">Primary Action</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action intent="primary"&gt;
+  Primary Action
+&lt;/semantic-action&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Secondary Intent</div>
+                        <div class="example-content">
+                            <semantic-action intent="secondary">Secondary Action</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action intent="secondary"&gt;
+  Secondary Action
+&lt;/semantic-action&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Tertiary Intent</div>
+                        <div class="example-content">
+                            <semantic-action intent="tertiary">Tertiary Action</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action intent="tertiary"&gt;
+  Tertiary Action
+&lt;/semantic-action&gt;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentiments -->
+            <div class="variation-group">
+                <h3 class="variation-title">Sentiment Variations</h3>
+                <p class="variation-description">Communicate action consequences</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Constructive (Positive)</div>
+                        <div class="example-content">
+                            <semantic-action intent="primary" sentiment="constructive">Save Changes</semantic-action>
+                            <semantic-action intent="secondary" sentiment="constructive">Create New</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action
+  intent="primary"
+  sentiment="constructive"&gt;
+  Save Changes
+&lt;/semantic-action&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Destructive (Dangerous)</div>
+                        <div class="example-content">
+                            <semantic-action intent="primary" sentiment="destructive">Delete Forever</semantic-action>
+                            <semantic-action intent="secondary" sentiment="destructive">Remove</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action
+  intent="primary"
+  sentiment="destructive"&gt;
+  Delete Forever
+&lt;/semantic-action&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Neutral (Default)</div>
+                        <div class="example-content">
+                            <semantic-action intent="primary">Continue</semantic-action>
+                            <semantic-action intent="secondary">View Details</semantic-action>
+                        </div>
+                        <pre class="example-code">&lt;semantic-action intent="primary"&gt;
+  Continue
+&lt;/semantic-action&gt;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- States -->
+            <div class="variation-group">
+                <h3 class="variation-title">Interactive State Demonstrations</h3>
+                <p class="variation-description">
+                    <strong>TRY IT:</strong> Hover over boxes, click to select, watch the auto-cycling demo
+                </p>
+
+                <div class="variation-grid grid-2" style="margin-bottom: 32px;">
+                    <div class="example-card">
+                        <div class="example-label">👆 Click to Select (Clear Visual Feedback)</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="state-demo-box clickable" data-select-group="A">
+                                <div class="state-label">Option A</div>
+                            </div>
+                            <div class="state-demo-box clickable" data-select-group="A">
+                                <div class="state-label">Option B</div>
+                            </div>
+                            <div class="state-demo-box clickable" data-select-group="A">
+                                <div class="state-label">Option C</div>
+                            </div>
+                            <div class="state-demo-box clickable" data-select-group="A">
+                                <div class="state-label">Option D</div>
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 16px;">
+                            Notice: <br>
+                            • Default: Gray border<br>
+                            • Hover: Blue border + lift + glow<br>
+                            • Selected: Green border + checkmark + glow ring
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">🔄 Auto-Cycling Through States</div>
+                        <div class="cycling-states" id="auto-cycle-demo">
+                            <span class="current-state-label state-default-bg" id="cycle-label">DEFAULT</span>
+                            <semantic-action intent="primary" id="cycle-button">Watch Me Change</semantic-action>
+                            <div style="margin-top: 16px; font-size: 12px; color: #ababab;">
+                                State changes every 2 seconds
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 16px;">
+                            Cycles through: <br>
+                            • Default (blue)<br>
+                            • Hover (brighter blue)<br>
+                            • Active (brightest blue)<br>
+                            • Selected (green)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="variation-grid grid-4">
+                    <div class="example-card">
+                        <div class="example-label">Real Default State</div>
+                        <span class="state-indicator state-default">INTERACTIVE</span>
+                        <div class="example-content">
+                            <semantic-action intent="primary">Hover Over Me</semantic-action>
+                        </div>
+                        <p style="font-size: 11px; color: #ababab; margin-top: 8px;">
+                            Try hovering - you'll see it lift and glow blue
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Click State Demo</div>
+                        <span class="state-indicator state-active">CLICK IT</span>
+                        <div class="example-content">
+                            <semantic-action intent="primary" id="click-demo-btn">Press Me</semantic-action>
+                            <div id="click-count" style="margin-top: 8px; font-size: 14px; color: #34c759; font-weight: 700;">
+                                Clicks: 0
+                            </div>
+                        </div>
+                        <p style="font-size: 11px; color: #ababab; margin-top: 8px;">
+                            Click to see active state (scales down)
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Disabled State</div>
+                        <span class="state-indicator state-disabled">NOT CLICKABLE</span>
+                        <div class="example-content">
+                            <semantic-action intent="primary" disabled>Can't Click This</semantic-action>
+                        </div>
+                        <p style="font-size: 11px; color: #ababab; margin-top: 8px;">
+                            Greyed out, no cursor pointer, no hover effect
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">All States Combined</div>
+                        <span class="state-indicator state-focus">INTERACTIVE</span>
+                        <div class="example-content">
+                            <semantic-action intent="primary" class="multi-state-demo">Full Demo</semantic-action>
+                        </div>
+                        <p style="font-size: 11px; color: #ababab; margin-top: 8px;">
+                            Default → Hover → Active, all in one
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaction Patterns -->
+            <div class="variation-group">
+                <h3 class="variation-title">Interaction Patterns</h3>
+                <p class="variation-description">How users interact across different modalities</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Click/Tap → ACTIVATE Intent</div>
+                        <div class="example-content">
+                            <semantic-action intent="primary" id="activate-demo">Activate Me</semantic-action>
+                            <div id="activate-log" style="margin-top: 12px; padding: 12px; background: #000; border-radius: 8px; font-family: monospace; font-size: 12px; color: #34c759; min-height: 60px;">
+                                Waiting for activation...
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 8px;">
+                            • Mouse: Click<br>
+                            • Touch: Tap<br>
+                            • Voice: "activate" or "click"<br>
+                            • Keyboard: Enter/Space
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Long-Press → INSPECT Intent</div>
+                        <div class="example-content">
+                            <semantic-action intent="secondary" id="inspect-demo">Hold Me</semantic-action>
+                            <div id="inspect-log" style="margin-top: 12px; padding: 12px; background: #000; border-radius: 8px; font-family: monospace; font-size: 12px; color: #ff9500; min-height: 60px;">
+                                Waiting for long-press...
+                            </div>
+                        </div>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 8px;">
+                            • Mouse: Hold 500ms<br>
+                            • Touch: Long-press 500ms<br>
+                            • Voice: "inspect" or "what is"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-World Examples -->
+            <div class="variation-group">
+                <h3 class="variation-title">Real-World Examples</h3>
+                <p class="variation-description">Common button patterns in actual applications</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Form Actions</div>
+                        <div class="inline-demo">
+                            <semantic-action intent="primary" sentiment="constructive">Save</semantic-action>
+                            <semantic-action intent="secondary">Cancel</semantic-action>
+                            <semantic-action intent="tertiary">Reset</semantic-action>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Confirmation Dialog</div>
+                        <div class="inline-demo">
+                            <semantic-action intent="primary" sentiment="destructive">Delete Forever</semantic-action>
+                            <semantic-action intent="tertiary">Keep It</semantic-action>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Toolbar Actions</div>
+                        <div class="inline-demo">
+                            <semantic-action intent="tertiary">✏️ Edit</semantic-action>
+                            <semantic-action intent="tertiary">🔗 Share</semantic-action>
+                            <semantic-action intent="tertiary">📥 Download</semantic-action>
+                            <semantic-action intent="tertiary" sentiment="destructive">🗑️ Delete</semantic-action>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Call-to-Action</div>
+                        <div class="inline-demo">
+                            <semantic-action intent="primary" sentiment="constructive">🚀 Get Started Free</semantic-action>
+                            <semantic-action intent="tertiary">Learn More →</semantic-action>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties Table -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Attributes</h3>
+                <table class="props-table">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Type</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="prop-name">intent</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>primary | secondary | tertiary</td>
+                            <td>Importance level of the action</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">sentiment</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>constructive | destructive | neutral</td>
+                            <td>Consequence of the action</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">disabled</span></td>
+                            <td><span class="prop-type">boolean</span></td>
+                            <td>true | false</td>
+                            <td>Whether action is disabled</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">urgency</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>critical | high | medium | low</td>
+                            <td>For attention budget scoring</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">attention-weight</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>0-100</td>
+                            <td>Base attention priority</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Events -->
+            <div class="variation-group">
+                <h3 class="variation-title">Events</h3>
+                <table class="props-table">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Trigger</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="prop-name">intent: activate</span></td>
+                            <td>Click, tap, Enter, Space, voice "activate"</td>
+                            <td>{ type: 'activate' }</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">intent: inspect</span></td>
+                            <td>Long-press (500ms), voice "inspect"</td>
+                            <td>{ type: 'inspect' }</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CARDS -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2 class="section-title">02. semantic-card</h2>
+                <p class="section-description">Inspectable content cards with preview on hover/long-press</p>
+            </div>
+
+            <!-- Basic Card -->
+            <div class="variation-group">
+                <h3 class="variation-title">Basic Structure</h3>
+                <p class="variation-description">Standard card with all slots</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Full Card Example</div>
+                        <semantic-card>
+                            <span slot="media-icon">🚀</span>
+                            <card-title slot="title">Project Alpha</card-title>
+                            <card-description slot="description">
+                                Next-generation platform architecture
+                            </card-description>
+                            <div slot="preview">
+                                <strong>Preview Mode</strong><br>
+                                Status: In Progress<br>
+                                Team: 5 members<br>
+                                Due: Dec 15, 2024
+                            </div>
+                            <div slot="actions">
+                                <semantic-action intent="tertiary">View</semantic-action>
+                                <semantic-action intent="tertiary">Edit</semantic-action>
+                            </div>
+                        </semantic-card>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Code</div>
+                        <pre class="example-code" style="margin: 0; height: 100%;">&lt;semantic-card&gt;
+  &lt;span slot="media-icon"&gt;🚀&lt;/span&gt;
+
+  &lt;card-title slot="title"&gt;
+    Project Alpha
+  &lt;/card-title&gt;
+
+  &lt;card-description slot="description"&gt;
+    Next-generation platform
+  &lt;/card-description&gt;
+
+  &lt;div slot="preview"&gt;
+    Preview content here
+  &lt;/div&gt;
+
+  &lt;div slot="actions"&gt;
+    &lt;semantic-action intent="tertiary"&gt;
+      View
+    &lt;/semantic-action&gt;
+  &lt;/div&gt;
+&lt;/semantic-card&gt;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaction States -->
+            <div class="variation-group">
+                <h3 class="variation-title">Interactive Card State Demo</h3>
+                <p class="variation-description">
+                    <strong>TRY IT:</strong> Hover over cards to see elevation + preview, long-press (500ms) for inspect intent
+                </p>
+                <div class="variation-grid grid-3">
+                    <semantic-card id="card-demo-1">
+                        <span slot="media-icon">📄</span>
+                        <card-title slot="title">Hover Over Me</card-title>
+                        <card-description slot="description">
+                            Watch what happens when you hover
+                        </card-description>
+                        <div slot="preview">
+                            <strong>✨ Preview Visible!</strong><br>
+                            This content appears on hover/long-press<br>
+                            Notice: Card lifts + blue border + preview slides in
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card id="card-demo-2">
+                        <span slot="media-icon">🔍</span>
+                        <card-title slot="title">Long-Press Me</card-title>
+                        <card-description slot="description">
+                            Hold for 500ms to inspect
+                        </card-description>
+                        <div slot="preview">
+                            <strong>🔍 Inspect Mode!</strong><br>
+                            Hold mouse/finger for 500ms<br>
+                            Triggers 'inspect' intent event
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card id="card-demo-3">
+                        <span slot="media-icon">👆</span>
+                        <card-title slot="title">Click Me</card-title>
+                        <card-description slot="description">
+                            Click triggers 'activate' intent
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Clicks: <span id="card-click-count">0</span></strong><br>
+                            Each click fires an 'activate' intent<br>
+                            Try it and watch the counter
+                        </div>
+                    </semantic-card>
+                </div>
+                <p style="font-size: 12px; color: #ababab; margin-top: 16px; padding: 16px; background: rgba(0,102,204,0.05); border-radius: 8px; border-left: 3px solid #0066cc;">
+                    <strong>Visual Feedback:</strong><br>
+                    • <strong>Default:</strong> Flat, subtle shadow<br>
+                    • <strong>Hover:</strong> Lifts up, blue border glows, preview content slides in from bottom<br>
+                    • <strong>Active/Click:</strong> Slight scale down on mousedown<br>
+                    • <strong>Disabled:</strong> Greyed out, no interaction (see examples below)
+                </p>
+            </div>
+
+            <!-- Media Variations -->
+            <div class="variation-group">
+                <h3 class="variation-title">Media Variations</h3>
+                <p class="variation-description">Different media types and styles</p>
+                <div class="variation-grid grid-3">
+                    <semantic-card>
+                        <span slot="media-icon" style="font-size: 72px;">🎨</span>
+                        <card-title slot="title">Icon Media</card-title>
+                        <card-description slot="description">
+                            Using emoji or icon fonts
+                        </card-description>
+                    </semantic-card>
+
+                    <semantic-card media-url="https://via.placeholder.com/400x200/667eea/ffffff?text=Image" media-alt="Placeholder">
+                        <card-title slot="title">Image Media</card-title>
+                        <card-description slot="description">
+                            Using media-url attribute
+                        </card-description>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <div slot="media-icon" style="width: 100%; height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; font-size: 64px;">
+                            ⚡
+                        </div>
+                        <card-title slot="title">Custom Media</card-title>
+                        <card-description slot="description">
+                            Custom gradient background
+                        </card-description>
+                    </semantic-card>
+                </div>
+            </div>
+
+            <!-- Real-World Examples -->
+            <div class="variation-group">
+                <h3 class="variation-title">Real-World Examples</h3>
+                <div class="variation-grid grid-3">
+                    <semantic-card>
+                        <span slot="media-icon">📊</span>
+                        <card-title slot="title">Q4 Report</card-title>
+                        <card-description slot="description">
+                            Financial summary • 15 pages
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Quick Stats:</strong><br>
+                            Revenue: +23%<br>
+                            Customers: +156<br>
+                            Last modified: 2 hours ago
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Open</semantic-action>
+                            <semantic-action intent="tertiary">Share</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <span slot="media-icon">👤</span>
+                        <card-title slot="title">Sarah Johnson</card-title>
+                        <card-description slot="description">
+                            Senior Developer • Online
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Contact Info:</strong><br>
+                            Email: sarah@example.com<br>
+                            Slack: @sarahj<br>
+                            Time zone: PST
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Message</semantic-action>
+                            <semantic-action intent="tertiary">Call</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <span slot="media-icon">🎯</span>
+                        <card-title slot="title">Sprint Review</card-title>
+                        <card-description slot="description">
+                            Meeting • Tomorrow at 2pm
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Agenda:</strong><br>
+                            1. Demo new features<br>
+                            2. Retrospective<br>
+                            3. Sprint planning
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Join</semantic-action>
+                            <semantic-action intent="tertiary">Details</semantic-action>
+                        </div>
+                    </semantic-card>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Slots</h3>
+                <table class="props-table">
+                    <thead>
+                        <tr>
+                            <th>Slot/Attribute</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="prop-name">media-url</span></td>
+                            <td><span class="prop-type">attribute</span></td>
+                            <td>URL for image media</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">media-alt</span></td>
+                            <td><span class="prop-type">attribute</span></td>
+                            <td>Alt text for image</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">media-icon</span></td>
+                            <td><span class="prop-type">slot</span></td>
+                            <td>Icon/emoji when no image</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">title</span></td>
+                            <td><span class="prop-type">slot</span></td>
+                            <td>Card title</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">description</span></td>
+                            <td><span class="prop-type">slot</span></td>
+                            <td>Card description/subtitle</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">preview</span></td>
+                            <td><span class="prop-type">slot</span></td>
+                            <td>Content shown on hover/long-press</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">actions</span></td>
+                            <td><span class="prop-type">slot</span></td>
+                            <td>Action buttons</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FEEDBACK -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2 class="section-title">03. semantic-feedback</h2>
+                <p class="section-description">Context-aware notifications that adapt to user attention, noise level, and modality</p>
+            </div>
+
+            <!-- Feedback Types -->
+            <div class="variation-group">
+                <h3 class="variation-title">Feedback Types</h3>
+                <p class="variation-description">Different types of feedback for different situations</p>
+                <div class="variation-grid grid-4">
+                    <div class="example-card">
+                        <div class="example-label">Success Feedback</div>
+                        <semantic-feedback type="success" message="Changes saved successfully!" visible></semantic-feedback>
+                        <pre class="example-code" style="margin-top: 16px;">&lt;semantic-feedback
+  type="success"
+  message="Changes saved!"
+  visible&gt;
+&lt;/semantic-feedback&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Error Feedback</div>
+                        <semantic-feedback type="error" message="Failed to connect to server" visible></semantic-feedback>
+                        <pre class="example-code" style="margin-top: 16px;">&lt;semantic-feedback
+  type="error"
+  message="Failed to connect"
+  visible&gt;
+&lt;/semantic-feedback&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Warning Feedback</div>
+                        <semantic-feedback type="warning" message="Storage is 90% full" visible></semantic-feedback>
+                        <pre class="example-code" style="margin-top: 16px;">&lt;semantic-feedback
+  type="warning"
+  message="Storage 90% full"
+  visible&gt;
+&lt;/semantic-feedback&gt;</pre>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Info Feedback</div>
+                        <semantic-feedback type="info" message="New features available" visible></semantic-feedback>
+                        <pre class="example-code" style="margin-top: 16px;">&lt;semantic-feedback
+  type="info"
+  message="New features"
+  visible&gt;
+&lt;/semantic-feedback&gt;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Urgency Levels -->
+            <div class="variation-group">
+                <h3 class="variation-title">Urgency Levels (Attention Budget)</h3>
+                <p class="variation-description">Controls priority in attention budget system</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Critical Urgency</div>
+                        <semantic-feedback type="error" message="Critical system failure!" urgency="critical" visible></semantic-feedback>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 12px;">
+                            Always shown, may trigger sound/vibration even in focus mode
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Low Urgency</div>
+                        <semantic-feedback type="info" message="Tip: You can use keyboard shortcuts" urgency="low" visible></semantic-feedback>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 12px;">
+                            Can be suppressed if user is busy or in focus mode
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Demo -->
+            <div class="variation-group">
+                <h3 class="variation-title">Interactive Demo</h3>
+                <p class="variation-description"><strong>TRY IT:</strong> Trigger different feedback types</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Trigger Feedback</div>
+                        <div class="inline-demo" style="flex-direction: column; align-items: stretch; gap: 12px;">
+                            <semantic-action intent="primary" sentiment="constructive" id="trigger-success">
+                                ✓ Show Success
+                            </semantic-action>
+                            <semantic-action intent="primary" sentiment="destructive" id="trigger-error">
+                                ✗ Show Error
+                            </semantic-action>
+                            <semantic-action intent="secondary" id="trigger-warning">
+                                ⚠ Show Warning
+                            </semantic-action>
+                            <semantic-action intent="secondary" id="trigger-info">
+                                ℹ Show Info
+                            </semantic-action>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Feedback Container</div>
+                        <div id="feedback-container" style="min-height: 200px; background: #000; border-radius: 8px; padding: 16px; position: relative;">
+                            <p style="font-size: 12px; color: #ababab; text-align: center;">
+                                Click buttons to see feedback appear here
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Attributes</h3>
+                <table class="props-table">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Type</th>
+                            <th>Values</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="prop-name">type</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>success | error | warning | info</td>
+                            <td>Type of feedback</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">message</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>Any text</td>
+                            <td>Feedback message</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">urgency</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>critical | high | medium | low</td>
+                            <td>Attention budget priority</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">duration</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>milliseconds</td>
+                            <td>Auto-hide after duration (0 = manual)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">visible</span></td>
+                            <td><span class="prop-type">boolean</span></td>
+                            <td>true | false</td>
+                            <td>Show/hide feedback</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ADJUSTERS -->
+        <section class="component-section">
+            <div class="section-header">
+                <h2 class="section-title">04. semantic-adjuster</h2>
+                <p class="section-description">Multi-modal value controls supporting mouse, touch, voice, keyboard, and gestures</p>
+            </div>
+
+            <!-- Basic Adjusters -->
+            <div class="variation-group">
+                <h3 class="variation-title">Adjuster Types</h3>
+                <p class="variation-description">Different styles for different use cases</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Slider</div>
+                        <semantic-adjuster
+                            label="Volume"
+                            value="75"
+                            min="0"
+                            max="100"
+                            step="1"
+                            show-value>
+                        </semantic-adjuster>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Stepper</div>
+                        <semantic-adjuster
+                            label="Quantity"
+                            value="5"
+                            min="1"
+                            max="10"
+                            step="1"
+                            type="stepper"
+                            show-value>
+                        </semantic-adjuster>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Discrete Steps</div>
+                        <semantic-adjuster
+                            label="Font Size"
+                            value="16"
+                            min="12"
+                            max="24"
+                            step="2"
+                            show-value>
+                        </semantic-adjuster>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Demo -->
+            <div class="variation-group">
+                <h3 class="variation-title">Interactive Control Demo</h3>
+                <p class="variation-description">
+                    <strong>TRY IT:</strong> Adjust values and watch real-time feedback
+                </p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Multi-Modal Controls</div>
+                        <div style="display: flex; flex-direction: column; gap: 24px;">
+                            <semantic-adjuster
+                                label="Brightness"
+                                value="50"
+                                min="0"
+                                max="100"
+                                step="5"
+                                show-value
+                                id="brightness-adjuster">
+                            </semantic-adjuster>
+
+                            <semantic-adjuster
+                                label="Temperature"
+                                value="20"
+                                min="15"
+                                max="30"
+                                step="1"
+                                show-value
+                                id="temp-adjuster">
+                            </semantic-adjuster>
+
+                            <semantic-adjuster
+                                label="Zoom Level"
+                                value="100"
+                                min="50"
+                                max="200"
+                                step="10"
+                                type="stepper"
+                                show-value
+                                id="zoom-adjuster">
+                            </semantic-adjuster>
+                        </div>
+                        <p style="font-size: 12px; color: #ababab; margin-top: 16px;">
+                            Try: Mouse drag, keyboard arrows, pinch gesture, voice "increase/decrease"
+                        </p>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Live Visual Feedback</div>
+                        <div style="background: #000; border-radius: 8px; padding: 24px; min-height: 200px;">
+                            <div style="font-size: 14px; margin-bottom: 16px; color: #ababab;">
+                                <strong>Brightness:</strong> <span id="brightness-value" style="color: #409cff;">50%</span>
+                            </div>
+                            <div id="brightness-box" style="width: 100%; height: 80px; background: rgba(255,255,255,0.5); border-radius: 8px; transition: opacity 0.2s;"></div>
+
+                            <div style="font-size: 14px; margin: 16px 0 16px 0; color: #ababab;">
+                                <strong>Temperature:</strong> <span id="temp-value" style="color: #ff9500;">20°C</span>
+                            </div>
+                            <div id="temp-indicator" style="width: 100%; height: 40px; background: linear-gradient(90deg, #0066cc 0%, #ff9500 50%, #ff3b30 100%); border-radius: 8px; position: relative;">
+                                <div style="position: absolute; left: 33%; top: 50%; transform: translate(-50%, -50%); width: 4px; height: 100%; background: white; box-shadow: 0 0 8px rgba(0,0,0,0.5);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Attributes</h3>
+                <table class="props-table">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="prop-name">label</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>Label for the control</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">value</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>Current value</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">min</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>Minimum value</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">max</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>Maximum value</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">step</span></td>
+                            <td><span class="prop-type">number</span></td>
+                            <td>Increment/decrement step</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">type</span></td>
+                            <td><span class="prop-type">string</span></td>
+                            <td>slider | stepper</td>
+                        </tr>
+                        <tr>
+                            <td><span class="prop-name">show-value</span></td>
+                            <td><span class="prop-type">boolean</span></td>
+                            <td>Show current value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Component 05: semantic-input -->
+        <section class="component-section" id="semantic-input">
+            <div class="component-header">
+                <h2 class="component-number">05.</h2>
+                <div>
+                    <h2 class="component-name">semantic-input</h2>
+                    <p class="component-tagline">Form inputs with voice hints, validation, and multi-modal support</p>
+                </div>
+            </div>
+
+            <!-- Basic Structure -->
+            <div class="variation-group">
+                <h3 class="variation-title">Input Types</h3>
+                <p class="variation-description">Different input types for different data</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Text Input</div>
+                        <semantic-input
+                            label="Full Name"
+                            placeholder="Enter your name"
+                            type="text">
+                        </semantic-input>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Email Input</div>
+                        <semantic-input
+                            label="Email Address"
+                            placeholder="you@example.com"
+                            type="email">
+                        </semantic-input>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Password Input</div>
+                        <semantic-input
+                            label="Password"
+                            placeholder="••••••••"
+                            type="password">
+                        </semantic-input>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validation States -->
+            <div class="variation-group">
+                <h3 class="variation-title">Validation States</h3>
+                <p class="variation-description">Clear feedback for valid and invalid inputs</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Valid Input</div>
+                        <semantic-input
+                            label="Email"
+                            value="user@example.com"
+                            type="email"
+                            valid>
+                        </semantic-input>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Invalid Input</div>
+                        <semantic-input
+                            label="Email"
+                            value="not-an-email"
+                            type="email"
+                            error="Please enter a valid email">
+                        </semantic-input>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Disabled Input</div>
+                        <semantic-input
+                            label="Username"
+                            value="john_doe"
+                            disabled>
+                        </semantic-input>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Attributes</h3>
+                <table style="width: 100%; color: #fff; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: rgba(0,102,204,0.1); border-bottom: 2px solid #0066cc;">
+                            <th style="padding: 12px; text-align: left;">Attribute</th>
+                            <th style="padding: 12px; text-align: left;">Type</th>
+                            <th style="padding: 12px; text-align: left;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">label</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">Label for the input</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">text | email | password | number</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">placeholder</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">Placeholder text</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">value</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">Current value</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">error</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">Error message</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">valid</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;">Show valid state</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">disabled</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;">Disable input</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Component 06: semantic-modal -->
+        <section class="component-section" id="semantic-modal">
+            <div class="component-header">
+                <h2 class="component-number">06.</h2>
+                <div>
+                    <h2 class="component-name">semantic-modal</h2>
+                    <p class="component-tagline">Context-aware dialogs with keyboard, voice, and gesture support</p>
+                </div>
+            </div>
+
+            <!-- Modal Types -->
+            <div class="variation-group">
+                <h3 class="variation-title">Modal Variations</h3>
+                <p class="variation-description"><strong>TRY IT:</strong> Click buttons to open modals</p>
+                <div class="variation-grid grid-3">
+                    <div class="example-card">
+                        <div class="example-label">Basic Modal</div>
+                        <semantic-action intent="primary" onclick="document.getElementById('modal-basic').setAttribute('open', '')">
+                            Open Modal
+                        </semantic-action>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">With Actions</div>
+                        <semantic-action intent="primary" onclick="document.getElementById('modal-actions').setAttribute('open', '')">
+                            Open with Actions
+                        </semantic-action>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Critical Modal</div>
+                        <semantic-action intent="primary" sentiment="destructive" onclick="document.getElementById('modal-critical').setAttribute('open', '')">
+                            Open Critical
+                        </semantic-action>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Examples (hidden by default) -->
+            <semantic-modal id="modal-basic">
+                <h3 slot="title">Basic Modal</h3>
+                <p>This is a simple modal dialog with just content and a close button.</p>
+            </semantic-modal>
+
+            <semantic-modal id="modal-actions">
+                <h3 slot="title">Confirm Action</h3>
+                <p>Are you sure you want to continue? This action will save your changes.</p>
+                <div slot="actions">
+                    <semantic-action intent="secondary" onclick="document.getElementById('modal-actions').removeAttribute('open')">
+                        Cancel
+                    </semantic-action>
+                    <semantic-action intent="primary" sentiment="constructive" onclick="document.getElementById('modal-actions').removeAttribute('open')">
+                        Save Changes
+                    </semantic-action>
+                </div>
+            </semantic-modal>
+
+            <semantic-modal id="modal-critical" urgency="critical">
+                <h3 slot="title">⚠️ Destructive Action</h3>
+                <p>This action cannot be undone. All data will be permanently deleted.</p>
+                <div slot="actions">
+                    <semantic-action intent="secondary" onclick="document.getElementById('modal-critical').removeAttribute('open')">
+                        Cancel
+                    </semantic-action>
+                    <semantic-action intent="primary" sentiment="destructive" onclick="document.getElementById('modal-critical').removeAttribute('open')">
+                        Delete Forever
+                    </semantic-action>
+                </div>
+            </semantic-modal>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Slots</h3>
+                <table style="width: 100%; color: #fff; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: rgba(0,102,204,0.1); border-bottom: 2px solid #0066cc;">
+                            <th style="padding: 12px; text-align: left;">Slot/Attribute</th>
+                            <th style="padding: 12px; text-align: left;">Type</th>
+                            <th style="padding: 12px; text-align: left;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">title</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Modal title</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">actions</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Action buttons</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">open</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">attribute</span></td>
+                            <td style="padding: 12px;">Show/hide modal</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">urgency</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">critical | high | medium | low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Component 07: semantic-navigator -->
+        <section class="component-section" id="semantic-navigator">
+            <div class="component-header">
+                <h2 class="component-number">07.</h2>
+                <div>
+                    <h2 class="component-name">semantic-navigator</h2>
+                    <p class="component-tagline">Navigation patterns with voice commands and keyboard shortcuts</p>
+                </div>
+            </div>
+
+            <!-- Navigation Types -->
+            <div class="variation-group">
+                <h3 class="variation-title">Navigation Patterns</h3>
+                <p class="variation-description">Different layouts for different contexts</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Horizontal Tabs</div>
+                        <semantic-navigator type="tabs">
+                            <nav-item href="#home" active>Home</nav-item>
+                            <nav-item href="#products">Products</nav-item>
+                            <nav-item href="#about">About</nav-item>
+                            <nav-item href="#contact">Contact</nav-item>
+                        </semantic-navigator>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Vertical Menu</div>
+                        <semantic-navigator type="menu">
+                            <nav-item href="#dashboard" icon="📊">Dashboard</nav-item>
+                            <nav-item href="#projects" icon="🚀" active>Projects</nav-item>
+                            <nav-item href="#team" icon="👥">Team</nav-item>
+                            <nav-item href="#settings" icon="⚙️">Settings</nav-item>
+                        </semantic-navigator>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Child Elements</h3>
+                <table style="width: 100%; color: #fff; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: rgba(0,102,204,0.1); border-bottom: 2px solid #0066cc;">
+                            <th style="padding: 12px; text-align: left;">Attribute</th>
+                            <th style="padding: 12px; text-align: left;">Type</th>
+                            <th style="padding: 12px; text-align: left;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">tabs | menu | breadcrumb</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">nav-item</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">element</span></td>
+                            <td style="padding: 12px;">Navigation item with href, icon, active</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Component 08: semantic-list -->
+        <section class="component-section" id="semantic-list">
+            <div class="component-header">
+                <h2 class="component-number">08.</h2>
+                <div>
+                    <h2 class="component-name">semantic-list</h2>
+                    <p class="component-tagline">Selectable lists with keyboard navigation and voice selection</p>
+                </div>
+            </div>
+
+            <!-- List Types -->
+            <div class="variation-group">
+                <h3 class="variation-title">List Variations</h3>
+                <p class="variation-description"><strong>TRY IT:</strong> Click items, use arrow keys, or voice commands</p>
+                <div class="variation-grid grid-2">
+                    <div class="example-card">
+                        <div class="example-label">Single Selection</div>
+                        <semantic-list selection="single">
+                            <list-item value="1">First Item</list-item>
+                            <list-item value="2" selected>Second Item (Selected)</list-item>
+                            <list-item value="3">Third Item</list-item>
+                            <list-item value="4">Fourth Item</list-item>
+                        </semantic-list>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-label">Multiple Selection</div>
+                        <semantic-list selection="multiple">
+                            <list-item value="a" selected>Option A (Selected)</list-item>
+                            <list-item value="b">Option B</list-item>
+                            <list-item value="c" selected>Option C (Selected)</list-item>
+                            <list-item value="d">Option D</list-item>
+                        </semantic-list>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Child Elements</h3>
+                <table style="width: 100%; color: #fff; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: rgba(0,102,204,0.1); border-bottom: 2px solid #0066cc;">
+                            <th style="padding: 12px; text-align: left;">Attribute</th>
+                            <th style="padding: 12px; text-align: left;">Type</th>
+                            <th style="padding: 12px; text-align: left;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">selection</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;">single | multiple | none</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">list-item</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">element</span></td>
+                            <td style="padding: 12px;">List item with value, selected attributes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Component 09: semantic-menu -->
+        <section class="component-section" id="semantic-menu">
+            <div class="component-header">
+                <h2 class="component-number">09.</h2>
+                <div>
+                    <h2 class="component-name">semantic-menu</h2>
+                    <p class="component-tagline">Context menus with keyboard shortcuts and voice activation</p>
+                </div>
+            </div>
+
+            <!-- Menu Example -->
+            <div class="variation-group">
+                <h3 class="variation-title">Context Menu</h3>
+                <p class="variation-description"><strong>TRY IT:</strong> Right-click the box below</p>
+                <div class="variation-grid grid-1">
+                    <div class="example-card">
+                        <div id="menu-trigger" style="background: rgba(0,102,204,0.1); border: 2px dashed #0066cc; border-radius: 12px; padding: 48px; text-align: center; cursor: pointer;">
+                            <strong style="font-size: 18px; color: #409cff;">Right-click here</strong><br>
+                            <span style="font-size: 14px; color: #ababab;">Context menu will appear</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Component (hidden) -->
+            <semantic-menu id="context-menu">
+                <menu-item icon="📋" shortcut="Ctrl+C">Copy</menu-item>
+                <menu-item icon="✂️" shortcut="Ctrl+X">Cut</menu-item>
+                <menu-item icon="📄" shortcut="Ctrl+V">Paste</menu-item>
+                <menu-divider></menu-divider>
+                <menu-item icon="🗑️" shortcut="Del" intent="destructive">Delete</menu-item>
+            </semantic-menu>
+
+            <!-- Properties -->
+            <div class="variation-group">
+                <h3 class="variation-title">Properties & Child Elements</h3>
+                <table style="width: 100%; color: #fff; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: rgba(0,102,204,0.1); border-bottom: 2px solid #0066cc;">
+                            <th style="padding: 12px; text-align: left;">Element</th>
+                            <th style="padding: 12px; text-align: left;">Attributes</th>
+                            <th style="padding: 12px; text-align: left;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">menu-item</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">icon, shortcut, intent</span></td>
+                            <td style="padding: 12px;">Menu item with optional icon and keyboard shortcut</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">menu-divider</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">-</span></td>
+                            <td style="padding: 12px;">Visual separator between menu groups</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Context Simulator -->
+    <div class="context-simulator">
+        <h3>🎮 Context Simulator</h3>
+
+        <div class="context-control">
+            <label>Modality</label>
+            <select id="sim-modality">
+                <option value="screen">Screen Only</option>
+                <option value="voice-screen">Voice + Screen</option>
+                <option value="voice-only">Voice Only</option>
+                <option value="touch">Touch</option>
+            </select>
+        </div>
+
+        <div class="context-control">
+            <label>Noise Level: <span id="noise-value">0%</span></label>
+            <input type="range" id="sim-noise" min="0" max="100" value="0">
+        </div>
+
+        <div class="context-control">
+            <label>Viewers: <span id="viewer-value">1</span></label>
+            <input type="range" id="sim-viewers" min="1" max="10" value="1">
+        </div>
+
+        <div class="context-row">
+            <label style="margin: 0;">User Busy</label>
+            <div class="toggle-small" id="toggle-busy"></div>
+        </div>
+
+        <div class="context-row">
+            <label style="margin: 0;">Focus Mode</label>
+            <div class="toggle-small" id="toggle-focus"></div>
+        </div>
+    </div>
+
+    <script>
+        // Selectable state demo boxes
+        document.querySelectorAll('.state-demo-box.clickable').forEach(box => {
+            box.addEventListener('click', function() {
+                const group = this.getAttribute('data-select-group');
+
+                // Deselect all in same group
+                document.querySelectorAll(`[data-select-group="${group}"]`).forEach(b => {
+                    b.classList.remove('selected');
+                });
+
+                // Select this one
+                this.classList.add('selected');
+            });
+        });
+
+        // Auto-cycling state demo
+        let cycleState = 0;
+        const states = [
+            { name: 'DEFAULT', class: 'state-default-bg', button: '' },
+            { name: 'HOVER', class: 'state-hover-bg', button: 'transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,102,204,0.3);' },
+            { name: 'ACTIVE', class: 'state-active-bg', button: 'transform: scale(0.95);' },
+            { name: 'SELECTED', class: 'state-selected-bg', button: 'box-shadow: 0 0 0 3px rgba(52,199,89,0.5);' }
+        ];
+
+        setInterval(() => {
+            const label = document.getElementById('cycle-label');
+            const button = document.getElementById('cycle-button');
+
+            cycleState = (cycleState + 1) % states.length;
+            const state = states[cycleState];
+
+            // Update label
+            label.className = 'current-state-label ' + state.class;
+            label.textContent = state.name;
+
+            // Update button style
+            button.setAttribute('style', state.button);
+        }, 2000);
+
+        // Click counter demo
+        let clickCount = 0;
+        const clickBtn = document.getElementById('click-demo-btn');
+        if (clickBtn) {
+            clickBtn.addEventListener('click', () => {
+                clickCount++;
+                document.getElementById('click-count').textContent = `Clicks: ${clickCount}`;
+                document.getElementById('click-count').style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    document.getElementById('click-count').style.transform = 'scale(1)';
+                }, 100);
+            });
+        }
+
+        // Interactive demos
+        const activateDemo = document.getElementById('activate-demo');
+        if (activateDemo) {
+            activateDemo.addEventListener('intent', (e) => {
+                if (e.detail.type === 'activate') {
+                    const log = document.getElementById('activate-log');
+                    log.innerHTML = `<strong>✓ ACTIVATED</strong><br>Time: ${new Date().toLocaleTimeString()}<br>Method: ${e.detail.method || 'click'}`;
+                }
+            });
+        }
+
+        const inspectDemo = document.getElementById('inspect-demo');
+        if (inspectDemo) {
+            inspectDemo.addEventListener('intent', (e) => {
+                if (e.detail.type === 'inspect') {
+                    const log = document.getElementById('inspect-log');
+                    log.innerHTML = `<strong>🔍 INSPECTED</strong><br>Time: ${new Date().toLocaleTimeString()}<br>Duration: 500ms`;
+                }
+            });
+        }
+
+        // Context simulator
+        document.getElementById('sim-modality').addEventListener('change', (e) => {
+            if (window.semanticContext) {
+                window.semanticContext.setModality(e.target.value);
+            }
+        });
+
+        document.getElementById('sim-noise').addEventListener('input', (e) => {
+            document.getElementById('noise-value').textContent = e.target.value + '%';
+            if (window.semanticContext) {
+                window.semanticContext.context.environment.noiseLevel = parseInt(e.target.value);
+            }
+        });
+
+        document.getElementById('sim-viewers').addEventListener('input', (e) => {
+            document.getElementById('viewer-value').textContent = e.target.value;
+            if (window.semanticContext) {
+                window.semanticContext.context.environment.viewerCount = parseInt(e.target.value);
+            }
+        });
+
+        document.getElementById('toggle-busy').addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (window.semanticContext) {
+                window.semanticContext.context.user.isBusy = this.classList.contains('active');
+            }
+        });
+
+        document.getElementById('toggle-focus').addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (window.semanticContext) {
+                window.semanticContext.context.user.inFocusMode = this.classList.contains('active');
+            }
+        });
+
+        // Log all intents
+        document.addEventListener('intent', (e) => {
+            console.log('Intent:', e.detail);
+        });
+
+        // Add smooth transitions to click count
+        const clickCountEl = document.getElementById('click-count');
+        if (clickCountEl) {
+            clickCountEl.style.transition = 'transform 0.1s ease';
+        }
+
+        // Card click counter demo
+        let cardClickCount = 0;
+        const cardDemo3 = document.getElementById('card-demo-3');
+        if (cardDemo3) {
+            cardDemo3.addEventListener('intent', (e) => {
+                if (e.detail.type === 'activate') {
+                    cardClickCount++;
+                    const counter = document.getElementById('card-click-count');
+                    if (counter) {
+                        counter.textContent = cardClickCount;
+                        counter.style.color = '#34c759';
+                        counter.style.fontWeight = '900';
+                    }
+                }
+            });
+        }
+
+        // Log card inspects
+        const cardDemo2 = document.getElementById('card-demo-2');
+        if (cardDemo2) {
+            cardDemo2.addEventListener('intent', (e) => {
+                if (e.detail.type === 'inspect') {
+                    console.log('Card inspected!', e.detail);
+                    // Could show visual feedback here
+                }
+            });
+        }
+
+        // Feedback demo buttons
+        const feedbackContainer = document.getElementById('feedback-container');
+
+        const triggerSuccess = document.getElementById('trigger-success');
+        if (triggerSuccess) {
+            triggerSuccess.addEventListener('click', () => {
+                const feedback = document.createElement('semantic-feedback');
+                feedback.setAttribute('type', 'success');
+                feedback.setAttribute('message', 'Operation completed successfully!');
+                feedback.setAttribute('visible', '');
+                feedback.setAttribute('duration', '3000');
+                feedbackContainer.innerHTML = '';
+                feedbackContainer.appendChild(feedback);
+            });
+        }
+
+        const triggerError = document.getElementById('trigger-error');
+        if (triggerError) {
+            triggerError.addEventListener('click', () => {
+                const feedback = document.createElement('semantic-feedback');
+                feedback.setAttribute('type', 'error');
+                feedback.setAttribute('message', 'Something went wrong!');
+                feedback.setAttribute('visible', '');
+                feedback.setAttribute('duration', '5000');
+                feedbackContainer.innerHTML = '';
+                feedbackContainer.appendChild(feedback);
+            });
+        }
+
+        const triggerWarning = document.getElementById('trigger-warning');
+        if (triggerWarning) {
+            triggerWarning.addEventListener('click', () => {
+                const feedback = document.createElement('semantic-feedback');
+                feedback.setAttribute('type', 'warning');
+                feedback.setAttribute('message', 'Please review your changes');
+                feedback.setAttribute('visible', '');
+                feedback.setAttribute('duration', '4000');
+                feedbackContainer.innerHTML = '';
+                feedbackContainer.appendChild(feedback);
+            });
+        }
+
+        const triggerInfo = document.getElementById('trigger-info');
+        if (triggerInfo) {
+            triggerInfo.addEventListener('click', () => {
+                const feedback = document.createElement('semantic-feedback');
+                feedback.setAttribute('type', 'info');
+                feedback.setAttribute('message', 'Did you know? You can use keyboard shortcuts');
+                feedback.setAttribute('visible', '');
+                feedback.setAttribute('duration', '4000');
+                feedbackContainer.innerHTML = '';
+                feedbackContainer.appendChild(feedback);
+            });
+        }
+
+        // Adjuster demos - brightness
+        const brightnessAdjuster = document.getElementById('brightness-adjuster');
+        if (brightnessAdjuster) {
+            brightnessAdjuster.addEventListener('intent', (e) => {
+                if (e.detail.type === 'adjust') {
+                    const value = e.detail.value;
+                    document.getElementById('brightness-value').textContent = value + '%';
+                    const box = document.getElementById('brightness-box');
+                    box.style.opacity = value / 100;
+                }
+            });
+        }
+
+        // Temperature adjuster
+        const tempAdjuster = document.getElementById('temp-adjuster');
+        if (tempAdjuster) {
+            tempAdjuster.addEventListener('intent', (e) => {
+                if (e.detail.type === 'adjust') {
+                    const value = e.detail.value;
+                    document.getElementById('temp-value').textContent = value + '°C';
+                    // Move indicator
+                    const percent = ((value - 15) / (30 - 15)) * 100;
+                    const indicator = document.querySelector('#temp-indicator > div');
+                    if (indicator) {
+                        indicator.style.left = percent + '%';
+                    }
+                }
+            });
+        }
+
+        // Zoom adjuster (could show visual zoom effect)
+        const zoomAdjuster = document.getElementById('zoom-adjuster');
+        if (zoomAdjuster) {
+            zoomAdjuster.addEventListener('intent', (e) => {
+                if (e.detail.type === 'adjust') {
+                    console.log('Zoom level:', e.detail.value + '%');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

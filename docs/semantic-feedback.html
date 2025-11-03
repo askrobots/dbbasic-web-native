@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-feedback - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-feedback&gt;</h1>
+            <p class="tagline">Notifications, toasts, and alerts with urgency-based attention scoring</p>
+            <div class="quick-example">
+<semantic-feedback urgency="medium" auto-dismiss>✅ Changes saved successfully</semantic-feedback>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-feedback component displays user notifications with automatic urgency coloring and optional auto-dismiss. Feedback respects attention budget and suppresses low-priority notifications when user is busy.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Success Notification</div>
+                    <div class="example-demo">
+                        <semantic-feedback urgency="medium" auto-dismiss>✅ Changes saved successfully</semantic-feedback>
+                    </div>
+                    <div class="example-code">&lt;semantic-feedback urgency="medium" auto-dismiss&gt;✅ Changes saved successfully&lt;/semantic-feedback&gt;</div>
+                    <div class="example-notes">Use for: Success confirmations, status updates<br>Visual: Blue border, slide-in animation<br>Duration: Auto-dismisses after 3 seconds</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Critical Alert</div>
+                    <div class="example-demo">
+                        <semantic-feedback urgency="critical">❌ Error: Unable to save changes. Please try again.</semantic-feedback>
+                    </div>
+                    <div class="example-code">&lt;semantic-feedback urgency="critical"&gt;❌ Error: Unable to save changes. Please try again.&lt;/semantic-feedback&gt;</div>
+                    <div class="example-notes">Use for: Errors, critical warnings<br>Visual: Red border, persistent (no auto-dismiss)<br>Attention: Highest priority in attention budget</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Critical State</div>
+                    <div class="state-visual state-critical">
+                        <semantic-feedback intent="primary" >Critical</semantic-feedback>
+                    </div>
+                    <div class="state-description">Red border (#ff3b30), red background tint</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">High State</div>
+                    <div class="state-visual state-high">
+                        <semantic-feedback intent="primary" >High</semantic-feedback>
+                    </div>
+                    <div class="state-description">Orange border (#ff9500), orange background tint</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Medium State</div>
+                    <div class="state-visual state-medium">
+                        <semantic-feedback intent="primary" >Medium</semantic-feedback>
+                    </div>
+                    <div class="state-description">Blue border (#0066cc), blue background tint</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Low State</div>
+                    <div class="state-visual state-low">
+                        <semantic-feedback intent="primary" >Low</semantic-feedback>
+                    </div>
+                    <div class="state-description">Grey border (#8a8a8a), minimal prominence</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">urgency</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">critical | high | medium | low</span></td>
+                            <td style="padding: 12px;">medium</td>
+                            <td style="padding: 12px;">Urgency level (affects color and attention priority)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">notification | alert | toast</span></td>
+                            <td style="padding: 12px;">notification</td>
+                            <td style="padding: 12px;">Feedback presentation style</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">auto-dismiss</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Automatically dismiss after delay</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">dismiss</span></td>
+                            <td style="padding: 12px;">Dismiss button clicked or auto-timeout</td>
+                            <td style="padding: 12px;"><code>{ type: "dismiss" }</code></td>
+                            <td style="padding: 12px;">Feedback dismissed event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

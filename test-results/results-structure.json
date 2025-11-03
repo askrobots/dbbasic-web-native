@@ -1,0 +1,153 @@
+[
+  {
+    "component": "semantic-action.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "small_touch_target",
+        "element": "button",
+        "size": "87.73779296875x40.47998046875",
+        "severity": "error"
+      }
+    ],
+    "issue_count": 10
+  },
+  {
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-modal.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      }
+    ],
+    "issue_count": 4
+  },
+  {
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-menu.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      },
+      {
+        "type": "missing_aria",
+        "element": "button",
+        "severity": "error"
+      }
+    ],
+    "issue_count": 2
+  },
+  {
+    "component": "semantic-feedback.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_touch_target",
+        "element": "button",
+        "size": "41.800048828125x44.175048828125",
+        "severity": "error"
+      },
+      {
+        "type": "small_touch_target",
+        "element": "button",
+        "size": "41.800048828125x44.175048828125",
+        "severity": "error"
+      }
+    ],
+    "issue_count": 2
+  },
+  {
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  }
+]

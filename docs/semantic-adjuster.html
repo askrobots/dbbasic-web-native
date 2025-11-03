@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-adjuster - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-adjuster&gt;</h1>
+            <p class="tagline">Multi-modal number/value adjusters with voice, gesture, and button controls</p>
+            <div class="quick-example">
+<semantic-adjuster label="Volume" value="75" min="0" max="100" step="5"></semantic-adjuster>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-adjuster component provides increment/decrement controls for numeric values. It supports button clicks, voice commands ("increase", "decrease"), gestures, and keyboard arrows.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Volume Control</div>
+                    <div class="example-demo">
+                        <semantic-adjuster label="Volume" value="75" min="0" max="100" step="5"></semantic-adjuster>
+                    </div>
+                    <div class="example-code">&lt;semantic-adjuster label="Volume" value="75" min="0" max="100" step="5"&gt;&lt;/semantic-adjuster&gt;</div>
+                    <div class="example-notes">Use for: Volume, brightness, quantity adjustments<br>Voice: "Increase volume", "Decrease volume"<br>Gestures: Swipe up/down in AR/VR</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Temperature Setting</div>
+                    <div class="example-demo">
+                        <semantic-adjuster label="Temperature" value="20" min="15" max="30" step="0.5"></semantic-adjuster>
+                    </div>
+                    <div class="example-code">&lt;semantic-adjuster label="Temperature" value="20" min="15" max="30" step="0.5"&gt;&lt;/semantic-adjuster&gt;</div>
+                    <div class="example-notes">Use for: Numeric settings, sliders, counters<br>Keyboard: Arrow up/down to adjust<br>Touch: Tap +/- or swipe</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-adjuster intent="primary" >Default</semantic-adjuster>
+                    </div>
+                    <div class="state-description">Circular +/- buttons, large center value</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover State</div>
+                    <div class="state-visual state-hover">
+                        <semantic-adjuster intent="primary" >Hover</semantic-adjuster>
+                    </div>
+                    <div class="state-description">Button hover shows blue background</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Min/Max Reached State</div>
+                    <div class="state-visual state-min/max reached">
+                        <semantic-adjuster intent="primary" >Min/Max Reached</semantic-adjuster>
+                    </div>
+                    <div class="state-description">Corresponding button disabled (grey)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">value</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">number</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">number</span></td>
+                            <td style="padding: 12px;">50</td>
+                            <td style="padding: 12px;">Current numeric value</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">min</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">number</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">number</span></td>
+                            <td style="padding: 12px;">0</td>
+                            <td style="padding: 12px;">Minimum allowed value</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">max</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">number</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">number</span></td>
+                            <td style="padding: 12px;">100</td>
+                            <td style="padding: 12px;">Maximum allowed value</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">step</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">number</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">number</span></td>
+                            <td style="padding: 12px;">1</td>
+                            <td style="padding: 12px;">Increment/decrement amount</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">label</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;">Value</td>
+                            <td style="padding: 12px;">Label for the adjuster</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">adjust</span></td>
+                            <td style="padding: 12px;">Value changed (button, voice, gesture)</td>
+                            <td style="padding: 12px;"><code>{ value }</code></td>
+                            <td style="padding: 12px;">Value adjustment event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

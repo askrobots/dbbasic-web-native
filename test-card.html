@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Semantic Card</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            padding: 50px;
+            font-family: system-ui;
+        }
+    </style>
+</head>
+<body>
+    <h1>Testing semantic-card</h1>
+
+    <h2>Test 1: Basic Card</h2>
+    <semantic-card>
+        <span slot="media-icon">🚀</span>
+        <card-title slot="title">Project Alpha</card-title>
+        <card-description slot="description">Next-gen platform</card-description>
+        <div slot="preview">Preview content here</div>
+    </semantic-card>
+
+    <h2>Test 2: Simpler Card</h2>
+    <semantic-card>
+        <div slot="title">Simple Title</div>
+        <div slot="description">Simple Description</div>
+    </semantic-card>
+
+    <h2>Test 3: Debug - Check Shadow DOM</h2>
+    <div id="debug"></div>
+
+    <script>
+        setTimeout(() => {
+            const card = document.querySelector('semantic-card');
+            const debug = document.getElementById('debug');
+            debug.innerHTML = `
+                <p>Card element exists: ${!!card}</p>
+                <p>Card has shadowRoot: ${!!card.shadowRoot}</p>
+                <p>Shadow innerHTML length: ${card.shadowRoot?.innerHTML?.length || 0}</p>
+                <p>Slotted elements: ${card.querySelectorAll('[slot]').length}</p>
+            `;
+        }, 1000);
+    </script>
+</body>
+</html>

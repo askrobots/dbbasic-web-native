@@ -1,0 +1,470 @@
+[
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-action.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 155,
+        "severity": "warning",
+        "message": "155 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 16,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "16 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-card.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 100.0,
+        "severity": "warning",
+        "message": "Visual complexity 100.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 137,
+        "severity": "warning",
+        "message": "137 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 17,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "17 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-input.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 184,
+        "severity": "warning",
+        "message": "184 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 15,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "15 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-modal.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 129,
+        "severity": "warning",
+        "message": "129 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 15,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "15 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-navigator.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 110,
+        "severity": "warning",
+        "message": "110 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 16,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "16 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-list.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 109,
+        "severity": "warning",
+        "message": "109 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 17,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "17 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-menu.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 121,
+        "severity": "warning",
+        "message": "121 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 16,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "16 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-feedback.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 114,
+        "severity": "warning",
+        "message": "114 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 15,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "15 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Visual Complexity",
+    "component": "semantic-adjuster.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "high_visual_complexity",
+        "score": 96.0,
+        "severity": "warning",
+        "message": "Visual complexity 96.0/100 exceeds recommended threshold"
+      }
+    ]
+  },
+  {
+    "test": "Interactive Elements",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Animation Cost",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_autoplay_animations",
+        "count": 127,
+        "severity": "warning",
+        "message": "127 autoplay animations consume attention budget"
+      }
+    ]
+  },
+  {
+    "test": "Color Palette",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": [
+      {
+        "type": "too_many_colors",
+        "count": 16,
+        "recommended": "\u226412",
+        "severity": "warning",
+        "message": "16 unique colors exceeds recommended palette size"
+      }
+    ]
+  },
+  {
+    "test": "Focus Trap",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  }
+]

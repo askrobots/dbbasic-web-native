@@ -1,0 +1,12 @@
+{
+  "table_name": "test-tracker",
+  "columns": [
+    "component",
+    "file_hash",
+    "last_tested",
+    "passed",
+    "issues_count"
+  ],
+  "created": "2025-11-03T19:27:56.503358",
+  "row_count": 0
+}

@@ -1,0 +1,327 @@
+/* Shared styles for all component documentation pages */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #000;
+    color: #fff;
+    line-height: 1.6;
+    letter-spacing: 0.015em;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+        max-width: 100%;
+    }
+}
+
+/* Header */
+.header {
+    margin-bottom: 64px;
+    border-bottom: 2px solid #38383a;
+    padding-bottom: 32px;
+}
+
+.component-name {
+    font-size: 48px;
+    font-weight: 900;
+    color: #409cff;
+    margin-bottom: 16px;
+    word-break: break-word;
+}
+
+.tagline {
+    font-size: 24px;
+    color: #f0f0f0;  /* Improved from #f0f0f0 for 7.0:1 contrast */
+    margin-bottom: 24px;
+}
+
+.quick-example {
+    background: #1c1c1e;
+    border: 1px solid #38383a;
+    border-radius: 12px;
+    padding: 24px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    color: #34c759;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .component-name {
+        font-size: 32px;
+    }
+
+    .tagline {
+        font-size: 18px;
+    }
+
+    .quick-example {
+        font-size: 13px;  /* Increased from 12px for better mobile readability */
+        padding: 16px;
+    }
+}
+
+/* Sections */
+.section {
+    margin-bottom: 80px;
+    page-break-inside: avoid;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+    border-left: 4px solid #409cff;
+    padding-left: 16px;
+}
+
+.section-description {
+    font-size: 16px;
+    color: #f0f0f0;
+    margin-bottom: 32px;
+    line-height: 1.8;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));  /* Reduced from 300px for better mobile fit */
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+/* Examples */
+.example {
+    background: #1c1c1e;
+    border: 2px solid #38383a;
+    border-radius: 16px;
+    padding: 32px;
+    page-break-inside: avoid;
+    min-width: 0;  /* Prevent grid blowout */
+}
+
+@media (max-width: 768px) {
+    .example {
+        padding: 20px;  /* Reduced padding on mobile */
+    }
+}
+
+.example-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #409cff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.example-demo {
+    margin-bottom: 24px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-code {
+    background: #000;
+    border: 1px solid #38383a;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 14px;  /* Increased from 12px for better mobile readability */
+    color: #34c759;
+    overflow-x: auto;
+    margin-bottom: 16px;
+}
+
+.example-notes {
+    font-size: 14px;  /* Increased from 13px for better mobile readability */
+    color: #f0f0f0;
+    line-height: 1.6;
+    border-top: 1px solid #38383a;
+    padding-top: 16px;
+}
+
+/* State Showcase */
+.state-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .state-showcase {
+        grid-template-columns: 1fr;  /* Single column on mobile to prevent overflow */
+    }
+}
+
+.state-box {
+    background: #2c2c2e;
+    border: 2px solid #38383a;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    min-width: 0;  /* Prevent grid blowout */
+}
+
+.state-label {
+    font-size: 14px;  /* Increased from 12px for better mobile readability */
+    font-weight: 700;
+    color: #f0f0f0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+}
+
+.state-visual {
+    margin-bottom: 16px;
+}
+
+/* Simulate interactive states visually using CSS custom properties
+   These pass through shadow DOM boundaries to style the inner button */
+.state-visual.state-hover semantic-action,
+.state-visual.state-hover semantic-card,
+.state-visual.state-hover semantic-input,
+.state-visual.state-hover semantic-modal,
+.state-visual.state-hover semantic-adjuster {
+    --demo-transform: translateY(-2px);
+    --demo-box-shadow: 0 3px 8px rgba(64, 156, 255, 0.6);
+    --demo-filter: brightness(1.2);
+}
+
+/* State demos using CSS custom properties that pass through shadow DOM */
+
+.state-visual.state-active semantic-action,
+.state-visual.state-active semantic-card,
+.state-visual.state-active semantic-input {
+    --demo-transform: scale(0.96) translateY(1px);
+    --demo-box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+    --demo-filter: brightness(0.85);
+}
+
+.state-visual.state-focus semantic-action,
+.state-visual.state-focus semantic-input,
+.state-visual.state-focus semantic-card {
+    --demo-outline: 3px solid #4d9fff;
+    --demo-outline-offset: 2px;
+}
+
+.state-visual.state-disabled semantic-action,
+.state-visual.state-disabled semantic-input,
+.state-visual.state-disabled semantic-card,
+.state-visual.state-disabled semantic-adjuster {
+    /* Disabled state works naturally via disabled attribute */
+    cursor: not-allowed !important;
+}
+
+.state-description {
+    font-size: 14px;  /* Increased from 13px for better mobile readability */
+    color: #f0f0f0;
+    line-height: 1.6;
+}
+
+/* Property Tables */
+.property-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1c1c1e;
+    border: 2px solid #38383a;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    display: block;  /* Allow horizontal scroll on mobile */
+    overflow-x: auto;  /* Enable horizontal scrolling for wide tables */
+}
+
+.property-table thead {
+    background: rgba(64, 156, 255, 0.1);
+}
+
+.property-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 700;
+    color: #409cff;
+    border-bottom: 2px solid #38383a;
+    font-size: 14px;  /* Ensure readable size */
+}
+
+.property-table td {
+    padding: 16px;
+    border-bottom: 1px solid #38383a;
+    font-size: 14px;  /* Ensure readable size */
+}
+
+@media (max-width: 768px) {
+    .property-table th,
+    .property-table td {
+        padding: 12px 8px;  /* Reduced padding on mobile */
+        font-size: 13px;  /* Slightly smaller but still readable */
+    }
+}
+
+.property-table tr:last-child td {
+    border-bottom: none;
+}
+
+.prop-name {
+    font-family: 'Monaco', monospace;
+    color: #34c759;
+    font-weight: 600;
+}
+
+.prop-type {
+    font-family: 'Monaco', monospace;
+    color: #ff9500;
+    font-size: 13px;
+}
+
+.prop-values {
+    font-family: 'Monaco', monospace;
+    color: #409cff;
+    font-size: 13px;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .example {
+        border: 2px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    .section {
+        page-break-after: always;
+    }
+}

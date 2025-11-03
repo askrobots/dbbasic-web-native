@@ -1,0 +1,753 @@
+[
+  {
+    "component": "semantic-action",
+    "timestamp": "2025-11-03T13:12:45.622166",
+    "screenshot": "screenshots/semantic-action.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "DEFAULT STATE description text",
+            "contrast": "3.8:1",
+            "colors": "white text on dark gray (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "ACTIVE STATE description text",
+            "contrast": "3.8:1",
+            "colors": "white text on dark gray (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "HOVER STATE description text",
+            "contrast": "3.8:1",
+            "colors": "white text on dark gray (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "FOCUS STATE description text",
+            "contrast": "3.8:1",
+            "colors": "white text on dark gray (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "DISABLED STATE description text",
+            "contrast": "2.9:1",
+            "colors": "gray text (#8a8a8a) on dark gray (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "Properties table text",
+            "contrast": "4.2:1",
+            "colors": "light gray text on dark background",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "active",
+            "problem": "active state only scales down to 96% which may be too subtle for some users to notice the interaction feedback",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": true,
+        "issues": []
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-card",
+    "timestamp": "2025-11-03T13:13:10.300096",
+    "screenshot": "screenshots/semantic-card.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "BASIC CARD heading",
+            "contrast": "3.8:1",
+            "colors": "blue on dark gray background",
+            "severity": "fail"
+          },
+          {
+            "element": "Use for: Content previews, product cards, article teasers text",
+            "contrast": "4.2:1",
+            "colors": "light gray on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Visual: Dark background, hover elevation text",
+            "contrast": "4.2:1",
+            "colors": "light gray on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Interaction: Click to activate, long-press to preview text",
+            "contrast": "4.2:1",
+            "colors": "light gray on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "DEFAULT STATE label",
+            "contrast": "4.3:1",
+            "colors": "white on #2a2a2a background",
+            "severity": "fail"
+          },
+          {
+            "element": "Flat, subtle shadow, grey border text",
+            "contrast": "4.1:1",
+            "colors": "light gray on dark gray",
+            "severity": "fail"
+          },
+          {
+            "element": "ACTIVE STATE label",
+            "contrast": "4.3:1",
+            "colors": "white on #2a2a2a background",
+            "severity": "fail"
+          },
+          {
+            "element": "Slight scale down on click text",
+            "contrast": "4.1:1",
+            "colors": "light gray on dark gray",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "hover",
+            "problem": "Hover state description mentions 'blue border glow' but actual visibility/contrast not clearly demonstrated in static image",
+            "severity": "warning"
+          },
+          {
+            "state": "focus",
+            "problem": "No focus indicators mentioned or visible in documentation for keyboard navigation accessibility",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Interactive state cards (Default/Hover/Active)",
+            "problem": "Look like static content blocks, not interactive elements - no visual affordance indicating clickability",
+            "severity": "fail"
+          },
+          {
+            "element": "Code example box",
+            "problem": "Dark box with code looks like display-only content, unclear if interactive",
+            "severity": "warning"
+          },
+          {
+            "element": "Properties & Attributes table rows",
+            "problem": "Table rows have no visual indication they might be interactive or selectable",
+            "severity": "warning"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-input",
+    "timestamp": "2025-11-03T13:13:32.994698",
+    "screenshot": "screenshots/semantic-input.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "DISABLED STATE label",
+            "contrast": "2.8:1",
+            "colors": "white text on grey background",
+            "severity": "fail"
+          },
+          {
+            "element": "Grey background, 50% opacity description text",
+            "contrast": "3.1:1",
+            "colors": "light grey on dark grey",
+            "severity": "fail"
+          },
+          {
+            "element": "Dark input with grey border description",
+            "contrast": "3.9:1",
+            "colors": "grey text on dark background",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "disabled",
+            "problem": "Disabled state shows grey background with 50% opacity which is clearly distinguishable and non-interactive",
+            "severity": "pass"
+          },
+          {
+            "state": "focus",
+            "problem": "Focus state has blue border (#0D66EC) with blue glow, clearly visible",
+            "severity": "pass"
+          },
+          {
+            "state": "valid",
+            "problem": "Valid state shows green border (#34C759), clearly distinguishable from default",
+            "severity": "pass"
+          },
+          {
+            "state": "error",
+            "problem": "Error state shows red border (#FF3B30) with error text below, unmistakable feedback",
+            "severity": "pass"
+          },
+          {
+            "state": "default",
+            "problem": "Default state has grey border, clearly interactive with dark input background",
+            "severity": "pass"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": true,
+        "issues": [
+          {
+            "element": "Interactive States sections",
+            "problem": "State description boxes appear as large button-like elements but are not interactive - they are just informational panels that look clickable",
+            "severity": "warning"
+          },
+          {
+            "element": "Disabled state",
+            "problem": "Grey background with 50% opacity could be more obviously non-interactive - still has similar styling to other state boxes",
+            "severity": "minor"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": false,
+        "issues": [
+          {
+            "state": "all_identical",
+            "problem": "All 5 state buttons look identical (same grey color)",
+            "severity": "fail"
+          },
+          {
+            "state": "default",
+            "problem": "Default state and focus state appear visually identical - no distinguishing features",
+            "severity": "fail"
+          },
+          {
+            "state": "valid",
+            "problem": "Valid state shows no visual difference despite description claiming green border (#34c759)",
+            "severity": "fail"
+          },
+          {
+            "state": "error",
+            "problem": "Error state shows no visual difference despite description claiming red border (#ff3b30)",
+            "severity": "fail"
+          },
+          {
+            "state": "disabled",
+            "problem": "Disabled state shows no visual difference despite description claiming grey background with 50% opacity",
+            "severity": "fail"
+          }
+        ]
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-modal",
+    "timestamp": "2025-11-03T13:13:49.969458",
+    "screenshot": "screenshots/semantic-modal.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Modal title 'Confirm Action'",
+            "contrast": "3.8:1",
+            "colors": "white text on #2d2d2d background",
+            "severity": "fail"
+          },
+          {
+            "element": "Modal body text 'Are you sure you want to continue?'",
+            "contrast": "4.2:1",
+            "colors": "light gray text on #2d2d2d background",
+            "severity": "fail"
+          },
+          {
+            "element": "Cancel button",
+            "contrast": "3.5:1",
+            "colors": "white text on #5a5a5a background",
+            "severity": "fail"
+          },
+          {
+            "element": "Table cell 'medium' in urgency row",
+            "contrast": "4.1:1",
+            "colors": "light text on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Description text for urgency attribute",
+            "contrast": "4.3:1",
+            "colors": "gray text on dark background",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "hover",
+            "problem": "No visible hover state indicators documented for modal buttons or interactive elements",
+            "severity": "warning"
+          },
+          {
+            "state": "focus",
+            "problem": "No focus indicators visible on modal buttons (Confirm/Cancel) or close button",
+            "severity": "fail"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": true,
+        "issues": []
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-navigator",
+    "timestamp": "2025-11-03T13:14:13.221837",
+    "screenshot": "screenshots/semantic-navigator.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Default state description text 'Items in grey (#8a8a8a), hover to white'",
+            "contrast": "3.1:1",
+            "colors": "#8a8a8a on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Tab navigation visual description 'Visual: Horizontal tabs with border-bottom'",
+            "contrast": "4.2:1",
+            "colors": "light grey text on dark background",
+            "severity": "borderline"
+          },
+          {
+            "element": "Hover state description 'Background highlight, white text'",
+            "contrast": "4.3:1",
+            "colors": "grey text on dark background",
+            "severity": "borderline"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "default",
+            "problem": "Default state items in grey (#8a8a8a) could have slightly better contrast against dark background for accessibility",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Navigation tabs (Home, Profile, Settings)",
+            "problem": "Tabs appear as plain text with icons, lack clear button affordance (no visible borders, background, or padding to indicate clickability)",
+            "severity": "fail"
+          },
+          {
+            "element": "Navigation items in example",
+            "problem": "Navigation items (Home, Profile, Settings) in the example section look like plain text labels rather than interactive buttons",
+            "severity": "fail"
+          },
+          {
+            "element": "Touch target size",
+            "problem": "Navigation items appear small and may not meet 44px minimum touch target requirement - unclear spacing between items",
+            "severity": "warning"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-list",
+    "timestamp": "2025-11-03T13:14:31.964510",
+    "screenshot": "screenshots/semantic-list.html.png",
+    "tests": {
+      "contrast": {
+        "passed": true,
+        "issues": []
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "hover",
+            "problem": "Blue border highlight on hover state may not be clearly distinguishable from the selected state which also uses blue styling",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "List items (First Item, Second Item, Selected Item)",
+            "problem": "List items appear as plain text labels with borders, not obviously clickable. No visual affordances like hover states shown, buttons, or clickable styling",
+            "severity": "fail"
+          },
+          {
+            "element": "Touch targets",
+            "problem": "Cannot determine if touch targets meet 44px minimum from visual inspection alone. List items appear relatively small in height",
+            "severity": "warning"
+          },
+          {
+            "element": "Interactive examples",
+            "problem": "The example list items (First Item, Second Item, Selected Item) in the Examples section do not have obvious clickable styling - they appear as static text boxes",
+            "severity": "fail"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": false,
+        "issues": [
+          {
+            "state": "all_identical",
+            "problem": "All 4 state panels look virtually identical with same grey background and layout",
+            "severity": "fail"
+          },
+          {
+            "state": "hover",
+            "problem": "Hover state panel shows no visual elevation or shadow effect",
+            "severity": "fail"
+          },
+          {
+            "state": "focus",
+            "problem": "Focus state panel shows no distinguishing outline or visual difference",
+            "severity": "fail"
+          },
+          {
+            "state": "selected",
+            "problem": "Selected state panel is not visually distinct from default state",
+            "severity": "fail"
+          }
+        ]
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-menu",
+    "timestamp": "2025-11-03T13:14:54.015497",
+    "screenshot": "screenshots/semantic-menu.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Subtitle text 'Context menus and dropdowns with smart positioning'",
+            "contrast": "3.8:1",
+            "colors": "light gray on black",
+            "severity": "fail"
+          },
+          {
+            "element": "Description text under Examples section",
+            "contrast": "4.2:1",
+            "colors": "gray on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Interactive States - Hidden (display: none) text",
+            "contrast": "4.0:1",
+            "colors": "light gray on dark gray",
+            "severity": "fail"
+          },
+          {
+            "element": "Interactive States - Blue background on menu item hover text",
+            "contrast": "4.3:1",
+            "colors": "light gray on dark gray",
+            "severity": "fail"
+          },
+          {
+            "element": "Properties table - Values column text",
+            "contrast": "4.4:1",
+            "colors": "gray text on dark background",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "hover",
+            "problem": "Blue background on hover state could be more visually distinct from default state",
+            "severity": "warning"
+          },
+          {
+            "state": "focus",
+            "problem": "No explicit focus indicators visible in documentation examples",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Options \u25bc button",
+            "problem": "Button appears small and touch target may be under 44px",
+            "severity": "fail"
+          },
+          {
+            "element": "Delete menu item",
+            "problem": "Delete action uses red color which is good, but inconsistent - some instances show red checkbox/icon, others show red text",
+            "severity": "warning"
+          },
+          {
+            "element": "Menu items (Edit, Copy, Delete)",
+            "problem": "Menu items appear as plain text with icons, not clearly styled as interactive buttons",
+            "severity": "warning"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-feedback",
+    "timestamp": "2025-11-03T13:15:15.918695",
+    "screenshot": "screenshots/semantic-feedback.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "CRITICAL ALERT label text",
+            "contrast": "3.8:1",
+            "colors": "blue (#4A9EFF) on dark background (#1a1a1a)",
+            "severity": "fail"
+          },
+          {
+            "element": "SUCCESS NOTIFICATION label text",
+            "contrast": "3.8:1",
+            "colors": "blue (#4A9EFF) on dark background (#1a1a1a)",
+            "severity": "fail"
+          },
+          {
+            "element": "Medium state text",
+            "contrast": "4.2:1",
+            "colors": "grey (#A0A0A0) on dark background (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "Low state text",
+            "contrast": "4.1:1",
+            "colors": "grey (#9a9a9a) on dark background (#2a2a2a)",
+            "severity": "fail"
+          },
+          {
+            "element": "Grey border description text",
+            "contrast": "4.0:1",
+            "colors": "grey text on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "Table header 'Values' text",
+            "contrast": "3.9:1",
+            "colors": "blue (#5599FF) on dark background",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "focus",
+            "problem": "No visible focus indicators shown on interactive elements like close buttons (\u00d7)",
+            "severity": "warning"
+          },
+          {
+            "state": "hover",
+            "problem": "No hover state demonstration visible in the documentation",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Dismiss buttons (\u00d7)",
+            "problem": "Small \u00d7 buttons appear too small and may not meet 44px touch target minimum",
+            "severity": "fail"
+          },
+          {
+            "element": "Notification dismiss buttons",
+            "problem": "The \u00d7 close buttons in notifications lack sufficient visual affordance - they appear as plain text symbols rather than clear interactive elements",
+            "severity": "fail"
+          },
+          {
+            "element": "Interactive state cards",
+            "problem": "The state cards (Critical, High, Medium, Low) don't have clear visual indicators that they are interactive or what interaction is expected",
+            "severity": "warning"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": true,
+        "issues": []
+      }
+    },
+    "passed": false
+  },
+  {
+    "component": "semantic-adjuster",
+    "timestamp": "2025-11-03T13:15:38.318367",
+    "screenshot": "screenshots/semantic-adjuster.html.png",
+    "tests": {
+      "contrast": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Main description text",
+            "contrast": "4.2:1",
+            "colors": "light gray on black background",
+            "severity": "fail"
+          },
+          {
+            "element": "Use for labels in examples",
+            "contrast": "4.3:1",
+            "colors": "gray text on dark gray background",
+            "severity": "fail"
+          },
+          {
+            "element": "Interactive States descriptions",
+            "contrast": "4.1:1",
+            "colors": "light gray on dark gray background",
+            "severity": "fail"
+          },
+          {
+            "element": "Table header text (Type, Values)",
+            "contrast": "4.0:1",
+            "colors": "blue-gray on dark background",
+            "severity": "fail"
+          },
+          {
+            "element": "DEFAULT STATE heading",
+            "contrast": "4.4:1",
+            "colors": "white/gray on dark gray background",
+            "severity": "fail"
+          },
+          {
+            "element": "HOVER STATE heading",
+            "contrast": "4.4:1",
+            "colors": "white/gray on dark gray background",
+            "severity": "fail"
+          },
+          {
+            "element": "Description text in properties table",
+            "contrast": "4.2:1",
+            "colors": "gray on darker gray",
+            "severity": "fail"
+          }
+        ]
+      },
+      "visual_feedback": {
+        "passed": true,
+        "issues": [
+          {
+            "state": "disabled",
+            "problem": "MIN/MAX REACHED STATE shows grey button but could be more explicit with reduced opacity or clearer disabled styling",
+            "severity": "warning"
+          },
+          {
+            "state": "hover",
+            "problem": "HOVER STATE only shows blue background but no other visual indicators like cursor change or border highlight mentioned",
+            "severity": "warning"
+          }
+        ]
+      },
+      "affordance": {
+        "passed": false,
+        "issues": [
+          {
+            "element": "Circular +/- buttons in Default State",
+            "problem": "No visual indication these are buttons - appear as plain text with no button styling",
+            "severity": "fail"
+          },
+          {
+            "element": "MIN/MAX REACHED STATE button",
+            "problem": "Disabled state only shows grey color - unclear if this is sufficiently obvious as non-interactive without testing",
+            "severity": "warning"
+          },
+          {
+            "element": "Touch targets size",
+            "problem": "Cannot determine if buttons meet 44px minimum from visual inspection alone",
+            "severity": "warning"
+          }
+        ]
+      },
+      "state_differentiation": {
+        "passed": false,
+        "issues": [
+          {
+            "state": "all_identical",
+            "problem": "All 3 state sections look identical with same grey background color and white text",
+            "severity": "fail"
+          },
+          {
+            "state": "hover",
+            "problem": "Hover state section shows no visual difference from default state section",
+            "severity": "fail"
+          },
+          {
+            "state": "min_max_reached",
+            "problem": "Min/Max reached state section shows no visual difference from other states",
+            "severity": "fail"
+          }
+        ]
+      }
+    },
+    "passed": false
+  }
+]

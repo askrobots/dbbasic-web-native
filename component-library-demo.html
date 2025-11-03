@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Component Library - Demo</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 48px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 48px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #98989d;
+        }
+
+        section {
+            margin-bottom: 64px;
+        }
+
+        section h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #38383a;
+        }
+
+        .component-demo {
+            background: #1c1c1e;
+            border: 1px solid #38383a;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #007aff;
+        }
+
+        .demo-description {
+            font-size: 14px;
+            color: #98989d;
+            margin-bottom: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid #38383a;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            color: #34c759;
+        }
+
+        .event-log {
+            background: #0a0a0a;
+            border: 1px solid #38383a;
+            border-radius: 8px;
+            padding: 16px;
+            min-height: 100px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Monaco', monospace;
+            font-size: 12px;
+            margin-top: 16px;
+        }
+
+        .event-log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid #38383a;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+        }
+
+        .event-timestamp {
+            color: #98989d;
+            margin-right: 8px;
+        }
+
+        .event-type {
+            color: #007aff;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .event-detail {
+            color: #34c759;
+        }
+
+        .control-panel {
+            background: #2c2c2e;
+            border: 2px solid #38383a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .control-panel h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            color: #98989d;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            background: #1c1c1e;
+            border: 1px solid #38383a;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: #007aff;
+            border-color: #007aff;
+        }
+
+        .control-btn.active {
+            background: #007aff;
+            border-color: #007aff;
+            font-weight: 600;
+        }
+
+        .feedback-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            width: 400px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        card-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        card-description {
+            color: #98989d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Semantic Component Library</h1>
+            <p class="subtitle">Intent-based, context-aware, modality-agnostic web components</p>
+        </header>
+
+        <!-- Context Control Panel -->
+        <div class="control-panel">
+            <h3>Context Simulator</h3>
+            <div class="control-group">
+                <button class="control-btn active" onclick="setModality('screen')">🖥️ Screen</button>
+                <button class="control-btn" onclick="setModality('voice-screen')">🎤 Voice+Screen</button>
+                <button class="control-btn" onclick="setModality('touch')">👆 Touch</button>
+            </div>
+            <div class="control-group">
+                <button class="control-btn" onclick="toggleContext('isBusy')">⏳ Toggle Busy</button>
+                <button class="control-btn" onclick="toggleContext('inFocusMode')">🎯 Toggle Focus</button>
+                <button class="control-btn" onclick="incrementViewers()">👥 Add Viewer</button>
+            </div>
+        </div>
+
+        <!-- Actions Demo -->
+        <section>
+            <h2>01. Actions</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Primary, Secondary, Tertiary Intents</div>
+                <div class="demo-description">
+                    Components declare WHAT the user wants to do, not HOW to do it.
+                    Try clicking, long-pressing (500ms), or using keyboard navigation.
+                </div>
+
+                <div class="button-group">
+                    <semantic-action intent="primary" sentiment="constructive">
+                        Save Document
+                    </semantic-action>
+
+                    <semantic-action intent="secondary">
+                        Export PDF
+                    </semantic-action>
+
+                    <semantic-action intent="tertiary">
+                        Preview
+                    </semantic-action>
+
+                    <semantic-action intent="secondary" sentiment="destructive">
+                        Delete
+                    </semantic-action>
+                </div>
+
+                <div class="code-block">
+&lt;semantic-action intent="primary" sentiment="constructive"&gt;
+  Save Document
+&lt;/semantic-action&gt;
+                </div>
+
+                <div class="event-log" id="action-log"></div>
+            </div>
+        </section>
+
+        <!-- Cards Demo -->
+        <section>
+            <h2>02. Cards</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Inspectable Content</div>
+                <div class="demo-description">
+                    Hover to INSPECT (preview), click to ACTIVATE (navigate).
+                    On touch devices, long-press to inspect, tap to activate.
+                </div>
+
+                <div class="grid grid-3">
+                    <semantic-card>
+                        <span slot="media-icon">🚀</span>
+                        <card-title slot="title">Project Alpha</card-title>
+                        <card-description slot="description">
+                            Next-gen platform architecture
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Preview:</strong> Full design system with 50+ components
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Share</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card media-url="https://via.placeholder.com/400x200/667eea/ffffff?text=Project+Beta" media-alt="Project Beta">
+                        <card-title slot="title">Project Beta</card-title>
+                        <card-description slot="description">
+                            Creative design system
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Preview:</strong> 15 team members, 85% complete
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Share</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+
+                    <semantic-card>
+                        <span slot="media-icon">⚡</span>
+                        <card-title slot="title">Project Gamma</card-title>
+                        <card-description slot="description">
+                            Performance optimization suite
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Preview:</strong> 40% faster load times achieved
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="tertiary">Share</semantic-action>
+                            <semantic-action intent="tertiary">Edit</semantic-action>
+                        </div>
+                    </semantic-card>
+                </div>
+
+                <div class="code-block">
+&lt;semantic-card&gt;
+  &lt;span slot="media-icon"&gt;🚀&lt;/span&gt;
+  &lt;card-title slot="title"&gt;Project Alpha&lt;/card-title&gt;
+  &lt;card-description slot="description"&gt;
+    Next-gen platform architecture
+  &lt;/card-description&gt;
+  &lt;div slot="preview"&gt;Preview content here&lt;/div&gt;
+  &lt;div slot="actions"&gt;
+    &lt;semantic-action intent="tertiary"&gt;Share&lt;/semantic-action&gt;
+  &lt;/div&gt;
+&lt;/semantic-card&gt;
+                </div>
+
+                <div class="event-log" id="card-log"></div>
+            </div>
+        </section>
+
+        <!-- Adjusters Demo -->
+        <section>
+            <h2>03. Value Adjusters</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Multi-Modal Value Control</div>
+                <div class="demo-description">
+                    Adjust values via buttons, slider, keyboard, or voice commands.
+                    Same component, multiple interaction methods.
+                </div>
+
+                <div class="grid grid-2">
+                    <semantic-adjuster
+                        label="Volume"
+                        value="50"
+                        min="0"
+                        max="100"
+                        step="5">
+                    </semantic-adjuster>
+
+                    <semantic-adjuster
+                        label="Brightness"
+                        value="75"
+                        min="0"
+                        max="100"
+                        step="5">
+                    </semantic-adjuster>
+                </div>
+
+                <div class="code-block">
+&lt;semantic-adjuster
+  label="Volume"
+  value="50"
+  min="0"
+  max="100"
+  step="5"&gt;
+&lt;/semantic-adjuster&gt;
+                </div>
+
+                <div class="event-log" id="adjuster-log"></div>
+            </div>
+        </section>
+
+        <!-- Feedback Demo -->
+        <section>
+            <h2>04. Feedback & Notifications</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Context-Aware Notifications</div>
+                <div class="demo-description">
+                    Notifications compete for attention based on urgency and context.
+                    Try toggling "Busy" or "Focus" mode to see prioritization.
+                </div>
+
+                <div class="button-group">
+                    <semantic-action intent="secondary" onclick="showNotification('critical')">
+                        Show Critical Alert
+                    </semantic-action>
+                    <semantic-action intent="secondary" onclick="showNotification('high')">
+                        Show High Priority
+                    </semantic-action>
+                    <semantic-action intent="secondary" onclick="showNotification('medium')">
+                        Show Medium Priority
+                    </semantic-action>
+                    <semantic-action intent="secondary" onclick="showNotification('low')">
+                        Show Low Priority
+                    </semantic-action>
+                </div>
+
+                <div class="code-block">
+&lt;semantic-feedback urgency="critical" type="notification"&gt;
+  Critical system alert requires immediate attention
+&lt;/semantic-feedback&gt;
+
+&lt;!-- Component automatically:
+  - Prioritizes by urgency
+  - Defers if user is busy
+  - Hides if in focus mode (unless critical)
+  - Adapts presentation to context
+--&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Context Awareness Demo -->
+        <section>
+            <h2>05. Context Awareness</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Automatic Context Adaptation</div>
+                <div class="demo-description">
+                    Components automatically adapt to context without developer intervention.
+                    All context-aware properties are built-in.
+                </div>
+
+                <div class="grid grid-2">
+                    <div>
+                        <h4 style="margin-bottom: 16px;">Privacy-Sensitive Content</h4>
+                        <semantic-feedback
+                            urgency="medium"
+                            sensitivity="private"
+                            attention-weight="60">
+                            <span slot="icon">💬</span>
+                            You have 3 new private messages
+                        </semantic-feedback>
+                        <p style="margin-top: 8px; font-size: 13px; color: #98989d;">
+                            Try clicking "Add Viewer" - this will auto-hide
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 style="margin-bottom: 16px;">Deferrable Updates</h4>
+                        <semantic-feedback
+                            urgency="low"
+                            can-defer="true"
+                            attention-weight="20">
+                            <span slot="icon">⬆️</span>
+                            Software update available
+                        </semantic-feedback>
+                        <p style="margin-top: 8px; font-size: 13px; color: #98989d;">
+                            Try toggling "Busy" or "Focus" - this will defer
+                        </p>
+                    </div>
+                </div>
+
+                <div class="code-block">
+&lt;!-- Privacy-aware --&gt;
+&lt;semantic-feedback sensitivity="private"&gt;
+  Private content automatically hidden with multiple viewers
+&lt;/semantic-feedback&gt;
+
+&lt;!-- Attention-aware --&gt;
+&lt;semantic-feedback urgency="low" can-defer="true"&gt;
+  Defers when user is busy or in focus mode
+&lt;/semantic-feedback&gt;
+
+&lt;!-- No JavaScript required for context handling! --&gt;
+                </div>
+            </div>
+        </section>
+
+        <!-- Integration Demo -->
+        <section>
+            <h2>06. Real-World Example</h2>
+
+            <div class="component-demo">
+                <div class="demo-title">Complete Workflow</div>
+                <div class="demo-description">
+                    All components working together in a realistic scenario.
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <semantic-card>
+                        <span slot="media-icon">📝</span>
+                        <card-title slot="title">Quarterly Report Draft</card-title>
+                        <card-description slot="description">
+                            Last edited 5 minutes ago • 3 sections
+                        </card-description>
+                        <div slot="preview">
+                            <strong>Status:</strong> Unsaved changes in Executive Summary, Financial Overview, and Projections sections.
+                        </div>
+                        <div slot="actions">
+                            <semantic-action intent="primary" sentiment="constructive">
+                                Save
+                            </semantic-action>
+                            <semantic-action intent="tertiary">
+                                Preview
+                            </semantic-action>
+                        </div>
+                    </semantic-card>
+                </div>
+
+                <div class="grid grid-2">
+                    <semantic-adjuster
+                        label="Auto-save Interval (minutes)"
+                        value="5"
+                        min="1"
+                        max="30"
+                        step="1">
+                    </semantic-adjuster>
+
+                    <semantic-adjuster
+                        label="Font Size"
+                        value="16"
+                        min="12"
+                        max="24"
+                        step="1">
+                    </semantic-adjuster>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="feedback-container" id="notifications"></div>
+
+    <script>
+        // Event logging
+        function logEvent(logId, type, detail) {
+            const log = document.getElementById(logId);
+            if (!log) return;
+
+            const entry = document.createElement('div');
+            entry.className = 'event-log-entry';
+
+            const timestamp = new Date().toLocaleTimeString();
+            const detailStr = detail ? JSON.stringify(detail) : '';
+
+            entry.innerHTML = `
+                <span class="event-timestamp">${timestamp}</span>
+                <span class="event-type">${type}</span>
+                <span class="event-detail">${detailStr}</span>
+            `;
+
+            log.insertBefore(entry, log.firstChild);
+
+            // Keep only last 10 entries
+            while (log.children.length > 10) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        // Listen to all semantic intents
+        document.addEventListener('intent', (e) => {
+            const component = e.target.tagName.toLowerCase();
+            const logMap = {
+                'semantic-action': 'action-log',
+                'semantic-card': 'card-log',
+                'semantic-adjuster': 'adjuster-log'
+            };
+
+            const logId = logMap[component];
+            if (logId) {
+                logEvent(logId, e.detail.type.toUpperCase(), e.detail);
+            }
+        });
+
+        // Context controls
+        function setModality(modality) {
+            window.semanticContext.setModality(modality);
+
+            // Update active button
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function toggleContext(key) {
+            const context = window.semanticContext.context;
+            context.user[key] = !context.user[key];
+            window.semanticContext.updateContext(context);
+            event.target.classList.toggle('active');
+        }
+
+        function incrementViewers() {
+            const context = window.semanticContext.context;
+            context.environment.viewerCount = (context.environment.viewerCount % 5) + 1;
+            window.semanticContext.updateContext(context);
+            event.target.textContent = `👥 ${context.environment.viewerCount} Viewer${context.environment.viewerCount > 1 ? 's' : ''}`;
+        }
+
+        // Notification demo
+        function showNotification(urgency) {
+            const container = document.getElementById('notifications');
+
+            const messages = {
+                'critical': 'Critical: Security alert requires immediate attention',
+                'high': 'High: Meeting starting in 5 minutes',
+                'medium': 'Medium: You have 3 new messages',
+                'low': 'Low: Software update available'
+            };
+
+            const weights = {
+                'critical': 100,
+                'high': 80,
+                'medium': 60,
+                'low': 20
+            };
+
+            const notification = document.createElement('semantic-feedback');
+            notification.setAttribute('urgency', urgency);
+            notification.setAttribute('attention-weight', weights[urgency]);
+            notification.setAttribute('can-defer', urgency === 'low' || urgency === 'medium');
+            notification.textContent = messages[urgency];
+
+            container.appendChild(notification);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Show welcome notification
+        setTimeout(() => {
+            showNotification('medium');
+        }, 1000);
+    </script>
+</body>
+</html>

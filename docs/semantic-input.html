@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-input - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-input&gt;</h1>
+            <p class="tagline">Form inputs with voice hints, validation, and multi-modal support</p>
+            <div class="quick-example">
+<semantic-input label="Full Name" placeholder="Enter your name" type="text"></semantic-input>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-input component provides form input fields with automatic validation states, voice dictation hints, and multi-modal support.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Text Input</div>
+                    <div class="example-demo">
+                        <semantic-input label="Full Name" placeholder="Enter your name" type="text"></semantic-input>
+                    </div>
+                    <div class="example-code">&lt;semantic-input label="Full Name" placeholder="Enter your name" type="text"&gt;&lt;/semantic-input&gt;</div>
+                    <div class="example-notes">Use for: Text entry fields<br>Validation: None by default<br>Voice: "Type Full Name" to dictate</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Valid State</div>
+                    <div class="example-demo">
+                        <semantic-input label="Email" value="user@example.com" type="email" valid></semantic-input>
+                    </div>
+                    <div class="example-code">&lt;semantic-input label="Email" value="user@example.com" type="email" valid&gt;&lt;/semantic-input&gt;</div>
+                    <div class="example-notes">Use for: Showing successful validation<br>Visual: Green border<br>Contrast: Meets WCAG AA</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Error State</div>
+                    <div class="example-demo">
+                        <semantic-input label="Email" value="bad-email" type="email" error="Please enter a valid email"></semantic-input>
+                    </div>
+                    <div class="example-code">&lt;semantic-input label="Email" value="bad-email" type="email" error="Please enter a valid email"&gt;&lt;/semantic-input&gt;</div>
+                    <div class="example-notes">Use for: Validation errors<br>Visual: Red border + error message<br>Accessibility: Error announced to screen readers</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-input intent="primary" >Default</semantic-input>
+                    </div>
+                    <div class="state-description">Dark input with grey border</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Focus State</div>
+                    <div class="state-visual state-focus">
+                        <semantic-input intent="primary" >Focus</semantic-input>
+                    </div>
+                    <div class="state-description">Blue border (#0066cc), blue glow</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Valid State</div>
+                    <div class="state-visual state-valid">
+                        <semantic-input intent="primary" >Valid</semantic-input>
+                    </div>
+                    <div class="state-description">Green border (#34c759)</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Error State</div>
+                    <div class="state-visual state-error">
+                        <semantic-input intent="primary" >Error</semantic-input>
+                    </div>
+                    <div class="state-description">Red border (#ff3b30) + red error text below</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Disabled State</div>
+                    <div class="state-visual state-disabled">
+                        <semantic-input intent="primary" disabled>Disabled</semantic-input>
+                    </div>
+                    <div class="state-description">Grey background, 50% opacity</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">label</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Label for the input</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text | email | password | number</span></td>
+                            <td style="padding: 12px;">text</td>
+                            <td style="padding: 12px;">Input type</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">placeholder</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Placeholder text</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">value</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Current value</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">error</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Error message</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">valid</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Show valid state</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">disabled</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Disable input</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">input</span></td>
+                            <td style="padding: 12px;">User types</td>
+                            <td style="padding: 12px;"><code>{ value }</code></td>
+                            <td style="padding: 12px;">Fires on every keystroke</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">change</span></td>
+                            <td style="padding: 12px;">Value changes and loses focus</td>
+                            <td style="padding: 12px;"><code>{ value }</code></td>
+                            <td style="padding: 12px;">Fires when input is complete</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">focus</span></td>
+                            <td style="padding: 12px;">Input receives focus</td>
+                            <td style="padding: 12px;"><code>{}</code></td>
+                            <td style="padding: 12px;">Focus event</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">blur</span></td>
+                            <td style="padding: 12px;">Input loses focus</td>
+                            <td style="padding: 12px;"><code>{ value }</code></td>
+                            <td style="padding: 12px;">Blur event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

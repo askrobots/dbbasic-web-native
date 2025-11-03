@@ -1,0 +1,632 @@
+[
+  {
+    "component": "semantic-action.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 1
+  },
+  {
+    "component": "semantic-card.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 5
+  },
+  {
+    "component": "semantic-input.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "12.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 3
+  },
+  {
+    "component": "semantic-modal.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 7
+  },
+  {
+    "component": "semantic-navigator.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 1
+  },
+  {
+    "component": "semantic-list.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 2
+  },
+  {
+    "component": "semantic-menu.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 5
+  },
+  {
+    "component": "semantic-feedback.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 3
+  },
+  {
+    "component": "semantic-adjuster.html",
+    "context": "mobile",
+    "viewport": "375x667",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "mobile",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 6
+  },
+  {
+    "component": "semantic-action.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 1
+  },
+  {
+    "component": "semantic-card.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 5
+  },
+  {
+    "component": "semantic-input.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "12.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 3
+  },
+  {
+    "component": "semantic-modal.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 7
+  },
+  {
+    "component": "semantic-navigator.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 1
+  },
+  {
+    "component": "semantic-list.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 2
+  },
+  {
+    "component": "semantic-menu.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 5
+  },
+  {
+    "component": "semantic-feedback.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 3
+  },
+  {
+    "component": "semantic-adjuster.html",
+    "context": "tablet",
+    "viewport": "768x1024",
+    "passed": false,
+    "issues": [
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      },
+      {
+        "type": "small_font_mobile",
+        "size": "13.0px",
+        "context": "tablet",
+        "severity": "warning"
+      }
+    ],
+    "issue_count": 6
+  },
+  {
+    "component": "semantic-action.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-card.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-input.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-modal.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-navigator.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-list.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-menu.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-feedback.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  },
+  {
+    "component": "semantic-adjuster.html",
+    "context": "desktop",
+    "viewport": "1400x1200",
+    "passed": true,
+    "issues": [],
+    "issue_count": 0
+  }
+]

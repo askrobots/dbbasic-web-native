@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-modal - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-modal&gt;</h1>
+            <p class="tagline">Context-aware modal dialogs with urgency levels and backdrop dismissal</p>
+            <div class="quick-example">
+<semantic-modal open>
+  <div slot="header">Confirm Action</div>
+  <div>Are you sure you want to continue?</div>
+  <div slot="actions">
+    <semantic-action intent="primary">Confirm</semantic-action>
+    <semantic-action intent="secondary">Cancel</semantic-action>
+  </div>
+</semantic-modal>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-modal component displays overlay dialogs with attention budget awareness. Modals automatically adjust their urgency presentation and can be dismissed by clicking the backdrop or pressing Escape.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Basic Modal</div>
+                    <div class="example-demo">
+                        <semantic-modal open>
+  <div slot="header">Confirm Action</div>
+  <div>Are you sure you want to continue?</div>
+  <div slot="actions">
+    <semantic-action intent="primary">Confirm</semantic-action>
+    <semantic-action intent="secondary">Cancel</semantic-action>
+  </div>
+</semantic-modal>
+                    </div>
+                    <div class="example-code">&lt;semantic-modal open&gt;
+  &lt;div slot="header"&gt;Confirm Action&lt;/div&gt;
+  &lt;div&gt;Are you sure you want to continue?&lt;/div&gt;
+  &lt;div slot="actions"&gt;
+    &lt;semantic-action intent="primary"&gt;Confirm&lt;/semantic-action&gt;
+    &lt;semantic-action intent="secondary"&gt;Cancel&lt;/semantic-action&gt;
+  &lt;/div&gt;
+&lt;/semantic-modal&gt;</div>
+                    <div class="example-notes">Use for: Confirmation dialogs, forms, alerts<br>Visual: Dark background, centered, backdrop blur<br>Interaction: Click backdrop or press Escape to dismiss</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Closed State</div>
+                    <div class="state-visual state-closed">
+                        <semantic-modal intent="primary" >Closed</semantic-modal>
+                    </div>
+                    <div class="state-description">Hidden (display: none)</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Open State</div>
+                    <div class="state-visual state-open">
+                        <semantic-modal intent="primary" >Open</semantic-modal>
+                    </div>
+                    <div class="state-description">Visible with backdrop fade-in and modal slide-up animation</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Critical State</div>
+                    <div class="state-visual state-critical">
+                        <semantic-modal intent="primary" >Critical</semantic-modal>
+                    </div>
+                    <div class="state-description">Red border (#ff3b30) for urgent modals</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">open</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Whether the modal is currently visible</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">urgency</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">critical | high | medium | low</span></td>
+                            <td style="padding: 12px;">medium</td>
+                            <td style="padding: 12px;">Visual urgency level (critical shows red border)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">dismissible</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">true</td>
+                            <td style="padding: 12px;">Whether modal can be dismissed by backdrop click/Escape</td>
+                        </tr>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">header</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Modal title/header content</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">default</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Main modal body content</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">actions</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Modal footer with action buttons</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">close</span></td>
+                            <td style="padding: 12px;">Backdrop click, Escape key, close button</td>
+                            <td style="padding: 12px;"><code>{ type: "close" }</code></td>
+                            <td style="padding: 12px;">Modal closed event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

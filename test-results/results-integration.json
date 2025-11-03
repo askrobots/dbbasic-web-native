@@ -1,0 +1,33 @@
+[
+  {
+    "test": "modal_with_actions",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "card_with_actions",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "list_with_navigation",
+    "passed": false,
+    "issues": [
+      {
+        "type": "list_item_not_clickable",
+        "cursor": "auto",
+        "severity": "warning"
+      }
+    ]
+  },
+  {
+    "test": "form_with_inputs",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "nested_navigation",
+    "passed": true,
+    "issues": []
+  }
+]

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-navigator - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-navigator&gt;</h1>
+            <p class="tagline">Multi-modal navigation with tabs, breadcrumbs, and spatial layouts</p>
+            <div class="quick-example">
+<semantic-navigator type="tabs" current="/home">
+  <nav-item href="/home" icon="🏠">Home</nav-item>
+  <nav-item href="/profile" icon="👤">Profile</nav-item>
+  <nav-item href="/settings" icon="⚙️">Settings</nav-item>
+</semantic-navigator>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-navigator component handles navigation UI patterns with support for tabs, sidebars, breadcrumbs, and spatial (AR/VR) navigation. It automatically highlights the current page.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Tab Navigation</div>
+                    <div class="example-demo">
+                        <semantic-navigator type="tabs" current="/home">
+  <nav-item href="/home" icon="🏠">Home</nav-item>
+  <nav-item href="/profile" icon="👤">Profile</nav-item>
+  <nav-item href="/settings" icon="⚙️">Settings</nav-item>
+</semantic-navigator>
+                    </div>
+                    <div class="example-code">&lt;semantic-navigator type="tabs" current="/home"&gt;
+  &lt;nav-item href="/home" icon="🏠"&gt;Home&lt;/nav-item&gt;
+  &lt;nav-item href="/profile" icon="👤"&gt;Profile&lt;/nav-item&gt;
+  &lt;nav-item href="/settings" icon="⚙️"&gt;Settings&lt;/nav-item&gt;
+&lt;/semantic-navigator&gt;</div>
+                    <div class="example-notes">Use for: Tab navigation, page sections<br>Visual: Horizontal tabs with border-bottom<br>Interaction: Click to navigate, current highlighted</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-navigator intent="primary" >Default</semantic-navigator>
+                    </div>
+                    <div class="state-description">Items in grey (#8a8a8a), hover to white</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Current State</div>
+                    <div class="state-visual state-current">
+                        <semantic-navigator intent="primary" >Current</semantic-navigator>
+                    </div>
+                    <div class="state-description">Active item in blue (#0066cc), bold text</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover State</div>
+                    <div class="state-visual state-hover">
+                        <semantic-navigator intent="primary" >Hover</semantic-navigator>
+                    </div>
+                    <div class="state-description">Background highlight, white text</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">tabs | menu | breadcrumbs | spatial</span></td>
+                            <td style="padding: 12px;">tabs</td>
+                            <td style="padding: 12px;">Navigation layout pattern</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">current</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">href or ID</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Currently active navigation item</td>
+                        </tr>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">default</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">nav-item elements for navigation links</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">navigate</span></td>
+                            <td style="padding: 12px;">Navigation item clicked</td>
+                            <td style="padding: 12px;"><code>{ href, label }</code></td>
+                            <td style="padding: 12px;">Navigation event before route change</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,539 @@
+/**
+ * Voice Command System
+ * Automatically registers voice commands based on semantic component intents
+ * Integrates with Web Speech API for recognition and synthesis
+ */
+
+class VoiceCommandSystem {
+    constructor(contextManager) {
+        this.context = contextManager;
+        this.recognition = null;
+        this.synthesis = window.speechSynthesis;
+        this.commands = new Map();
+        this.isListening = false;
+        this.confidenceThreshold = 0.7;
+
+        this.init();
+    }
+
+    init() {
+        // Check for Web Speech API support
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            console.warn('Web Speech API not supported in this browser');
+            return;
+        }
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        this.recognition = new SpeechRecognition();
+
+        this.recognition.continuous = true;
+        this.recognition.interimResults = true;
+        this.recognition.lang = 'en-US';
+
+        this.setupRecognitionHandlers();
+        this.registerDefaultCommands();
+        this.observeComponents();
+    }
+
+    setupRecognitionHandlers() {
+        this.recognition.onresult = (event) => {
+            const results = Array.from(event.results);
+            const latestResult = results[results.length - 1];
+
+            if (latestResult.isFinal) {
+                const transcript = latestResult[0].transcript.toLowerCase().trim();
+                const confidence = latestResult[0].confidence;
+
+                console.log(`Voice input: "${transcript}" (confidence: ${confidence})`);
+
+                if (confidence >= this.confidenceThreshold) {
+                    this.processCommand(transcript);
+                }
+            }
+        };
+
+        this.recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+
+            if (event.error === 'no-speech') {
+                // Silence is okay, just keep listening
+                return;
+            }
+
+            if (event.error === 'aborted' || event.error === 'audio-capture') {
+                this.stop();
+            }
+        };
+
+        this.recognition.onend = () => {
+            // Restart if we're supposed to be listening
+            if (this.isListening) {
+                this.recognition.start();
+            }
+        };
+    }
+
+    registerDefaultCommands() {
+        // System commands
+        this.registerCommand({
+            patterns: ['stop listening', 'voice off', 'disable voice'],
+            handler: () => this.stop(),
+            description: 'Stop voice recognition'
+        });
+
+        this.registerCommand({
+            patterns: ['what can i say', 'help', 'voice commands'],
+            handler: () => this.listCommands(),
+            description: 'List available commands'
+        });
+
+        this.registerCommand({
+            patterns: ['scroll up', 'scroll down', 'scroll to top', 'scroll to bottom'],
+            handler: (transcript) => this.handleScroll(transcript),
+            description: 'Scroll the page'
+        });
+    }
+
+    registerCommand(command) {
+        command.patterns.forEach(pattern => {
+            this.commands.set(pattern, command);
+        });
+    }
+
+    observeComponents() {
+        // Watch for components being added/removed
+        const observer = new MutationObserver(() => {
+            this.autoRegisterComponents();
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+
+        // Initial registration
+        this.autoRegisterComponents();
+    }
+
+    autoRegisterComponents() {
+        // Register commands for semantic-action components
+        document.querySelectorAll('semantic-action').forEach(action => {
+            const text = action.textContent.trim();
+            if (text) {
+                const patterns = this.generatePatterns(text);
+
+                this.registerCommand({
+                    patterns,
+                    handler: () => {
+                        action.click();
+                        this.speak(`Activated ${text}`);
+                    },
+                    description: `Activate: ${text}`,
+                    component: action
+                });
+            }
+        });
+
+        // Register commands for navigation
+        document.querySelectorAll('[data-nav-id]').forEach(nav => {
+            const id = nav.getAttribute('data-nav-id');
+            const text = nav.textContent.trim();
+
+            this.registerCommand({
+                patterns: [
+                    `go to ${text.toLowerCase()}`,
+                    `navigate to ${text.toLowerCase()}`,
+                    `open ${text.toLowerCase()}`,
+                    `show ${text.toLowerCase()}`
+                ],
+                handler: () => {
+                    nav.click();
+                    this.speak(`Navigating to ${text}`);
+                },
+                description: `Navigate to: ${text}`,
+                component: nav
+            });
+        });
+
+        // Register commands for cards
+        document.querySelectorAll('semantic-card card-title').forEach(card => {
+            const title = card.textContent.trim();
+            const cardElement = card.closest('semantic-card');
+
+            this.registerCommand({
+                patterns: [
+                    `open ${title.toLowerCase()}`,
+                    `show ${title.toLowerCase()}`,
+                    `inspect ${title.toLowerCase()}`
+                ],
+                handler: () => {
+                    cardElement.click();
+                    this.speak(`Opening ${title}`);
+                },
+                description: `Open card: ${title}`,
+                component: cardElement
+            });
+        });
+
+        // Register commands for inputs
+        document.querySelectorAll('semantic-input[label]').forEach(input => {
+            const label = input.getAttribute('label').toLowerCase();
+
+            this.registerCommand({
+                patterns: [
+                    `type ${label}`,
+                    `enter ${label}`,
+                    `input ${label}`,
+                    `fill ${label}`
+                ],
+                handler: () => {
+                    input.querySelector('input, textarea')?.focus();
+                    this.speak(`Ready to input ${label}. Please speak your text.`);
+                    // Start dictation mode
+                    this.startDictation(input);
+                },
+                description: `Focus input: ${label}`,
+                component: input
+            });
+        });
+
+        // Register commands for adjusters
+        document.querySelectorAll('semantic-adjuster[label]').forEach(adjuster => {
+            const label = adjuster.getAttribute('label').toLowerCase();
+
+            this.registerCommand({
+                patterns: [
+                    `increase ${label}`,
+                    `raise ${label}`,
+                    `turn up ${label}`
+                ],
+                handler: () => {
+                    const step = parseFloat(adjuster.getAttribute('step') || '5');
+                    adjuster.value = adjuster.value + step;
+                    this.speak(`${label} increased to ${adjuster.value}`);
+                },
+                description: `Increase: ${label}`,
+                component: adjuster
+            });
+
+            this.registerCommand({
+                patterns: [
+                    `decrease ${label}`,
+                    `lower ${label}`,
+                    `turn down ${label}`
+                ],
+                handler: () => {
+                    const step = parseFloat(adjuster.getAttribute('step') || '5');
+                    adjuster.value = adjuster.value - step;
+                    this.speak(`${label} decreased to ${adjuster.value}`);
+                },
+                description: `Decrease: ${label}`,
+                component: adjuster
+            });
+
+            this.registerCommand({
+                patterns: [
+                    `set ${label} to *`,
+                    `change ${label} to *`
+                ],
+                handler: (transcript) => {
+                    const match = transcript.match(/to (\d+)/);
+                    if (match) {
+                        const value = parseInt(match[1]);
+                        adjuster.value = value;
+                        this.speak(`${label} set to ${value}`);
+                    }
+                },
+                description: `Set ${label} to a value`,
+                component: adjuster
+            });
+        });
+
+        // Register commands for modals
+        document.querySelectorAll('semantic-modal[id]').forEach(modal => {
+            const id = modal.getAttribute('id');
+            const header = modal.querySelector('[slot="header"]')?.textContent.trim() || id;
+
+            this.registerCommand({
+                patterns: [
+                    `open ${header.toLowerCase()}`,
+                    `show ${header.toLowerCase()}`
+                ],
+                handler: () => {
+                    modal.open();
+                    this.speak(`Opening ${header}`);
+                },
+                description: `Open modal: ${header}`,
+                component: modal
+            });
+
+            this.registerCommand({
+                patterns: [
+                    `close ${header.toLowerCase()}`,
+                    `dismiss ${header.toLowerCase()}`
+                ],
+                handler: () => {
+                    modal.close();
+                    this.speak(`Closing ${header}`);
+                },
+                description: `Close modal: ${header}`,
+                component: modal
+            });
+        });
+
+        // Generic close commands
+        this.registerCommand({
+            patterns: ['close', 'dismiss', 'cancel', 'go back'],
+            handler: () => {
+                // Try to close any open modal
+                const openModal = document.querySelector('semantic-modal[open]');
+                if (openModal) {
+                    openModal.close();
+                    this.speak('Closed');
+                    return;
+                }
+
+                // Try to close any open menu
+                const openMenu = document.querySelector('semantic-menu[open]');
+                if (openMenu) {
+                    openMenu.close();
+                    this.speak('Closed menu');
+                    return;
+                }
+
+                this.speak('Nothing to close');
+            },
+            description: 'Close current dialog or menu'
+        });
+    }
+
+    generatePatterns(text) {
+        const lower = text.toLowerCase();
+        return [
+            lower,
+            `click ${lower}`,
+            `press ${lower}`,
+            `activate ${lower}`,
+            `select ${lower}`
+        ];
+    }
+
+    processCommand(transcript) {
+        // Try exact match first
+        if (this.commands.has(transcript)) {
+            const command = this.commands.get(transcript);
+            command.handler(transcript);
+            return;
+        }
+
+        // Try wildcard patterns
+        for (const [pattern, command] of this.commands.entries()) {
+            if (pattern.includes('*')) {
+                const regex = new RegExp('^' + pattern.replace('*', '.*') + '$');
+                if (regex.test(transcript)) {
+                    command.handler(transcript);
+                    return;
+                }
+            }
+        }
+
+        // Try fuzzy matching for close matches
+        const matches = this.fuzzyMatch(transcript);
+        if (matches.length > 0) {
+            const bestMatch = matches[0];
+            console.log(`Using fuzzy match: "${bestMatch.pattern}" for "${transcript}"`);
+            bestMatch.command.handler(transcript);
+            return;
+        }
+
+        // No match found
+        console.log(`No command found for: "${transcript}"`);
+        this.speak("I didn't understand that command. Say 'help' for available commands.");
+    }
+
+    fuzzyMatch(transcript) {
+        const matches = [];
+
+        for (const [pattern, command] of this.commands.entries()) {
+            const similarity = this.similarity(transcript, pattern);
+            if (similarity > 0.7) {
+                matches.push({ pattern, command, similarity });
+            }
+        }
+
+        return matches.sort((a, b) => b.similarity - a.similarity);
+    }
+
+    similarity(s1, s2) {
+        // Levenshtein distance for fuzzy matching
+        const longer = s1.length > s2.length ? s1 : s2;
+        const shorter = s1.length > s2.length ? s2 : s1;
+
+        if (longer.length === 0) return 1.0;
+
+        const distance = this.levenshteinDistance(longer, shorter);
+        return (longer.length - distance) / longer.length;
+    }
+
+    levenshteinDistance(s1, s2) {
+        const matrix = [];
+
+        for (let i = 0; i <= s2.length; i++) {
+            matrix[i] = [i];
+        }
+
+        for (let j = 0; j <= s1.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        for (let i = 1; i <= s2.length; i++) {
+            for (let j = 1; j <= s1.length; j++) {
+                if (s2.charAt(i - 1) === s1.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
+            }
+        }
+
+        return matrix[s2.length][s1.length];
+    }
+
+    handleScroll(transcript) {
+        if (transcript.includes('up')) {
+            window.scrollBy({ top: -300, behavior: 'smooth' });
+            this.speak('Scrolling up');
+        } else if (transcript.includes('down')) {
+            window.scrollBy({ top: 300, behavior: 'smooth' });
+            this.speak('Scrolling down');
+        } else if (transcript.includes('top')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            this.speak('Scrolling to top');
+        } else if (transcript.includes('bottom')) {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            this.speak('Scrolling to bottom');
+        }
+    }
+
+    startDictation(inputComponent) {
+        // Special dictation mode for filling inputs
+        const input = inputComponent.shadowRoot.querySelector('input, textarea');
+        if (!input) return;
+
+        const dictationHandler = (event) => {
+            const results = Array.from(event.results);
+            const latestResult = results[results.length - 1];
+
+            if (latestResult.isFinal) {
+                const transcript = latestResult[0].transcript;
+                input.value = transcript;
+                inputComponent.value = transcript;
+
+                this.speak('Text entered');
+                this.recognition.removeEventListener('result', dictationHandler);
+            }
+        };
+
+        this.recognition.addEventListener('result', dictationHandler);
+    }
+
+    listCommands() {
+        const commandList = Array.from(this.commands.values())
+            .filter((cmd, idx, self) => self.indexOf(cmd) === idx) // Unique commands
+            .slice(0, 10) // Top 10
+            .map(cmd => cmd.description)
+            .join('. ');
+
+        this.speak(`Available commands: ${commandList}`);
+    }
+
+    speak(text, options = {}) {
+        if (!this.synthesis) return;
+
+        // Cancel any ongoing speech
+        this.synthesis.cancel();
+
+        // Adjust speech based on context
+        const context = this.context.context;
+
+        // Don't speak if user is busy or noise level is high
+        if (context.user.isBusy && options.urgency !== 'critical') return;
+        if (context.environment.noiseLevel > 70 && options.urgency !== 'critical') return;
+
+        const utterance = new SpeechSynthesisUtterance(text);
+
+        // Adjust rate and pitch based on urgency
+        utterance.rate = options.urgency === 'critical' ? 0.9 : 1.0;
+        utterance.pitch = options.urgency === 'critical' ? 1.2 : 1.0;
+        utterance.volume = Math.max(0.5, (100 - context.environment.noiseLevel) / 100);
+
+        this.synthesis.speak(utterance);
+    }
+
+    start() {
+        if (!this.recognition) {
+            console.warn('Speech recognition not available');
+            return;
+        }
+
+        if (this.isListening) return;
+
+        this.isListening = true;
+        this.recognition.start();
+        this.speak('Voice commands activated');
+
+        // Update context
+        this.context.setModality('voice-screen');
+
+        console.log('Voice recognition started');
+    }
+
+    stop() {
+        if (!this.recognition || !this.isListening) return;
+
+        this.isListening = false;
+        this.recognition.stop();
+        this.speak('Voice commands deactivated');
+
+        // Reset to screen modality
+        this.context.setModality('screen');
+
+        console.log('Voice recognition stopped');
+    }
+
+    toggle() {
+        if (this.isListening) {
+            this.stop();
+        } else {
+            this.start();
+        }
+    }
+}
+
+// Initialize voice system when context is ready
+if (typeof window !== 'undefined') {
+    window.addEventListener('DOMContentLoaded', () => {
+        if (window.semanticContext) {
+            window.voiceSystem = new VoiceCommandSystem(window.semanticContext);
+
+            // Add keyboard shortcut to toggle voice (Ctrl+Shift+V)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'V') {
+                    e.preventDefault();
+                    window.voiceSystem.toggle();
+                }
+            });
+
+            console.log('Voice command system initialized. Press Ctrl+Shift+V to toggle voice commands.');
+        }
+    });
+}
+
+// Export
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = VoiceCommandSystem;
+}

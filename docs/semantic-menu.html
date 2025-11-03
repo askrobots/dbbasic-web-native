@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-menu - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-menu&gt;</h1>
+            <p class="tagline">Context menus and dropdowns with smart positioning</p>
+            <div class="quick-example">
+<semantic-action id="menu-btn">Options ▼</semantic-action>
+<semantic-menu anchor="#menu-btn" open>
+  <menu-item action="edit">✏️ Edit</menu-item>
+  <menu-item action="copy">📋 Copy</menu-item>
+  <menu-divider></menu-divider>
+  <menu-item action="delete" intent="destructive">🗑️ Delete</menu-item>
+</semantic-menu>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-menu component displays dropdown/context menus with automatic positioning relative to an anchor element. Menus close on outside click or Escape key.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Dropdown Menu</div>
+                    <div class="example-demo">
+                        <semantic-action id="menu-btn">Options ▼</semantic-action>
+<semantic-menu anchor="#menu-btn" open>
+  <menu-item action="edit">✏️ Edit</menu-item>
+  <menu-item action="copy">📋 Copy</menu-item>
+  <menu-divider></menu-divider>
+  <menu-item action="delete" intent="destructive">🗑️ Delete</menu-item>
+</semantic-menu>
+                    </div>
+                    <div class="example-code">&lt;semantic-action id="menu-btn"&gt;Options ▼&lt;/semantic-action&gt;
+&lt;semantic-menu anchor="#menu-btn" open&gt;
+  &lt;menu-item action="edit"&gt;✏️ Edit&lt;/menu-item&gt;
+  &lt;menu-item action="copy"&gt;📋 Copy&lt;/menu-item&gt;
+  &lt;menu-divider&gt;&lt;/menu-divider&gt;
+  &lt;menu-item action="delete" intent="destructive"&gt;🗑️ Delete&lt;/menu-item&gt;
+&lt;/semantic-menu&gt;</div>
+                    <div class="example-notes">Use for: Action menus, context menus, dropdowns<br>Visual: Floating panel with shadow<br>Interaction: Click outside or Escape to close</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Closed State</div>
+                    <div class="state-visual state-closed">
+                        <semantic-menu intent="primary" >Closed</semantic-menu>
+                    </div>
+                    <div class="state-description">Hidden (display: none)</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Open State</div>
+                    <div class="state-visual state-open">
+                        <semantic-menu intent="primary" >Open</semantic-menu>
+                    </div>
+                    <div class="state-description">Visible with scale-in animation, positioned near anchor</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover (items) State</div>
+                    <div class="state-visual state-hover (items)">
+                        <semantic-menu intent="primary" >Hover (items)</semantic-menu>
+                    </div>
+                    <div class="state-description">Blue background on menu item hover</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">open</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Whether menu is currently shown</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">anchor</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">Element ID or selector</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Element to position relative to</td>
+                        </tr>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">default</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">menu-item elements and menu-divider separators</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">select</span></td>
+                            <td style="padding: 12px;">Menu item clicked</td>
+                            <td style="padding: 12px;"><code>{ action, label }</code></td>
+                            <td style="padding: 12px;">Menu item selection event</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">close</span></td>
+                            <td style="padding: 12px;">Outside click, Escape key</td>
+                            <td style="padding: 12px;"><code>{ type: "close" }</code></td>
+                            <td style="padding: 12px;">Menu closed event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

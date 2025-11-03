@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Interactive States - Grid Testing</title>
+    <style>
+        body {
+            background: #1c1c1e;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 40px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #8e8e93;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .test-box {
+            background: #2c2c2e;
+            border: 1px solid #38383a;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .test-label {
+            font-size: 14px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .test-button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+
+        .test-description {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+
+        /* ==================== HOVER STATE VARIATIONS ==================== */
+        .hover-v1.force-hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(64, 156, 255, 0.8);
+            filter: brightness(1.4) saturate(1.3);
+        }
+
+        .hover-v2.force-hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(64, 156, 255, 0.4);
+            filter: brightness(1.1) saturate(1.1);
+        }
+
+        .hover-v3.force-hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(64, 156, 255, 0.3);
+            filter: brightness(1.05);
+        }
+
+        .hover-v4.force-hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(64, 156, 255, 0.5);
+            filter: brightness(1.15) saturate(1.15);
+        }
+
+        .hover-v5.force-hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(64, 156, 255, 0.6);
+            filter: brightness(1.2);
+        }
+
+        .hover-v6.force-hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(64, 156, 255, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .hover-v7.force-hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            filter: brightness(1.15);
+        }
+
+        .hover-v8.force-hover {
+            box-shadow: 0 2px 6px rgba(64, 156, 255, 0.4);
+            filter: brightness(1.08);
+        }
+
+        .hover-v9.force-hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(64, 156, 255, 0.7);
+            filter: brightness(1.12) saturate(1.1);
+        }
+
+        /* ==================== ACTIVE STATE VARIATIONS ==================== */
+        .active-v1.force-active {
+            transform: scale(0.96);
+            filter: brightness(0.85);
+        }
+
+        .active-v2.force-active {
+            transform: scale(0.98);
+            filter: brightness(0.9);
+        }
+
+        .active-v3.force-active {
+            transform: scale(0.94);
+            filter: brightness(0.8);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .active-v4.force-active {
+            transform: translateY(2px);
+            filter: brightness(0.85);
+        }
+
+        .active-v5.force-active {
+            transform: scale(0.96) translateY(1px);
+            filter: brightness(0.85);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .active-v6.force-active {
+            transform: scale(0.92);
+            filter: brightness(0.9) saturate(1.2);
+        }
+
+        .active-v7.force-active {
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.5);
+            filter: brightness(0.85) saturate(1.3);
+        }
+
+        .active-v8.force-active {
+            transform: scale(0.98) translateY(1px);
+            filter: brightness(0.9);
+        }
+
+        .active-v9.force-active {
+            transform: scale(0.95);
+            filter: brightness(0.88);
+            box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ==================== FOCUS STATE VARIATIONS ==================== */
+        .focus-v1.force-focus {
+            outline: 3px solid #4d9fff;
+            outline-offset: 2px;
+        }
+
+        .focus-v2.force-focus {
+            outline: 2px solid #409cff;
+            outline-offset: 3px;
+        }
+
+        .focus-v3.force-focus {
+            outline: 4px solid #4d9fff;
+            outline-offset: 1px;
+        }
+
+        .focus-v4.force-focus {
+            outline: 3px solid #4d9fff;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 6px rgba(64, 156, 255, 0.2);
+        }
+
+        .focus-v5.force-focus {
+            outline: 2px solid #409cff;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(64, 156, 255, 0.15);
+        }
+
+        .focus-v6.force-focus {
+            box-shadow: 0 0 0 3px #1c1c1e, 0 0 0 6px #4d9fff;
+        }
+
+        .focus-v7.force-focus {
+            outline: 3px solid #4d9fff;
+            outline-offset: 0px;
+        }
+
+        .focus-v8.force-focus {
+            box-shadow: 0 0 0 4px rgba(64, 156, 255, 0.5);
+        }
+
+        .focus-v9.force-focus {
+            outline: 2px solid #4d9fff;
+            outline-offset: 4px;
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive States Testing Grid</h1>
+    <p class="section-title">Systematically compare 9 variations for each state</p>
+
+    <!-- HOVER STATES -->
+    <h2 style="text-align: center; margin-top: 60px; color: #409cff;">Hover State Variations</h2>
+    <div class="grid">
+        <div class="test-box">
+            <div class="test-label">V1: ORIGINAL DRAMATIC</div>
+            <button class="test-button hover-v1">Hover Me</button>
+            <div class="test-description">32px blur, 0.8 opacity<br>Scale 1.05, lift -4px<br>Brightness 1.4</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V2: REFINED PROFESSIONAL</div>
+            <button class="test-button hover-v2">Hover Me</button>
+            <div class="test-description">12px blur, 0.4 opacity<br>No scale, lift -2px<br>Brightness 1.1</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V3: SUBTLE TIGHT</div>
+            <button class="test-button hover-v3">Hover Me</button>
+            <div class="test-description">8px blur, 0.3 opacity<br>No scale, lift -1px<br>Brightness 1.05</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V4: MEDIUM BALANCED</div>
+            <button class="test-button hover-v4">Hover Me</button>
+            <div class="test-description">16px blur, 0.5 opacity<br>No scale, lift -2px<br>Brightness 1.15</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V5: TIGHT BUT BRIGHT ⭐</div>
+            <button class="test-button hover-v5">Hover Me</button>
+            <div class="test-description">8px blur, 0.6 opacity<br>No scale, lift -2px<br>Brightness 1.2</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V6: WIDE SUBTLE</div>
+            <button class="test-button hover-v6">Hover Me</button>
+            <div class="test-description">20px blur, 0.3 opacity<br>No scale, lift -2px<br>Brightness 1.1</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V7: NO GLOW</div>
+            <button class="test-button hover-v7">Hover Me</button>
+            <div class="test-description">Dark shadow only<br>No scale, lift -3px<br>Brightness 1.15</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V8: MINIMAL</div>
+            <button class="test-button hover-v8">Hover Me</button>
+            <div class="test-description">6px blur, 0.4 opacity<br>No lift, no scale<br>Brightness 1.08</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V9: STRONG CONTAINED</div>
+            <button class="test-button hover-v9">Hover Me</button>
+            <div class="test-description">10px blur, 0.7 opacity<br>No scale, lift -2px<br>Brightness 1.12</div>
+        </div>
+    </div>
+
+    <!-- ACTIVE STATES -->
+    <h2 style="text-align: center; margin-top: 60px; color: #ff9500;">Active State Variations</h2>
+    <div class="grid">
+        <div class="test-box">
+            <div class="test-label">V1: CURRENT (96% SCALE)</div>
+            <button class="test-button active-v1">Active</button>
+            <div class="test-description">Scale 0.96<br>Brightness 0.85<br>No shadow</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V2: SUBTLE SCALE</div>
+            <button class="test-button active-v2">Active</button>
+            <div class="test-description">Scale 0.98<br>Brightness 0.9<br>Gentle press</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V3: DEEP PRESS</div>
+            <button class="test-button active-v3">Active</button>
+            <div class="test-description">Scale 0.94<br>Inset shadow<br>Brightness 0.8</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V4: PUSH DOWN</div>
+            <button class="test-button active-v4">Active</button>
+            <div class="test-description">No scale<br>TranslateY +2px<br>Brightness 0.85</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V5: SCALE + PUSH</div>
+            <button class="test-button active-v5">Active</button>
+            <div class="test-description">Scale 0.96 + Y+1px<br>Inset shadow<br>Brightness 0.85</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V6: DRAMATIC SHRINK</div>
+            <button class="test-button active-v6">Active</button>
+            <div class="test-description">Scale 0.92<br>Saturate 1.2<br>Brightness 0.9</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V7: INSET SHADOW ONLY</div>
+            <button class="test-button active-v7">Active</button>
+            <div class="test-description">No scale/transform<br>Strong inset shadow<br>Saturate 1.3</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V8: MINIMAL FEEDBACK</div>
+            <button class="test-button active-v8">Active</button>
+            <div class="test-description">Scale 0.98 + Y+1px<br>Brightness 0.9<br>Light touch</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V9: BALANCED PRESS</div>
+            <button class="test-button active-v9">Active</button>
+            <div class="test-description">Scale 0.95<br>Inset shadow<br>Brightness 0.88</div>
+        </div>
+    </div>
+
+    <!-- FOCUS STATES -->
+    <h2 style="text-align: center; margin-top: 60px; color: #34c759;">Focus State Variations</h2>
+    <div class="grid">
+        <div class="test-box">
+            <div class="test-label">V1: CURRENT (3PX OFFSET 2)</div>
+            <button class="test-button focus-v1">Focus</button>
+            <div class="test-description">3px outline<br>2px offset<br>Standard blue</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V2: THIN FAR</div>
+            <button class="test-button focus-v2">Focus</button>
+            <div class="test-description">2px outline<br>3px offset<br>Lighter weight</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V3: THICK CLOSE</div>
+            <button class="test-button focus-v3">Focus</button>
+            <div class="test-description">4px outline<br>1px offset<br>Strong presence</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V4: DOUBLE RING</div>
+            <button class="test-button focus-v4">Focus</button>
+            <div class="test-description">Outline + glow ring<br>Layered effect<br>Clear visibility</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V5: SOFT GLOW</div>
+            <button class="test-button focus-v5">Focus</button>
+            <div class="test-description">2px outline<br>Soft shadow ring<br>Gentle approach</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V6: GAP RING</div>
+            <button class="test-button focus-v6">Focus</button>
+            <div class="test-description">Box-shadow only<br>Dark gap + blue ring<br>Distinct separation</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V7: NO OFFSET</div>
+            <button class="test-button focus-v7">Focus</button>
+            <div class="test-description">3px outline<br>0px offset<br>Tight border</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V8: SHADOW RING</div>
+            <button class="test-button focus-v8">Focus</button>
+            <div class="test-description">Box-shadow only<br>No outline<br>Soft boundary</div>
+        </div>
+
+        <div class="test-box">
+            <div class="test-label">V9: BRIGHT FAR</div>
+            <button class="test-button focus-v9">Focus</button>
+            <div class="test-description">2px outline<br>4px offset<br>Brightness boost</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Force all hover states
+            document.querySelectorAll('[class*="hover-v"]').forEach(btn => {
+                btn.classList.add('force-hover');
+            });
+
+            // Force all active states
+            document.querySelectorAll('[class*="active-v"]').forEach(btn => {
+                btn.classList.add('force-active');
+            });
+
+            // Force all focus states
+            document.querySelectorAll('[class*="focus-v"]').forEach(btn => {
+                btn.classList.add('force-focus');
+            });
+        });
+    </script>
+</body>
+</html>

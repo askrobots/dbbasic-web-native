@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-list - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-list&gt;</h1>
+            <p class="tagline">Selectable lists with keyboard navigation and ARIA support</p>
+            <div class="quick-example">
+<semantic-list selectable>
+  <list-item>First Item</list-item>
+  <list-item>Second Item</list-item>
+  <list-item aria-selected="true">Selected Item</list-item>
+</semantic-list>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-list component displays items in a vertical list with optional selection. Lists automatically handle keyboard navigation (arrow keys), focus management, and multi-select when enabled.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Selectable List</div>
+                    <div class="example-demo">
+                        <semantic-list selectable>
+  <list-item>First Item</list-item>
+  <list-item>Second Item</list-item>
+  <list-item aria-selected="true">Selected Item</list-item>
+</semantic-list>
+                    </div>
+                    <div class="example-code">&lt;semantic-list selectable&gt;
+  &lt;list-item&gt;First Item&lt;/list-item&gt;
+  &lt;list-item&gt;Second Item&lt;/list-item&gt;
+  &lt;list-item aria-selected="true"&gt;Selected Item&lt;/list-item&gt;
+&lt;/semantic-list&gt;</div>
+                    <div class="example-notes">Use for: Option selection, file lists, settings<br>Keyboard: Arrow keys navigate, Space/Enter select<br>Accessibility: ARIA selection states announced</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-list intent="primary" >Default</semantic-list>
+                    </div>
+                    <div class="state-description">Grey borders, dark background</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover (selectable) State</div>
+                    <div class="state-visual state-hover (selectable)">
+                        <semantic-list intent="primary" >Hover (selectable)</semantic-list>
+                    </div>
+                    <div class="state-description">Blue border highlight</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Selected State</div>
+                    <div class="state-visual state-selected">
+                        <semantic-list intent="primary" >Selected</semantic-list>
+                    </div>
+                    <div class="state-description">Blue border, blue background tint</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Focus State</div>
+                    <div class="state-visual state-focus">
+                        <semantic-list intent="primary" >Focus</semantic-list>
+                    </div>
+                    <div class="state-description">Blue outline for keyboard navigation</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">type</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">default | compact | spacious</span></td>
+                            <td style="padding: 12px;">default</td>
+                            <td style="padding: 12px;">Visual density of list items</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">selectable</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Whether items can be selected</td>
+                        </tr>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">default</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">list-item elements</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">select</span></td>
+                            <td style="padding: 12px;">Item clicked (when selectable)</td>
+                            <td style="padding: 12px;"><code>{ item, index }</code></td>
+                            <td style="padding: 12px;">Item selection event</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

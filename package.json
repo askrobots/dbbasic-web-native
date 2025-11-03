@@ -1,0 +1,101 @@
+{
+  "name": "@semantic/components",
+  "version": "1.0.0",
+  "description": "Intent-based, context-aware, modality-agnostic web components for building the future of interfaces",
+  "main": "dist/semantic-components.js",
+  "module": "dist/semantic-components.esm.js",
+  "unpkg": "dist/semantic-components.min.js",
+  "jsdelivr": "dist/semantic-components.min.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:components && npm run build:voice && npm run build:context && npm run build:devtools",
+    "build:components": "node build.js semantic-components.js",
+    "build:voice": "node build.js voice-system.js",
+    "build:context": "node build.js context-detection.js",
+    "build:devtools": "node build.js devtools.js",
+    "dev": "python3 -m http.server 8080",
+    "docs:generate": "node generate-docs.js",
+    "test": "python3 test_all.py",
+    "test:fast": "python3 test_all.py --fast",
+    "test:structure": "python3 test_structure.py",
+    "test:voice": "python3 test_voice.py",
+    "test:visual": "python3 test_visual_ai.py",
+    "test:all": "npm run docs:generate && python3 test_all.py",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "web-components",
+    "semantic",
+    "intent-based",
+    "context-aware",
+    "accessibility",
+    "voice",
+    "touch",
+    "modality-agnostic",
+    "ui-components",
+    "design-system",
+    "future-proof",
+    "attention-budget"
+  ],
+  "author": {
+    "name": "Semantic Components Team",
+    "email": "hello@semantic-components.dev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/semantic-components/semantic-components"
+  },
+  "bugs": {
+    "url": "https://github.com/semantic-components/semantic-components/issues"
+  },
+  "homepage": "https://semantic-components.dev",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
+  "customElements": "custom-elements.json",
+  "web-types": "web-types.json",
+  "exports": {
+    ".": {
+      "import": "./dist/semantic-components.esm.js",
+      "require": "./dist/semantic-components.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./voice": {
+      "import": "./dist/voice-system.esm.js",
+      "require": "./dist/voice-system.js"
+    },
+    "./context": {
+      "import": "./dist/context-detection.esm.js",
+      "require": "./dist/context-detection.js"
+    },
+    "./devtools": {
+      "import": "./dist/devtools.esm.js",
+      "require": "./dist/devtools.js"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "terser": "^5.19.0",
+    "typescript": "^5.1.0",
+    "puppeteer": "^21.6.0",
+    "nodemon": "^3.0.2"
+  },
+  "peerDependencies": {},
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/semantic-components"
+  }
+}

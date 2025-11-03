@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-card - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-card&gt;</h1>
+            <p class="tagline">Inspectable content cards with preview on hover and long-press</p>
+            <div class="quick-example">
+<semantic-card>
+  <span slot="media-icon">🚀</span>
+  <card-title slot="title">Project Alpha</card-title>
+  <card-description slot="description">Next-gen platform</card-description>
+  <div slot="preview">Preview content here</div>
+</semantic-card>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-card component displays content in a structured format with optional media, title, description, preview content, and actions. It automatically handles hover elevation and preview display.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Basic Card</div>
+                    <div class="example-demo">
+                        <semantic-card>
+  <span slot="media-icon">🚀</span>
+  <card-title slot="title">Project Alpha</card-title>
+  <card-description slot="description">Next-gen platform</card-description>
+  <div slot="preview">Preview content here</div>
+</semantic-card>
+                    </div>
+                    <div class="example-code">&lt;semantic-card&gt;
+  &lt;span slot="media-icon"&gt;🚀&lt;/span&gt;
+  &lt;card-title slot="title"&gt;Project Alpha&lt;/card-title&gt;
+  &lt;card-description slot="description"&gt;Next-gen platform&lt;/card-description&gt;
+  &lt;div slot="preview"&gt;Preview content here&lt;/div&gt;
+&lt;/semantic-card&gt;</div>
+                    <div class="example-notes">Use for: Content previews, product cards, article teasers<br>Visual: Dark background, hover elevation<br>Interaction: Click to activate, long-press to preview</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-card intent="primary" >Default</semantic-card>
+                    </div>
+                    <div class="state-description">Flat, subtle shadow, grey border</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover State</div>
+                    <div class="state-visual state-hover">
+                        <semantic-card intent="primary" >Hover</semantic-card>
+                    </div>
+                    <div class="state-description">Lifts 4px, blue border glow, preview slides in</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Active State</div>
+                    <div class="state-visual state-active">
+                        <semantic-card intent="primary" >Active</semantic-card>
+                    </div>
+                    <div class="state-description">Slight scale down on click</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">media-url</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">attribute</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">URL</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">URL for image media</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">media-alt</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">attribute</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">text</span></td>
+                            <td style="padding: 12px;"></td>
+                            <td style="padding: 12px;">Alt text for image</td>
+                        </tr>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">media-icon</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Icon/emoji when no image</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">title</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Card title</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">description</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Card description/subtitle</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">preview</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Content shown on hover/long-press</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">actions</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">slot</span></td>
+                            <td style="padding: 12px;">Action buttons</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">activate</span></td>
+                            <td style="padding: 12px;">Click on card</td>
+                            <td style="padding: 12px;"><code>{ type: "activate" }</code></td>
+                            <td style="padding: 12px;">Card click/tap event</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">inspect</span></td>
+                            <td style="padding: 12px;">Long-press (500ms)</td>
+                            <td style="padding: 12px;"><code>{ type: "inspect" }</code></td>
+                            <td style="padding: 12px;">Shows preview content</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

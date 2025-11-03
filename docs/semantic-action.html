@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>semantic-action - Semantic Components</title>
+    <script src="../semantic-components.js"></script>
+    <link rel="stylesheet" href="component-docs.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="component-name">&lt;semantic-action&gt;</h1>
+            <p class="tagline">Intent-based button component with multi-modal interaction support</p>
+            <div class="quick-example">
+<semantic-action intent="primary">Save Changes</semantic-action>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <section class="section">
+            <h2 class="section-title">Overview</h2>
+            <p class="section-description">The semantic-action component represents a user action with clear intent and consequence. Instead of styling a generic "button", you declare the importance (intent) and consequence (sentiment) of the action.</p>
+        </section>
+
+        <!-- Examples -->
+        <section class="section">
+            <h2 class="section-title">Examples</h2>
+            <div class="grid">
+                
+                <div class="example">
+                    <div class="example-label">Primary Intent</div>
+                    <div class="example-demo">
+                        <semantic-action intent="primary">Save Changes</semantic-action>
+                    </div>
+                    <div class="example-code">&lt;semantic-action intent="primary"&gt;Save Changes&lt;/semantic-action&gt;</div>
+                    <div class="example-notes">Use for: The main action on the page<br>Visual: Blue background (#0066cc), white text<br>Contrast: 5.9:1 (WCAG AA compliant)<br>Examples: Save, Submit, Continue, Confirm</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Constructive Sentiment</div>
+                    <div class="example-demo">
+                        <semantic-action intent="primary" sentiment="constructive">Save Changes</semantic-action>
+                    </div>
+                    <div class="example-code">&lt;semantic-action intent="primary" sentiment="constructive"&gt;Save Changes&lt;/semantic-action&gt;</div>
+                    <div class="example-notes">Use for: Positive, safe actions<br>Visual: Green background (#34c759), white text<br>Contrast: 5.8:1 (WCAG AA compliant)<br>Examples: Save, Create, Publish, Enable</div>
+                </div>
+                <div class="example">
+                    <div class="example-label">Destructive Sentiment</div>
+                    <div class="example-demo">
+                        <semantic-action intent="primary" sentiment="destructive">Delete Forever</semantic-action>
+                    </div>
+                    <div class="example-code">&lt;semantic-action intent="primary" sentiment="destructive"&gt;Delete Forever&lt;/semantic-action&gt;</div>
+                    <div class="example-notes">Use for: Dangerous, irreversible actions<br>Visual: Red background (#ff3b30), white text<br>Contrast: 4.5:1 (WCAG AA minimum)<br>Examples: Delete, Remove, Disable, Logout</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive States -->
+        <section class="section">
+            <h2 class="section-title">Interactive States</h2>
+            <div class="state-showcase">
+                
+                <div class="state-box">
+                    <div class="state-label">Default State</div>
+                    <div class="state-visual state-default">
+                        <semantic-action intent="primary" >Default</semantic-action>
+                    </div>
+                    <div class="state-description">Blue background, white text, rounded corners, subtle shadow</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Hover State</div>
+                    <div class="state-visual state-hover">
+                        <semantic-action intent="primary" >Hover</semantic-action>
+                    </div>
+                    <div class="state-description">Lifts up 2px, tight blue glow (8px blur, 0.6 opacity), brightness boost</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Active State</div>
+                    <div class="state-visual state-active">
+                        <semantic-action intent="primary" >Active</semantic-action>
+                    </div>
+                    <div class="state-description">Scales 96% + pushes down 1px + inset shadow for "pressed in" feel</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Focus State</div>
+                    <div class="state-visual state-focus">
+                        <semantic-action intent="primary" >Focus</semantic-action>
+                    </div>
+                    <div class="state-description">3px blue outline, 2px offset for keyboard navigation</div>
+                </div>
+                <div class="state-box">
+                    <div class="state-label">Disabled State</div>
+                    <div class="state-visual state-disabled">
+                        <semantic-action intent="primary" disabled>Disabled</semantic-action>
+                    </div>
+                    <div class="state-description">Grey background (#3a3a3a), grey text (#8a8a8a), 60% opacity</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Properties -->
+        <section class="section">
+            <h2 class="section-title">Properties & Attributes</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Type</th>
+                        <th>Values</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">intent</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">primary | secondary | tertiary</span></td>
+                            <td style="padding: 12px;">primary</td>
+                            <td style="padding: 12px;">Importance level in the interface hierarchy</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">sentiment</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">constructive | destructive | neutral</span></td>
+                            <td style="padding: 12px;">neutral</td>
+                            <td style="padding: 12px;">Consequence of the action (safe, dangerous, or neutral)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">disabled</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">boolean</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">true | false</span></td>
+                            <td style="padding: 12px;">false</td>
+                            <td style="padding: 12px;">Whether the action is currently available</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">urgency</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">string</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">critical | high | medium | low</span></td>
+                            <td style="padding: 12px;">medium</td>
+                            <td style="padding: 12px;">Priority for attention budget scoring</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">attention-weight</span></td>
+                            <td style="padding: 12px;"><span class="prop-type">number</span></td>
+                            <td style="padding: 12px;"><span class="prop-values">0-100</span></td>
+                            <td style="padding: 12px;">50</td>
+                            <td style="padding: 12px;">Base attention priority (higher = more visible)</td>
+                        </tr>
+                    
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Events -->
+        <section class="section">
+            <h2 class="section-title">Events</h2>
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Trigger</th>
+                        <th>Detail</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">activate</span></td>
+                            <td style="padding: 12px;">Click, tap, Enter, Space, voice "activate"</td>
+                            <td style="padding: 12px;"><code>{ type: "activate" }</code></td>
+                            <td style="padding: 12px;">Main action event triggered by any input method</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #333;">
+                            <td style="padding: 12px;"><span class="prop-name">inspect</span></td>
+                            <td style="padding: 12px;">Long-press (500ms), voice "inspect"</td>
+                            <td style="padding: 12px;"><code>{ type: "inspect" }</code></td>
+                            <td style="padding: 12px;">Preview/detail view event for long-press interactions</td>
+                        </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+[
+  {
+    "test": "swipe_list",
+    "passed": true,
+    "issues": [
+      {
+        "type": "no_swipe_feedback",
+        "severity": "info",
+        "message": "No visual feedback detected for swipe gesture"
+      }
+    ]
+  },
+  {
+    "test": "long_press",
+    "passed": true,
+    "issues": [
+      {
+        "type": "long_press_tested",
+        "severity": "info",
+        "message": "Long press gesture tested"
+      }
+    ]
+  },
+  {
+    "test": "touch_target_spacing",
+    "passed": true,
+    "issues": [
+      {
+        "type": "insufficient_touch_spacing",
+        "gap": "4.0px",
+        "minimum": "8px",
+        "severity": "warning",
+        "message": "Touch targets only 4.0px apart, recommend 8px minimum"
+      },
+      {
+        "type": "insufficient_touch_spacing",
+        "gap": "4.0px",
+        "minimum": "8px",
+        "severity": "warning",
+        "message": "Touch targets only 4.0px apart, recommend 8px minimum"
+      }
+    ]
+  },
+  {
+    "test": "tap_responsiveness",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "gesture_conflicts",
+    "passed": false,
+    "issues": [
+      {
+        "type": "gesture_conflict",
+        "severity": "error",
+        "message": "Scroll gesture closed parent modal (gesture conflict)"
+      }
+    ]
+  },
+  {
+    "test": "pinch_zoom_disabled",
+    "passed": true,
+    "issues": []
+  }
+]

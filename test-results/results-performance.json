@@ -1,0 +1,398 @@
+[
+  {
+    "test": "Load Time",
+    "component": "semantic-action.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "523ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 523ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-action.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-card.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "514ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 514ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-card.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-input.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "512ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 512ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-input.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-modal.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "513ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 513ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-modal.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-navigator.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "512ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 512ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-navigator.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-list.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "513ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 513ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-list.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-menu.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "516ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 516ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-menu.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-feedback.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "514ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 514ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-feedback.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Load Time",
+    "component": "semantic-adjuster.html",
+    "passed": false,
+    "issues": [
+      {
+        "type": "slow_load_time",
+        "load_time": "511ms",
+        "threshold": "500ms",
+        "severity": "error",
+        "message": "Load time 511ms exceeds 500ms threshold"
+      }
+    ]
+  },
+  {
+    "test": "Component Registration",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Render Performance",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Memory Usage",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "DOM Complexity",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  },
+  {
+    "test": "Reflow Performance",
+    "component": "semantic-adjuster.html",
+    "passed": true,
+    "issues": []
+  }
+]

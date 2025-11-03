@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modality-Agnostic Web Standard - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066cc;
+            --primary-hover: #0052a3;
+            --secondary: #6c757d;
+            --destructive: #dc3545;
+            --success: #28a745;
+            --bg: #0a0a0a;
+            --surface: #1a1a1a;
+            --surface-elevated: #2a2a2a;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #333333;
+            --focus: #4d9fff;
+
+            --spacing-xs: 8px;
+            --spacing-sm: 12px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* Mode Indicator */
+        .mode-selector {
+            position: fixed;
+            top: var(--spacing-lg);
+            right: var(--spacing-lg);
+            background: var(--surface-elevated);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .mode-selector h3 {
+            font-size: 16px;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .mode-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Interaction Feedback Overlay */
+        .interaction-overlay {
+            position: fixed;
+            bottom: var(--spacing-lg);
+            left: var(--spacing-lg);
+            background: var(--surface-elevated);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md);
+            min-width: 300px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .interaction-overlay h3 {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .interaction-log {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--success);
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .interaction-log div {
+            margin-bottom: 4px;
+            opacity: 0;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl);
+        }
+
+        header {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+        }
+
+        /* App Actions - Intent-based buttons */
+        [data-intent] {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            min-height: 64px;
+            min-width: 120px;
+            border-radius: var(--radius-md);
+            font-size: 20px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        [data-intent="primary"] {
+            background: var(--primary);
+            color: white;
+        }
+
+        [data-intent="secondary"] {
+            background: var(--secondary);
+            color: white;
+        }
+
+        [data-intent="tertiary"] {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+
+        [data-sentiment="destructive"] {
+            background: var(--destructive);
+        }
+
+        [data-sentiment="constructive"] {
+            background: var(--success);
+        }
+
+        /* Hover state (mouse modality) */
+        body.modality-mouse [data-intent]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,102,204,0.3);
+        }
+
+        body.modality-mouse [data-intent="primary"]:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Active state (all modalities) */
+        [data-intent]:active,
+        [data-intent].activating {
+            transform: scale(0.96);
+        }
+
+        /* Long-press indicator (touch/mouse) */
+        [data-intent].inspecting::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 3px solid var(--focus);
+            border-radius: var(--radius-md);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Focus state (keyboard) */
+        [data-intent]:focus-visible {
+            outline: 3px solid var(--focus);
+            outline-offset: 4px;
+        }
+
+        /* Cards with inspect/activate */
+        .app-card {
+            position: relative;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        body.modality-mouse .app-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.4);
+        }
+
+        body.modality-mouse .app-card:hover .card-preview {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .app-card.inspecting {
+            border-color: var(--focus);
+            box-shadow: 0 0 0 4px rgba(77, 159, 255, 0.2);
+        }
+
+        .card-preview {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface-elevated);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .app-card.inspecting .card-preview {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .card-content {
+            padding: var(--spacing-lg);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .card-actions {
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--surface-elevated);
+            display: flex;
+            gap: var(--spacing-sm);
+            border-top: 1px solid var(--border);
+        }
+
+        .card-actions [data-intent] {
+            min-height: 48px;
+            font-size: 16px;
+            padding: var(--spacing-sm) var(--spacing-md);
+        }
+
+        /* Value Adjustment */
+        .app-input-group {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+        }
+
+        .input-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .value-adjuster {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .value-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .adjust-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--surface-elevated);
+            border: 2px solid var(--border);
+            color: var(--text);
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.modality-mouse .adjust-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .slider-track {
+            flex: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .slider-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.2s;
+        }
+
+        .slider-thumb {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+
+        .slider-thumb:active {
+            cursor: grabbing;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Section */
+        section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        section h2 {
+            font-size: 32px;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-secondary);
+        }
+
+        /* Voice Command Indicator */
+        body.modality-voice::before {
+            content: '🎤 Voice Mode Active - Try: "Activate [button]", "Inspect [card]", "Increase volume"';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 102, 204, 0.95);
+            color: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            font-size: 24px;
+            z-index: 999;
+            pointer-events: none;
+            animation: fadeInOut 3s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
+
+        /* Touch indicators */
+        .touch-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Action buttons group */
+        .action-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body class="modality-mouse">
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+        <h3>Input Modality</h3>
+        <div class="mode-buttons">
+            <button class="mode-btn active" data-mode="mouse">🖱️ Mouse</button>
+            <button class="mode-btn" data-mode="touch">👆 Touch</button>
+            <button class="mode-btn" data-mode="voice">🎤 Voice</button>
+            <button class="mode-btn" data-mode="keyboard">⌨️ Keyboard</button>
+        </div>
+    </div>
+
+    <!-- Interaction Feedback -->
+    <div class="interaction-overlay">
+        <h3>Intent Log</h3>
+        <div class="interaction-log" id="intentLog"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Modality-Agnostic Interface</h1>
+            <p class="subtitle">Same semantic intent, different input methods</p>
+        </header>
+
+        <!-- Actions Section -->
+        <section>
+            <h2>01. Actions (Primary Intents)</h2>
+            <div class="action-group">
+                <button
+                    data-intent="primary"
+                    data-sentiment="constructive"
+                    data-action-id="save">
+                    Save Document
+                </button>
+                <button
+                    data-intent="secondary"
+                    data-action-id="export">
+                    Export PDF
+                </button>
+                <button
+                    data-intent="tertiary"
+                    data-action-id="preview">
+                    Preview
+                </button>
+                <button
+                    data-intent="secondary"
+                    data-sentiment="destructive"
+                    data-action-id="delete">
+                    Delete
+                </button>
+            </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section>
+            <h2>02. Cards (Inspect → Preview, Activate → Navigate)</h2>
+            <div class="grid grid-3">
+                <div class="app-card" data-card-id="project-alpha">
+                    <div class="card-preview">
+                        <strong>Preview Mode</strong>
+                        <p style="margin-top: 8px; font-size: 14px;">
+                            Mouse: Hover | Touch: Long-press | Voice: "Inspect Alpha"
+                        </p>
+                    </div>
+                    <div class="card-media">🚀</div>
+                    <div class="card-content">
+                        <div class="card-title">Project Alpha</div>
+                        <div class="card-description">
+                            Next-gen platform architecture
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button data-intent="tertiary" data-action-id="share-alpha">Share</button>
+                        <button data-intent="tertiary" data-action-id="edit-alpha">Edit</button>
+                    </div>
+                </div>
+
+                <div class="app-card" data-card-id="project-beta">
+                    <div class="card-preview">
+                        <strong>Preview Mode</strong>
+                        <p style="margin-top: 8px; font-size: 14px;">
+                            Mouse: Hover | Touch: Long-press | Voice: "Inspect Beta"
+                        </p>
+                    </div>
+                    <div class="card-media" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🎨</div>
+                    <div class="card-content">
+                        <div class="card-title">Project Beta</div>
+                        <div class="card-description">
+                            Creative design system
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button data-intent="tertiary" data-action-id="share-beta">Share</button>
+                        <button data-intent="tertiary" data-action-id="edit-beta">Edit</button>
+                    </div>
+                </div>
+
+                <div class="app-card" data-card-id="project-gamma">
+                    <div class="card-preview">
+                        <strong>Preview Mode</strong>
+                        <p style="margin-top: 8px; font-size: 14px;">
+                            Mouse: Hover | Touch: Long-press | Voice: "Inspect Gamma"
+                        </p>
+                    </div>
+                    <div class="card-media" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">⚡</div>
+                    <div class="card-content">
+                        <div class="card-title">Project Gamma</div>
+                        <div class="card-description">
+                            Performance optimization suite
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button data-intent="tertiary" data-action-id="share-gamma">Share</button>
+                        <button data-intent="tertiary" data-action-id="edit-gamma">Edit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value Adjustment Section -->
+        <section>
+            <h2>03. Value Adjustment (Multi-Modal Control)</h2>
+            <div class="grid grid-2">
+                <div class="app-input-group">
+                    <label class="input-label">Volume Level</label>
+                    <div class="value-adjuster">
+                        <button class="adjust-btn" data-adjust="volume" data-direction="decrease">−</button>
+                        <div class="value-display" id="volumeDisplay">50</div>
+                        <button class="adjust-btn" data-adjust="volume" data-direction="increase">+</button>
+                    </div>
+                    <div style="margin-top: var(--spacing-lg);">
+                        <div class="slider-track" data-slider="volume">
+                            <div class="slider-fill" style="width: 50%"></div>
+                            <div class="slider-thumb" style="left: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-input-group">
+                    <label class="input-label">Brightness</label>
+                    <div class="value-adjuster">
+                        <button class="adjust-btn" data-adjust="brightness" data-direction="decrease">−</button>
+                        <div class="value-display" id="brightnessDisplay">75</div>
+                        <button class="adjust-btn" data-adjust="brightness" data-direction="increase">+</button>
+                    </div>
+                    <div style="margin-top: var(--spacing-lg);">
+                        <div class="slider-track" data-slider="brightness">
+                            <div class="slider-fill" style="width: 75%"></div>
+                            <div class="slider-thumb" style="left: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // State
+        let currentMode = 'mouse';
+        let values = { volume: 50, brightness: 75 };
+        let longPressTimer = null;
+        let activeElement = null;
+
+        // Utility: Log interaction
+        function logIntent(intent, target, modality) {
+            const log = document.getElementById('intentLog');
+            const entry = document.createElement('div');
+            entry.textContent = `[${modality.toUpperCase()}] ${intent}: ${target}`;
+            log.insertBefore(entry, log.firstChild);
+
+            // Keep only last 5 entries
+            while (log.children.length > 5) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        // Utility: Create touch ripple effect
+        function createRipple(element, x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'touch-ripple';
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (x - rect.left - size / 2) + 'px';
+            ripple.style.top = (y - rect.top - size / 2) + 'px';
+            element.style.position = 'relative';
+            element.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Mode Switching
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentMode = btn.dataset.mode;
+                document.body.className = `modality-${currentMode}`;
+                logIntent('MODE_CHANGE', currentMode, 'system');
+            });
+        });
+
+        // Action Buttons - Intent-based interactions
+        document.querySelectorAll('[data-intent]').forEach(btn => {
+            const actionId = btn.dataset.actionId;
+
+            // ACTIVATE intent
+            btn.addEventListener('click', (e) => {
+                if (e.target.closest('.card-actions')) {
+                    // Card action buttons
+                    logIntent('ACTIVATE', actionId || 'card-action', currentMode);
+                } else if (btn.hasAttribute('data-action-id')) {
+                    // Regular action buttons
+                    btn.classList.add('activating');
+                    setTimeout(() => btn.classList.remove('activating'), 200);
+                    logIntent('ACTIVATE', actionId, currentMode);
+                }
+            });
+
+            // INSPECT intent (long-press / hover)
+            if (currentMode === 'touch' || currentMode === 'mouse') {
+                btn.addEventListener('mousedown', (e) => {
+                    if (currentMode !== 'mouse') {
+                        longPressTimer = setTimeout(() => {
+                            btn.classList.add('inspecting');
+                            logIntent('INSPECT', actionId, currentMode);
+                        }, 500);
+                    }
+                });
+
+                btn.addEventListener('mouseup', () => {
+                    clearTimeout(longPressTimer);
+                    btn.classList.remove('inspecting');
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    clearTimeout(longPressTimer);
+                    btn.classList.remove('inspecting');
+                });
+            }
+
+            // Touch ripple effect
+            btn.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                createRipple(btn, touch.clientX, touch.clientY);
+            });
+        });
+
+        // Cards - Inspect (preview) and Activate (navigate)
+        document.querySelectorAll('.app-card').forEach(card => {
+            const cardId = card.dataset.cardId;
+
+            // ACTIVATE intent (tap/click on card)
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.card-actions')) {
+                    logIntent('ACTIVATE', `navigate to ${cardId}`, currentMode);
+                }
+            });
+
+            // INSPECT intent (hover for mouse)
+            if (currentMode === 'mouse') {
+                card.addEventListener('mouseenter', () => {
+                    logIntent('INSPECT', `preview ${cardId}`, 'mouse');
+                });
+            }
+
+            // INSPECT intent (long-press for touch)
+            card.addEventListener('mousedown', (e) => {
+                if (currentMode === 'touch' && !e.target.closest('.card-actions')) {
+                    longPressTimer = setTimeout(() => {
+                        card.classList.add('inspecting');
+                        logIntent('INSPECT', `preview ${cardId}`, 'touch');
+                    }, 500);
+                }
+            });
+
+            card.addEventListener('mouseup', () => {
+                clearTimeout(longPressTimer);
+                setTimeout(() => card.classList.remove('inspecting'), 2000);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                clearTimeout(longPressTimer);
+                card.classList.remove('inspecting');
+            });
+
+            // Touch ripple
+            card.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                createRipple(card, touch.clientX, touch.clientY);
+            });
+        });
+
+        // Value Adjustment - ADJUST intent
+        function updateValue(type, delta) {
+            values[type] = Math.max(0, Math.min(100, values[type] + delta));
+            const display = document.getElementById(`${type}Display`);
+            const slider = document.querySelector(`[data-slider="${type}"]`);
+            const fill = slider.querySelector('.slider-fill');
+            const thumb = slider.querySelector('.slider-thumb');
+
+            display.textContent = values[type];
+            fill.style.width = values[type] + '%';
+            thumb.style.left = values[type] + '%';
+
+            logIntent('ADJUST', `${type} to ${values[type]}`, currentMode);
+        }
+
+        document.querySelectorAll('[data-adjust]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.dataset.adjust;
+                const direction = btn.dataset.direction;
+                const delta = direction === 'increase' ? 5 : -5;
+                updateValue(type, delta);
+            });
+        });
+
+        // Slider dragging
+        document.querySelectorAll('.slider-track').forEach(track => {
+            const type = track.dataset.slider;
+            let isDragging = false;
+
+            function updateFromPosition(clientX) {
+                const rect = track.getBoundingClientRect();
+                const percent = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+                values[type] = Math.round(percent);
+
+                const display = document.getElementById(`${type}Display`);
+                const fill = track.querySelector('.slider-fill');
+                const thumb = track.querySelector('.slider-thumb');
+
+                display.textContent = values[type];
+                fill.style.width = values[type] + '%';
+                thumb.style.left = values[type] + '%';
+            }
+
+            track.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                updateFromPosition(e.clientX);
+                logIntent('ADJUST_START', `${type} dragging`, currentMode);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    updateFromPosition(e.clientX);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging) {
+                    logIntent('ADJUST_END', `${type} to ${values[type]}`, currentMode);
+                    isDragging = false;
+                }
+            });
+
+            // Touch support
+            track.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                updateFromPosition(e.touches[0].clientX);
+                logIntent('ADJUST_START', `${type} dragging`, 'touch');
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    updateFromPosition(e.touches[0].clientX);
+                }
+            });
+
+            document.addEventListener('touchend', () => {
+                if (isDragging) {
+                    logIntent('ADJUST_END', `${type} to ${values[type]}`, 'touch');
+                    isDragging = false;
+                }
+            });
+        });
+
+        // Keyboard Navigation (simulated)
+        document.addEventListener('keydown', (e) => {
+            if (currentMode === 'keyboard') {
+                if (e.key === 'Enter' && document.activeElement.hasAttribute('data-intent')) {
+                    const actionId = document.activeElement.dataset.actionId;
+                    logIntent('ACTIVATE', actionId, 'keyboard');
+                }
+            }
+        });
+
+        // Voice Commands (simulated)
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'v' && e.ctrlKey && currentMode === 'voice') {
+                const commands = [
+                    'activate save',
+                    'inspect project alpha',
+                    'increase volume',
+                    'navigate to project beta'
+                ];
+                const cmd = commands[Math.floor(Math.random() * commands.length)];
+                logIntent('VOICE_COMMAND', cmd, 'voice');
+
+                // Simulate command execution
+                if (cmd.includes('increase volume')) {
+                    updateValue('volume', 10);
+                } else if (cmd.includes('inspect')) {
+                    const card = document.querySelector('[data-card-id="project-alpha"]');
+                    card.classList.add('inspecting');
+                    setTimeout(() => card.classList.remove('inspecting'), 2000);
+                }
+            }
+        });
+
+        // Initial log
+        logIntent('SYSTEM_READY', 'Demo initialized', 'system');
+    </script>
+</body>
+</html>
