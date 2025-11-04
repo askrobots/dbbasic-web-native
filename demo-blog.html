@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBlog - Modern Web Development</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: #1c1c1e;
+            border-bottom: 1px solid #3a3a3c;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #409cff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #ebebf5;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #409cff;
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #409cff 0%, #30d158 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px 80px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 48px;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            background: #1c1c1e;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 48px;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .featured-content {
+            padding: 32px;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .post-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .post-excerpt {
+            color: #8e8e93;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* Blog Posts */
+        .blog-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .post-card {
+            background: #1c1c1e;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .post-content {
+            padding: 24px;
+        }
+
+        .post-content .post-title {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .widget {
+            background: #1c1c1e;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .author-box {
+            text-align: center;
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .author-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .author-bio {
+            color: #8e8e93;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #3a3a3c;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-link {
+            color: #ebebf5;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .category-link:hover {
+            color: #409cff;
+        }
+
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .newsletter-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .newsletter-text {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1c1c1e;
+            border-top: 1px solid #3a3a3c;
+            padding: 48px 32px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #8e8e93;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #409cff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📝 TechBlog</div>
+            <nav class="nav-links">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Articles</a>
+                <a href="#" class="nav-link">About</a>
+                <semantic-action intent="primary">Subscribe</semantic-action>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <semantic-breadcrumb separator="›">
+            <breadcrumb-item href="/">Home</breadcrumb-item>
+            <breadcrumb-item href="/blog">Blog</breadcrumb-item>
+            <breadcrumb-item>Web Development</breadcrumb-item>
+        </semantic-breadcrumb>
+
+        <h1 class="hero-title">Discover Modern Web Development</h1>
+        <p class="hero-subtitle">
+            Tutorials, insights, and best practices for building amazing web applications with the latest technologies.
+        </p>
+        <div class="hero-actions">
+            <semantic-action intent="primary">Latest Articles</semantic-action>
+            <semantic-action intent="secondary">Browse Topics</semantic-action>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <div class="container">
+        <div class="newsletter">
+            <h2 class="newsletter-title">Stay Updated</h2>
+            <p class="newsletter-text">Get the latest articles delivered to your inbox every week.</p>
+            <div class="newsletter-form">
+                <semantic-input type="email" placeholder="your@email.com" intent="neutral" style="flex: 1;"></semantic-input>
+                <semantic-action intent="success">Subscribe</semantic-action>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Main Content -->
+            <main>
+                <!-- Featured Post -->
+                <article class="featured-post">
+                    <div class="featured-image">🚀</div>
+                    <div class="featured-content">
+                        <div class="post-meta">
+                            <semantic-badge intent="primary">Featured</semantic-badge>
+                            <semantic-badge intent="neutral" variant="outline">Web Components</semantic-badge>
+                            <span style="color: #8e8e93; font-size: 14px;">March 15, 2025 · 8 min read</span>
+                        </div>
+                        <h2 class="post-title">Building Modern UI Components with Web Standards</h2>
+                        <p class="post-excerpt">
+                            Learn how to create reusable, performant UI components using native Web Components API.
+                            No frameworks required - just vanilla JavaScript and web standards that work everywhere.
+                        </p>
+                        <semantic-action intent="primary" id="btn-read-more">Read Full Article</semantic-action>
+                    </div>
+                </article>
+
+                <!-- Recent Posts -->
+                <h2 style="font-size: 28px; margin-bottom: 32px;">Recent Articles</h2>
+                <div class="blog-posts">
+                    <article class="post-card">
+                        <div class="post-image">⚡</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <semantic-badge intent="success" variant="subtle">Performance</semantic-badge>
+                                <span style="color: #8e8e93; font-size: 14px;">March 12, 2025</span>
+                            </div>
+                            <h3 class="post-title">Optimizing Web Performance in 2025</h3>
+                            <p class="post-excerpt">
+                                Discover the latest techniques for building lightning-fast websites that provide
+                                exceptional user experiences across all devices.
+                            </p>
+                            <semantic-action intent="secondary">Read More →</semantic-action>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="post-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🎨</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <semantic-badge intent="warning" variant="subtle">Design</semantic-badge>
+                                <span style="color: #8e8e93; font-size: 14px;">March 10, 2025</span>
+                            </div>
+                            <h3 class="post-title">Modern CSS Techniques for Beautiful UIs</h3>
+                            <p class="post-excerpt">
+                                Explore cutting-edge CSS features like container queries, cascade layers, and
+                                color-mix() to create stunning designs.
+                            </p>
+                            <semantic-action intent="secondary">Read More →</semantic-action>
+                        </div>
+                    </article>
+
+                    <article class="post-card">
+                        <div class="post-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🔒</div>
+                        <div class="post-content">
+                            <div class="post-meta">
+                                <semantic-badge intent="danger" variant="subtle">Security</semantic-badge>
+                                <span style="color: #8e8e93; font-size: 14px;">March 8, 2025</span>
+                            </div>
+                            <h3 class="post-title">Web Security Best Practices</h3>
+                            <p class="post-excerpt">
+                                Protect your applications from common vulnerabilities with these essential
+                                security practices and tools.
+                            </p>
+                            <semantic-action intent="secondary">Read More →</semantic-action>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Load More -->
+                <div style="margin-top: 48px; text-align: center;">
+                    <semantic-action intent="secondary">Load More Articles</semantic-action>
+                </div>
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Author Box -->
+                <div class="widget author-box">
+                    <div class="author-avatar">👨‍💻</div>
+                    <div class="author-name">Alex Johnson</div>
+                    <p class="author-bio">
+                        Full-stack developer, tech writer, and open source contributor passionate about modern web technologies.
+                    </p>
+                    <semantic-action intent="primary" style="width: 100%;">Follow</semantic-action>
+                </div>
+
+                <!-- Categories -->
+                <div class="widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="category-list">
+                        <li class="category-item">
+                            <a href="#" class="category-link">Web Development</a>
+                            <semantic-badge intent="neutral" size="small">24</semantic-badge>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-link">JavaScript</a>
+                            <semantic-badge intent="neutral" size="small">18</semantic-badge>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-link">CSS</a>
+                            <semantic-badge intent="neutral" size="small">15</semantic-badge>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-link">Performance</a>
+                            <semantic-badge intent="neutral" size="small">12</semantic-badge>
+                        </li>
+                        <li class="category-item">
+                            <a href="#" class="category-link">Security</a>
+                            <semantic-badge intent="neutral" size="small">8</semantic-badge>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Popular Tags -->
+                <div class="widget">
+                    <h3 class="widget-title">Popular Tags</h3>
+                    <div class="tag-cloud">
+                        <semantic-badge intent="primary" variant="outline">Web Components</semantic-badge>
+                        <semantic-badge intent="success" variant="outline">React</semantic-badge>
+                        <semantic-badge intent="warning" variant="outline">TypeScript</semantic-badge>
+                        <semantic-badge intent="neutral" variant="outline">Node.js</semantic-badge>
+                        <semantic-badge intent="primary" variant="outline">HTML5</semantic-badge>
+                        <semantic-badge intent="success" variant="outline">CSS3</semantic-badge>
+                        <semantic-badge intent="danger" variant="outline">API Design</semantic-badge>
+                    </div>
+                </div>
+
+                <!-- Recent Comments -->
+                <div class="widget">
+                    <h3 class="widget-title">Recent Discussions</h3>
+                    <semantic-disclosure>
+                        <div slot="summary">3 new comments on "Building Modern UI Components"</div>
+                        <div slot="content">
+                            <div style="padding: 12px 0; border-bottom: 1px solid #3a3a3c;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Sarah M.</div>
+                                <p style="color: #8e8e93; font-size: 14px;">Great article! I've been looking for a guide like this.</p>
+                            </div>
+                            <div style="padding: 12px 0; border-bottom: 1px solid #3a3a3c;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Mike R.</div>
+                                <p style="color: #8e8e93; font-size: 14px;">The performance tips were super helpful, thanks!</p>
+                            </div>
+                            <div style="padding: 12px 0;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Emma L.</div>
+                                <p style="color: #8e8e93; font-size: 14px;">Can you do a follow-up on Shadow DOM?</p>
+                            </div>
+                        </div>
+                    </semantic-disclosure>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About TechBlog</h3>
+                <p style="color: #8e8e93; margin-bottom: 16px;">
+                    A community-driven platform sharing knowledge about modern web development, design, and technology.
+                </p>
+                <div class="social-links">
+                    <semantic-action intent="secondary" size="small">Twitter</semantic-action>
+                    <semantic-action intent="secondary" size="small">GitHub</semantic-action>
+                    <semantic-action intent="secondary" size="small">LinkedIn</semantic-action>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Articles</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Newsletter Archive</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 32px; padding-top: 32px; border-top: 1px solid #3a3a3c; color: #8e8e93;">
+            <p>© 2025 TechBlog. Built with Semantic Components.</p>
+        </div>
+    </footer>
+
+    <!-- Read More Modal -->
+    <semantic-modal id="modal-article">
+        <div slot="header">
+            <h3 style="font-size: 24px; margin: 0;">Building Modern UI Components with Web Standards</h3>
+        </div>
+        <div slot="body" style="line-height: 1.8;">
+            <div style="margin-bottom: 20px;">
+                <semantic-badge intent="primary">Featured</semantic-badge>
+                <semantic-badge intent="neutral" variant="outline">Web Components</semantic-badge>
+            </div>
+
+            <p style="margin-bottom: 16px;">
+                Web Components are a suite of different technologies that allow you to create reusable custom elements
+                with their functionality encapsulated away from the rest of your code.
+            </p>
+
+            <h4 style="font-size: 18px; margin: 24px 0 12px 0;">Why Web Components?</h4>
+            <p style="margin-bottom: 16px;">
+                Unlike framework-specific components, Web Components work everywhere. They're built on web standards
+                and supported natively by all modern browsers.
+            </p>
+
+            <semantic-tabs style="margin: 24px 0;">
+                <tab-item label="Benefits" active></tab-item>
+                <tab-item label="Use Cases"></tab-item>
+                <tab-item label="Browser Support"></tab-item>
+            </semantic-tabs>
+
+            <ul style="margin: 16px 0; padding-left: 24px;">
+                <li>No framework dependencies</li>
+                <li>True encapsulation with Shadow DOM</li>
+                <li>Reusable across projects</li>
+                <li>Standards-based and future-proof</li>
+            </ul>
+
+            <semantic-progress value="100" intent="success" style="margin: 24px 0;"></semantic-progress>
+
+            <p style="color: #8e8e93; font-size: 14px;">
+                This article is part of our Modern Web Development series.
+                <semantic-popover position="top" content="Click to see more articles in this series" trigger="hover">
+                    <span slot="trigger" style="color: #409cff; cursor: help; text-decoration: underline;">Learn more</span>
+                </semantic-popover>
+            </p>
+        </div>
+        <div slot="footer">
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-article').close()">Close</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-article').close()">Share Article</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <script>
+        // Open article modal
+        document.getElementById('btn-read-more').addEventListener('click', () => {
+            document.getElementById('modal-article').open();
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

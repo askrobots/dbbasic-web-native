@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskRobots - Multi-AI Assistant Platform</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --win98-gray: #c0c0c0;
+            --win98-navy: #000080;
+            --win98-light: #dfdfdf;
+            --win98-dark: #404040;
+            --win98-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Tahoma', 'MS Sans Serif', sans-serif;
+            background: var(--win98-gray);
+            color: #000;
+            line-height: 1.6;
+        }
+
+        .win98-border {
+            border: 2px solid;
+            border-color: var(--win98-light) var(--win98-dark) var(--win98-dark) var(--win98-light);
+            background: var(--win98-gray);
+        }
+
+        .win98-inset {
+            border: 2px solid;
+            border-color: var(--win98-dark) var(--win98-light) var(--win98-light) var(--win98-dark);
+            background: var(--win98-white);
+        }
+
+        .win98-button {
+            padding: 8px 20px;
+            border: 2px solid;
+            border-color: var(--win98-light) var(--win98-dark) var(--win98-dark) var(--win98-light);
+            background: var(--win98-gray);
+            font-family: 'Tahoma', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            min-height: 44px;
+        }
+
+        .win98-button:active {
+            border-color: var(--win98-dark) var(--win98-light) var(--win98-light) var(--win98-dark);
+            padding: 9px 19px 7px 21px;
+        }
+
+        .win98-button-primary {
+            background: var(--win98-navy);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Header */
+        .header {
+            background: var(--win98-navy);
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-ask {
+            color: white;
+        }
+
+        .logo-robots {
+            color: var(--win98-light);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 48px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--win98-gray);
+            border-right: 2px solid var(--win98-dark);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-title {
+            padding: 8px 20px;
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--win98-dark);
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #000;
+            transition: background 0.1s;
+            min-height: 44px;
+        }
+
+        .nav-link:hover {
+            background: var(--win98-light);
+        }
+
+        .nav-link.active {
+            background: var(--win98-navy);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: var(--win98-navy);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            color: var(--win98-dark);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            margin-bottom: 60px;
+        }
+
+        .terminal {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .terminal-header {
+            background: var(--win98-navy);
+            color: white;
+            padding: 4px 8px;
+            margin: -20px -20px 16px -20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-input {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .terminal-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid;
+            border-color: var(--win98-dark) var(--win98-light) var(--win98-light) var(--win98-dark);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .terminal-output {
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            background: white;
+        }
+
+        .terminal-output .prompt {
+            color: var(--win98-navy);
+            font-weight: bold;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            padding: 24px;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--win98-navy);
+        }
+
+        .feature-card p {
+            color: var(--win98-dark);
+            line-height: 1.6;
+        }
+
+        /* Robots Grid */
+        .robots-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: var(--win98-navy);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .robots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .robot-card {
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .robot-card:hover {
+            background: var(--win98-light);
+        }
+
+        .robot-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .robot-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: var(--win98-navy);
+        }
+
+        .robot-status {
+            font-size: 12px;
+            color: var(--win98-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--win98-gray);
+            border-top: 2px solid var(--win98-dark);
+            padding: 32px 40px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+
+        .footer-section h4 {
+            color: var(--win98-navy);
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #000;
+            text-decoration: none;
+            display: block;
+            padding: 4px 0;
+        }
+
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--win98-dark);
+            color: var(--win98-dark);
+            font-size: 13px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 2px solid var(--win98-dark);
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <span class="logo-ask">Ask</span><span class="logo-robots">Robots</span>
+        </div>
+        <div class="header-actions">
+            <button class="win98-button">Sign In</button>
+            <button class="win98-button win98-button-primary">Get Started</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Main</div>
+                    <a href="#" class="nav-link active">🏠 Dashboard</a>
+                    <a href="#" class="nav-link">🔍 Ask Robots</a>
+                    <a href="#" class="nav-link">⚡ Quick Actions</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Work</div>
+                    <a href="#" class="nav-link">📁 Projects</a>
+                    <a href="#" class="nav-link">✓ Tasks</a>
+                    <a href="#" class="nav-link">📝 Notes</a>
+                    <a href="#" class="nav-link">📊 Analytics</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">AI Models</div>
+                    <a href="#" class="nav-link">🤖 All Robots</a>
+                    <a href="#" class="nav-link">⭐ Favorites</a>
+                    <a href="#" class="nav-link">🔧 Custom Bots</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Settings</div>
+                    <a href="#" class="nav-link">⚙️ Preferences</a>
+                    <a href="#" class="nav-link">🔑 API Keys</a>
+                    <a href="#" class="nav-link">💳 Billing</a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Ask Multiple Robots.<br>Get Things Done.</h1>
+                <p>One interface to access GPT-4, Claude, Gemini, and more.<br>Compare answers. Save time. Build better.</p>
+                <div class="hero-actions">
+                    <button class="win98-button win98-button-primary">Start Free Trial</button>
+                    <button class="win98-button">Watch Demo</button>
+                    <button class="win98-button">View Pricing</button>
+                </div>
+            </section>
+
+            <!-- Terminal Demo Section -->
+            <section class="terminal-section">
+                <h2 class="section-title">Try It Now</h2>
+
+                <div class="terminal win98-border">
+                    <div class="terminal-header">🔍 Ask Robots Terminal</div>
+
+                    <div class="terminal-input">
+                        <input type="text" placeholder="Ask me anything... (try: 'Explain quantum computing')" id="terminal-ask">
+                        <button class="win98-button win98-button-primary" onclick="simulateAsk()">Ask All Robots</button>
+                    </div>
+
+                    <div class="terminal-output win98-inset" id="terminal-output">
+                        <div><span class="prompt">&gt;</span> Explain quantum computing in simple terms</div>
+                        <div style="margin-top: 12px; padding-left: 16px;">
+                            <div style="margin-bottom: 12px;">
+                                <semantic-badge intent="primary" style="margin-right: 8px;">GPT-4</semantic-badge>
+                                Quantum computing uses quantum bits (qubits) that can exist in multiple states simultaneously, enabling parallel processing of vast amounts of data...
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <semantic-badge intent="success" style="margin-right: 8px;">Claude</semantic-badge>
+                                Think of quantum computers as exploring many paths at once, while classical computers check one path at a time. This makes them exceptionally powerful...
+                            </div>
+                            <div style="margin-bottom: 12px;">
+                                <semantic-badge intent="warning" style="margin-right: 8px;">Gemini</semantic-badge>
+                                Quantum computers leverage superposition and entanglement to solve complex problems that would take traditional computers millennia to process...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section>
+                <h2 class="section-title">Why AskRobots?</h2>
+                <div class="features-grid">
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Multi-Model Access</h3>
+                        <p>Query multiple AI models simultaneously. Compare responses from GPT-4, Claude, Gemini, and more in one unified interface.</p>
+                    </div>
+
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">💡</div>
+                        <h3>Smart Routing</h3>
+                        <p>Our AI analyzes your question and routes it to the best models for the task. Get optimal results every time.</p>
+                    </div>
+
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">📊</div>
+                        <h3>Compare Answers</h3>
+                        <p>See how different models approach the same problem. Make informed decisions based on diverse perspectives.</p>
+                    </div>
+
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>Your data stays yours. We don't train models on your queries. Enterprise-grade security built in.</p>
+                    </div>
+
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Optimized infrastructure delivers responses in seconds. No waiting around for answers.</p>
+                    </div>
+
+                    <div class="feature-card win98-border">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Custom Workflows</h3>
+                        <p>Build custom AI agents with specific prompts, models, and parameters. Automate repetitive tasks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Available Robots -->
+            <section class="robots-section">
+                <h2 class="section-title">Available AI Models</h2>
+                <div class="robots-grid">
+                    <div class="robot-card win98-border" onclick="showRobotModal('GPT-4')">
+                        <div class="robot-icon">🧠</div>
+                        <div class="robot-name">GPT-4</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+
+                    <div class="robot-card win98-border" onclick="showRobotModal('Claude')">
+                        <div class="robot-icon">🎯</div>
+                        <div class="robot-name">Claude 3.5</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+
+                    <div class="robot-card win98-border" onclick="showRobotModal('Gemini')">
+                        <div class="robot-icon">💎</div>
+                        <div class="robot-name">Gemini Pro</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+
+                    <div class="robot-card win98-border" onclick="showRobotModal('Llama')">
+                        <div class="robot-icon">🦙</div>
+                        <div class="robot-name">Llama 3</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+
+                    <div class="robot-card win98-border" onclick="showRobotModal('Mistral')">
+                        <div class="robot-icon">🌪️</div>
+                        <div class="robot-name">Mistral</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+
+                    <div class="robot-card win98-border" onclick="showRobotModal('Perplexity')">
+                        <div class="robot-icon">🔍</div>
+                        <div class="robot-name">Perplexity</div>
+                        <div class="robot-status">✓ Online</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 24px;">
+                    <semantic-badge intent="neutral">12 Models Available</semantic-badge>
+                    <semantic-badge intent="success" style="margin-left: 8px;">All Systems Operational</semantic-badge>
+                </div>
+            </section>
+
+            <!-- Pricing Section -->
+            <section style="margin-bottom: 60px;">
+                <h2 class="section-title">Simple Pricing</h2>
+                <div class="features-grid">
+                    <div class="feature-card win98-border" style="background: white;">
+                        <semantic-badge intent="neutral" style="margin-bottom: 16px;">Free</semantic-badge>
+                        <h3 style="font-size: 32px; margin-bottom: 8px;">$0</h3>
+                        <p style="margin-bottom: 24px;">per month</p>
+                        <ul style="list-style: none; text-align: left; margin-bottom: 24px;">
+                            <li style="padding: 8px 0;">✓ 100 queries/month</li>
+                            <li style="padding: 8px 0;">✓ 3 AI models</li>
+                            <li style="padding: 8px 0;">✓ Basic support</li>
+                            <li style="padding: 8px 0; color: #999;">✗ Custom agents</li>
+                        </ul>
+                        <button class="win98-button" style="width: 100%;">Start Free</button>
+                    </div>
+
+                    <div class="feature-card win98-border" style="background: var(--win98-navy); color: white;">
+                        <semantic-badge intent="warning" style="margin-bottom: 16px;">Pro</semantic-badge>
+                        <h3 style="font-size: 32px; margin-bottom: 8px; color: white;">$29</h3>
+                        <p style="margin-bottom: 24px; color: #ddd;">per month</p>
+                        <ul style="list-style: none; text-align: left; margin-bottom: 24px; color: white;">
+                            <li style="padding: 8px 0;">✓ Unlimited queries</li>
+                            <li style="padding: 8px 0;">✓ All AI models</li>
+                            <li style="padding: 8px 0;">✓ Priority support</li>
+                            <li style="padding: 8px 0;">✓ Custom agents</li>
+                        </ul>
+                        <button class="win98-button win98-button-primary" style="width: 100%;">Start Pro Trial</button>
+                    </div>
+
+                    <div class="feature-card win98-border" style="background: white;">
+                        <semantic-badge intent="primary" style="margin-bottom: 16px;">Enterprise</semantic-badge>
+                        <h3 style="font-size: 32px; margin-bottom: 8px;">Custom</h3>
+                        <p style="margin-bottom: 24px;">contact us</p>
+                        <ul style="list-style: none; text-align: left; margin-bottom: 24px;">
+                            <li style="padding: 8px 0;">✓ Everything in Pro</li>
+                            <li style="padding: 8px 0;">✓ SSO & SAML</li>
+                            <li style="padding: 8px 0;">✓ Dedicated support</li>
+                            <li style="padding: 8px 0;">✓ Custom models</li>
+                        </ul>
+                        <button class="win98-button" style="width: 100%;">Contact Sales</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">AI Models</a></li>
+                    <li><a href="#">Use Cases</a></li>
+                    <li><a href="#">API Docs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Status</a></li>
+                    <li><a href="#">Changelog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Compliance</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 AskRobots. All rights reserved. | Follow us:
+                <a href="#" style="color: var(--win98-navy);">Twitter</a> •
+                <a href="#" style="color: var(--win98-navy);">GitHub</a> •
+                <a href="#" style="color: var(--win98-navy);">LinkedIn</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal for Robot Details -->
+    <semantic-modal id="robot-modal" size="medium">
+        <div slot="header">
+            <h3 id="modal-robot-name">Robot Details</h3>
+        </div>
+        <div slot="content">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <div id="modal-robot-icon" style="font-size: 80px; margin-bottom: 16px;">🤖</div>
+                <semantic-badge intent="success">Online</semantic-badge>
+            </div>
+
+            <semantic-tabs>
+                <div slot="tab-1">Overview</div>
+                <div slot="tab-2">Capabilities</div>
+                <div slot="tab-3">Pricing</div>
+
+                <div slot="panel-1">
+                    <p style="margin-bottom: 16px;" id="modal-robot-desc">This AI model is currently available and ready to answer your questions.</p>
+                    <div class="win98-border" style="padding: 16px; margin-bottom: 16px;">
+                        <strong>Response Time:</strong> ~2-3 seconds<br>
+                        <strong>Context Window:</strong> 128K tokens<br>
+                        <strong>Best For:</strong> General purpose, coding, analysis
+                    </div>
+                    <semantic-progress value="95" max="100" intent="success"></semantic-progress>
+                    <p style="text-align: center; margin-top: 8px; color: var(--win98-dark);">95% Uptime (30 days)</p>
+                </div>
+
+                <div slot="panel-2">
+                    <ul style="list-style: none;">
+                        <li style="padding: 8px 0;">✓ Natural language understanding</li>
+                        <li style="padding: 8px 0;">✓ Code generation & debugging</li>
+                        <li style="padding: 8px 0;">✓ Data analysis</li>
+                        <li style="padding: 8px 0;">✓ Creative writing</li>
+                        <li style="padding: 8px 0;">✓ Multilingual support</li>
+                        <li style="padding: 8px 0;">✓ Image understanding (Pro)</li>
+                    </ul>
+                </div>
+
+                <div slot="panel-3">
+                    <div class="win98-border" style="padding: 16px; margin-bottom: 12px; background: white;">
+                        <strong>Free Tier:</strong> $0.00/query<br>
+                        <span style="color: var(--win98-dark);">100 queries/month included</span>
+                    </div>
+                    <div class="win98-border" style="padding: 16px; margin-bottom: 12px; background: white;">
+                        <strong>Pro Tier:</strong> $0.02/query<br>
+                        <span style="color: var(--win98-dark);">Unlimited queries</span>
+                    </div>
+                    <div class="win98-border" style="padding: 16px; background: white;">
+                        <strong>Enterprise:</strong> Custom pricing<br>
+                        <span style="color: var(--win98-dark);">Volume discounts available</span>
+                    </div>
+                </div>
+            </semantic-tabs>
+        </div>
+        <div slot="actions">
+            <button class="win98-button win98-button-primary" onclick="document.getElementById('robot-modal').close()">Try This Model</button>
+            <button class="win98-button" onclick="document.getElementById('robot-modal').close()">Close</button>
+        </div>
+    </semantic-modal>
+
+    <script>
+        function simulateAsk() {
+            const input = document.getElementById('terminal-ask');
+            const output = document.getElementById('terminal-output');
+
+            if (input.value.trim()) {
+                output.innerHTML = `
+                    <div><span class="prompt">&gt;</span> ${input.value}</div>
+                    <div style="margin-top: 12px; padding-left: 16px;">
+                        <div style="margin-bottom: 12px;">
+                            <semantic-badge intent="primary" style="margin-right: 8px;">GPT-4</semantic-badge>
+                            Processing your query...
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <semantic-badge intent="success" style="margin-right: 8px;">Claude</semantic-badge>
+                            Analyzing and generating response...
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <semantic-badge intent="warning" style="margin-right: 8px;">Gemini</semantic-badge>
+                            Computing answer...
+                        </div>
+                    </div>
+                `;
+                input.value = '';
+            }
+        }
+
+        function showRobotModal(robotName) {
+            const modal = document.getElementById('robot-modal');
+            const nameEl = document.getElementById('modal-robot-name');
+            const iconEl = document.getElementById('modal-robot-icon');
+            const descEl = document.getElementById('modal-robot-desc');
+
+            const robotData = {
+                'GPT-4': { icon: '🧠', desc: 'OpenAI\'s most capable model. Excellent at reasoning, coding, and creative tasks.' },
+                'Claude': { icon: '🎯', desc: 'Anthropic\'s advanced AI model. Known for nuanced understanding and helpful, harmless responses.' },
+                'Gemini': { icon: '💎', desc: 'Google\'s multimodal AI. Strong at research, analysis, and complex problem-solving.' },
+                'Llama': { icon: '🦙', desc: 'Meta\'s open-source model. Great for coding and general purpose tasks.' },
+                'Mistral': { icon: '🌪️', desc: 'European AI model with strong multilingual capabilities.' },
+                'Perplexity': { icon: '🔍', desc: 'Research-focused AI with real-time web search integration.' }
+            };
+
+            const robot = robotData[robotName] || robotData['GPT-4'];
+            nameEl.textContent = robotName;
+            iconEl.textContent = robot.icon;
+            descEl.textContent = robot.desc;
+
+            modal.open();
+        }
+
+        // Allow Enter key in terminal
+        document.getElementById('terminal-ask').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                simulateAsk();
+            }
+        });
+    </script>
+</body>
+</html>

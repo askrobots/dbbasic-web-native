@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AskRobots - Multi-AI Terminal</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.08; }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(102, 255, 102, 0.8), 0 0 20px rgba(102, 255, 102, 0.4); }
+            50% { text-shadow: 0 0 15px rgba(102, 255, 102, 1), 0 0 30px rgba(102, 255, 102, 0.6); }
+        }
+
+        :root {
+            --terminal-green: #66ff66;
+            --terminal-cyan: #66ffff;
+            --terminal-yellow: #ffff66;
+            --terminal-magenta: #ff66ff;
+            --terminal-bg: #0a0a0a;
+            --border-light: #00ff00;
+            --border-dark: #008800;
+        }
+
+        body {
+            font-family: 'Courier New', 'Consolas', monospace;
+            background: var(--terminal-bg);
+            color: var(--terminal-green);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* CRT Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.25) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: flicker 0.15s infinite;
+        }
+
+        /* Scanline */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(102, 255, 102, 0.1);
+            pointer-events: none;
+            z-index: 999;
+            animation: scanline 8s linear infinite;
+        }
+
+        .screen-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0, 100, 0, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 998;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ASCII Border Helper */
+        .ascii-box {
+            border: 2px solid var(--border-light);
+            background: rgba(0, 20, 0, 0.8);
+            backdrop-filter: blur(4px);
+            position: relative;
+            box-shadow:
+                0 0 20px rgba(0, 255, 0, 0.2),
+                inset 0 0 20px rgba(0, 255, 0, 0.05);
+        }
+
+        .ascii-box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 1px solid var(--border-dark);
+            pointer-events: none;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .header-box {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--terminal-cyan);
+            text-shadow: 0 0 10px rgba(102, 255, 255, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .header-nav a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 4px 8px;
+        }
+
+        .header-nav a:hover {
+            color: var(--terminal-cyan);
+            text-shadow: 0 0 10px rgba(102, 255, 255, 0.8);
+            background: rgba(102, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .hero-box {
+            padding: 40px 32px;
+        }
+
+        .ascii-art {
+            font-size: 10px;
+            line-height: 1;
+            color: var(--terminal-yellow);
+            margin-bottom: 24px;
+            white-space: pre;
+            overflow-x: auto;
+            text-shadow: 0 0 10px rgba(255, 255, 102, 0.6);
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            color: var(--terminal-cyan);
+            animation: glow 2s ease-in-out infinite;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--terminal-green);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            margin: 40px 0;
+        }
+
+        .terminal-box {
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .terminal-header {
+            color: var(--terminal-cyan);
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px rgba(102, 255, 255, 0.6);
+        }
+
+        .blink {
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .terminal-input-area {
+            margin-bottom: 24px;
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .prompt {
+            color: var(--terminal-yellow);
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 255, 102, 0.6);
+        }
+
+        .terminal-input {
+            flex: 1;
+            background: rgba(0, 40, 0, 0.6);
+            border: 1px solid var(--border-light);
+            color: var(--terminal-green);
+            padding: 12px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+        }
+
+        .terminal-input:focus {
+            border-color: var(--terminal-cyan);
+            box-shadow:
+                inset 0 0 10px rgba(0, 255, 0, 0.2),
+                0 0 10px rgba(102, 255, 255, 0.4);
+        }
+
+        .model-select {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .model-chip {
+            padding: 8px 16px;
+            background: rgba(0, 40, 0, 0.4);
+            border: 1px solid var(--border-dark);
+            color: var(--terminal-green);
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .model-chip:hover {
+            background: rgba(0, 60, 0, 0.6);
+            border-color: var(--border-light);
+        }
+
+        .model-chip.active {
+            background: rgba(0, 100, 0, 0.6);
+            border-color: var(--terminal-cyan);
+            color: var(--terminal-cyan);
+            box-shadow: 0 0 10px rgba(102, 255, 255, 0.3);
+        }
+
+        /* Output Area */
+        .terminal-output {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid var(--border-dark);
+            padding: 20px;
+            min-height: 200px;
+            max-height: 500px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .output-line {
+            margin-bottom: 16px;
+            padding-left: 16px;
+        }
+
+        .output-model {
+            color: var(--terminal-magenta);
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-shadow: 0 0 8px rgba(255, 102, 255, 0.6);
+        }
+
+        .output-text {
+            color: var(--terminal-green);
+            line-height: 1.6;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-dark);
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            margin: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-box {
+            padding: 32px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            color: var(--terminal-cyan);
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(102, 255, 255, 0.8);
+        }
+
+        .stat-label {
+            color: var(--terminal-green);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Features Grid */
+        .features-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--terminal-cyan);
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(102, 255, 255, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-box {
+            padding: 28px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 10px rgba(102, 255, 102, 0.6));
+        }
+
+        .feature-box h3 {
+            color: var(--terminal-yellow);
+            margin-bottom: 12px;
+            font-size: 18px;
+            text-shadow: 0 0 8px rgba(255, 255, 102, 0.6);
+        }
+
+        .feature-box p {
+            color: var(--terminal-green);
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* Pricing Grid */
+        .pricing-section {
+            margin: 60px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-box {
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .pricing-box.featured {
+            border-color: var(--terminal-cyan);
+            box-shadow:
+                0 0 30px rgba(102, 255, 255, 0.3),
+                inset 0 0 30px rgba(102, 255, 255, 0.1);
+        }
+
+        .pricing-name {
+            color: var(--terminal-yellow);
+            font-size: 16px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 255, 102, 0.6);
+        }
+
+        .pricing-price {
+            font-size: 56px;
+            color: var(--terminal-cyan);
+            margin-bottom: 8px;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(102, 255, 255, 0.8);
+        }
+
+        .pricing-period {
+            color: var(--terminal-green);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 28px;
+        }
+
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--terminal-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .pricing-features li::before {
+            content: ">";
+            color: var(--terminal-cyan);
+            font-weight: bold;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 100px;
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--border-light);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h4 {
+            color: var(--terminal-cyan);
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            display: block;
+            padding: 4px 0;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: var(--terminal-cyan);
+            text-shadow: 0 0 10px rgba(102, 255, 255, 0.6);
+            padding-left: 8px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-dark);
+            color: var(--terminal-green);
+            font-size: 13px;
+        }
+
+        /* Button Styles */
+        .terminal-button {
+            padding: 12px 24px;
+            background: rgba(0, 60, 0, 0.6);
+            border: 2px solid var(--border-light);
+            color: var(--terminal-green);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .terminal-button:hover {
+            background: rgba(0, 100, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+            text-shadow: 0 0 10px rgba(102, 255, 102, 0.8);
+        }
+
+        .terminal-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+        }
+
+        .terminal-button.primary {
+            border-color: var(--terminal-cyan);
+            color: var(--terminal-cyan);
+        }
+
+        .terminal-button.primary:hover {
+            box-shadow: 0 0 20px rgba(102, 255, 255, 0.4);
+            text-shadow: 0 0 10px rgba(102, 255, 255, 0.8);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 20, 0, 0.6);
+            border: 1px solid var(--border-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 100, 0, 0.8);
+            border: 1px solid var(--border-light);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 150, 0, 0.9);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .ascii-art {
+                font-size: 6px;
+            }
+
+            .header-nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid,
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="screen-glow"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="ascii-box header-box">
+                <div class="logo">[ AskRobots ]</div>
+                <nav class="header-nav">
+                    <a href="#terminal">[TERMINAL]</a>
+                    <a href="#features">[FEATURES]</a>
+                    <a href="#pricing">[PRICING]</a>
+                    <button class="terminal-button primary">CONNECT</button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="ascii-box hero-box">
+                <div class="ascii-art">
+    ___        _     ____       _           _
+   / _ \      | |   |  _ \     | |         | |
+  / /_\ \_____| | __| |_) | ___| |_ ___    | |_ ___
+  |  _  / __| | |/ /|  _ < / _ \ __/ __|   | __/ __|
+  | | | \__ \ |   < | |_) |  __/ |_\__ \   | |_\__ \
+  \_| |_|___/_|_|\_\|____/ \___|\__|___/    \__|___/
+                </div>
+                <h1>&gt;&gt; MULTI-AI TERMINAL &lt;&lt;</h1>
+                <p>Query GPT-4, Claude, Gemini, and more from a single command line.<br>
+                Compare outputs. Make better decisions. All in one interface.</p>
+                <div class="hero-actions">
+                    <button class="terminal-button primary">START SESSION</button>
+                    <button class="terminal-button">VIEW DOCS</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Terminal Section -->
+        <section class="terminal-section" id="terminal">
+            <div class="ascii-box terminal-box">
+                <div class="terminal-header">
+                    <span>&gt;_</span>
+                    <span>AI QUERY TERMINAL</span>
+                    <span class="blink">█</span>
+                </div>
+
+                <div class="terminal-input-area">
+                    <div class="prompt-line">
+                        <span class="prompt">user@askrobots:~$</span>
+                        <input type="text" class="terminal-input" id="query-input" placeholder="Enter your query..." />
+                    </div>
+
+                    <div class="model-select">
+                        <label class="model-chip active" data-model="gpt4">
+                            <input type="checkbox" checked style="display: none;">
+                            <span>[GPT-4]</span>
+                        </label>
+                        <label class="model-chip active" data-model="claude">
+                            <input type="checkbox" checked style="display: none;">
+                            <span>[Claude]</span>
+                        </label>
+                        <label class="model-chip active" data-model="gemini">
+                            <input type="checkbox" checked style="display: none;">
+                            <span>[Gemini]</span>
+                        </label>
+                        <label class="model-chip" data-model="llama">
+                            <input type="checkbox" style="display: none;">
+                            <span>[Llama]</span>
+                        </label>
+                        <label class="model-chip" data-model="mistral">
+                            <input type="checkbox" style="display: none;">
+                            <span>[Mistral]</span>
+                        </label>
+                    </div>
+
+                    <button class="terminal-button primary" onclick="executeQuery()" style="width: 100%;">
+                        [ EXECUTE QUERY ]
+                    </button>
+                </div>
+
+                <div class="terminal-output" id="terminal-output">
+                    <div class="output-line">
+                        <div class="prompt">user@askrobots:~$ explain quantum computing</div>
+                    </div>
+                    <div class="output-line">
+                        <div class="output-model">&gt;&gt; GPT-4 [RESPONSE_TIME: 2.1s]</div>
+                        <div class="output-text">
+                            Quantum computing leverages quantum mechanical phenomena like superposition<br>
+                            and entanglement to process information. Unlike classical bits, qubits can<br>
+                            exist in multiple states simultaneously, enabling parallel computation at<br>
+                            an unprecedented scale.
+                        </div>
+                    </div>
+                    <div class="output-line">
+                        <div class="output-model">&gt;&gt; Claude [RESPONSE_TIME: 1.8s]</div>
+                        <div class="output-text">
+                            Think of quantum computers as exploring many paths simultaneously rather<br>
+                            than sequentially. Traditional computers check solutions one at a time,<br>
+                            while quantum computers can evaluate countless possibilities in parallel<br>
+                            through quantum superposition.
+                        </div>
+                    </div>
+                    <div class="output-line">
+                        <div class="output-model">&gt;&gt; Gemini [RESPONSE_TIME: 2.3s]</div>
+                        <div class="output-text">
+                            Quantum computing exploits quantum mechanics to solve complex problems.<br>
+                            By using qubits that can be in superposition states, quantum algorithms<br>
+                            can tackle optimization, cryptography, and simulation tasks exponentially<br>
+                            faster than classical approaches.
+                        </div>
+                    </div>
+                    <div class="output-line">
+                        <div class="prompt">user@askrobots:~$ <span class="blink">█</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="ascii-box stat-box">
+                    <div class="stat-value">12+</div>
+                    <div class="stat-label">AI MODELS</div>
+                </div>
+                <div class="ascii-box stat-box">
+                    <div class="stat-value">50K+</div>
+                    <div class="stat-label">USERS</div>
+                </div>
+                <div class="ascii-box stat-box">
+                    <div class="stat-value">5M+</div>
+                    <div class="stat-label">QUERIES</div>
+                </div>
+                <div class="ascii-box stat-box">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">UPTIME</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section" id="features">
+            <h2 class="section-title">[ SYSTEM FEATURES ]</h2>
+            <div class="features-grid">
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3>&gt; MULTI-MODEL ACCESS</h3>
+                    <p>Query all major AI models from a single terminal interface. Compare responses and choose the best answer.</p>
+                </div>
+
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">🎯</div>
+                    <h3>&gt; SMART ROUTING</h3>
+                    <p>Intelligent query analysis automatically routes requests to optimal models based on task type.</p>
+                </div>
+
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">📊</div>
+                    <h3>&gt; ANALYTICS DASHBOARD</h3>
+                    <p>Track performance metrics, response times, and model accuracy with detailed analytics.</p>
+                </div>
+
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">🔒</div>
+                    <h3>&gt; SECURE PROTOCOL</h3>
+                    <p>End-to-end encryption, zero-knowledge architecture, and SOC 2 compliance ensure data privacy.</p>
+                </div>
+
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">🚀</div>
+                    <h3>&gt; HIGH PERFORMANCE</h3>
+                    <p>Optimized infrastructure delivers sub-2-second response times with 99.9% uptime guarantee.</p>
+                </div>
+
+                <div class="ascii-box feature-box">
+                    <div class="feature-icon">🔧</div>
+                    <h3>&gt; API ACCESS</h3>
+                    <p>RESTful API and CLI tools for seamless integration into your existing workflows.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="pricing">
+            <h2 class="section-title">[ PRICING TIERS ]</h2>
+            <div class="pricing-grid">
+                <div class="ascii-box pricing-box">
+                    <div class="pricing-name">FREE</div>
+                    <div class="pricing-price">$0</div>
+                    <div class="pricing-period">/forever</div>
+                    <ul class="pricing-features">
+                        <li>100 queries/month</li>
+                        <li>3 AI models</li>
+                        <li>Community support</li>
+                        <li>Basic analytics</li>
+                    </ul>
+                    <button class="terminal-button" style="width: 100%;">[ CONNECT ]</button>
+                </div>
+
+                <div class="ascii-box pricing-box featured">
+                    <semantic-badge intent="warning" style="margin-bottom: 16px;">POPULAR</semantic-badge>
+                    <div class="pricing-name">PRO</div>
+                    <div class="pricing-price">$29</div>
+                    <div class="pricing-period">/month</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited queries</li>
+                        <li>All 12+ models</li>
+                        <li>Priority support</li>
+                        <li>Advanced analytics</li>
+                        <li>API access</li>
+                    </ul>
+                    <button class="terminal-button primary" style="width: 100%;">[ START TRIAL ]</button>
+                </div>
+
+                <div class="ascii-box pricing-box">
+                    <div class="pricing-name">ENTERPRISE</div>
+                    <div class="pricing-price">$$$</div>
+                    <div class="pricing-period">/custom</div>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>SSO & SAML</li>
+                        <li>Dedicated support</li>
+                        <li>Custom models</li>
+                        <li>SLA guarantee</li>
+                    </ul>
+                    <button class="terminal-button" style="width: 100%;">[ CONTACT ]</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-section">
+                        <h4>PRODUCT</h4>
+                        <ul>
+                            <li><a href="#">Features</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">Models</a></li>
+                            <li><a href="#">API Docs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>COMPANY</h4>
+                        <ul>
+                            <li><a href="#">About</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>RESOURCES</h4>
+                        <ul>
+                            <li><a href="#">Documentation</a></li>
+                            <li><a href="#">Tutorials</a></li>
+                            <li><a href="#">Community</a></li>
+                            <li><a href="#">Status</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>LEGAL</h4>
+                        <ul>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Security</a></li>
+                            <li><a href="#">Compliance</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    (c) 2025 AskRobots Terminal System | All Rights Reserved
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Model selector
+        document.querySelectorAll('.model-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('active');
+            });
+        });
+
+        // Execute query
+        function executeQuery() {
+            const input = document.getElementById('query-input');
+            const output = document.getElementById('terminal-output');
+            const query = input.value.trim();
+
+            if (!query) return;
+
+            const selectedModels = Array.from(document.querySelectorAll('.model-chip.active'))
+                .map(chip => chip.dataset.model);
+
+            output.innerHTML = `
+                <div class="output-line">
+                    <div class="prompt">user@askrobots:~$ ${query}</div>
+                </div>
+                <div class="output-line">
+                    <div class="output-text">Processing query across ${selectedModels.length} model(s)...</div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const responses = {
+                    gpt4: { name: 'GPT-4', time: '2.1s', text: 'Analyzing your query with advanced language understanding...' },
+                    claude: { name: 'Claude', time: '1.8s', text: 'Processing with nuanced comprehension and helpful analysis...' },
+                    gemini: { name: 'Gemini', time: '2.3s', text: 'Generating comprehensive response with multimodal intelligence...' },
+                    llama: { name: 'Llama', time: '1.5s', text: 'Computing answer using open-source language model...' },
+                    mistral: { name: 'Mistral', time: '1.9s', text: 'Processing with European AI architecture...' }
+                };
+
+                let html = `<div class="output-line"><div class="prompt">user@askrobots:~$ ${query}</div></div>`;
+
+                selectedModels.forEach(model => {
+                    const r = responses[model];
+                    if (r) {
+                        html += `
+                            <div class="output-line">
+                                <div class="output-model">&gt;&gt; ${r.name} [RESPONSE_TIME: ${r.time}]</div>
+                                <div class="output-text">${r.text}</div>
+                            </div>
+                        `;
+                    }
+                });
+
+                html += '<div class="output-line"><div class="prompt">user@askrobots:~$ <span class="blink">█</span></div></div>';
+                output.innerHTML = html;
+            }, 1000);
+
+            input.value = '';
+        }
+
+        // Enter key
+        document.getElementById('query-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeQuery();
+            }
+        });
+    </script>
+</body>
+</html>
