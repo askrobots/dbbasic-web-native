@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Pages - Complete Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #f9fafb;
+            color: #1a1a1a;
+        }
+
+        .section-divider {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 20px 48px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ========== AUTH LAYOUT ========== */
+        .auth-layout {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+        }
+
+        .auth-left {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .auth-left-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .auth-left h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .auth-left p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .auth-illustration {
+            font-size: 120px;
+            margin-bottom: 40px;
+        }
+
+        .auth-right {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-form-container {
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 48px;
+        }
+
+        .auth-header {
+            margin-bottom: 40px;
+        }
+
+        .auth-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .auth-header p {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-social {
+            background: white;
+            color: #374151;
+            border: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .btn-social:hover {
+            border-color: #7C3AED;
+            background: #faf5ff;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider-text {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .auth-footer a {
+            color: #7C3AED;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== CENTERED AUTH LAYOUT ========== */
+        .auth-centered {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                #f9fafb;
+            padding: 40px 24px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+        }
+
+        /* ========== 2FA CODE INPUT ========== */
+        .code-inputs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 32px 0;
+        }
+
+        .code-input {
+            width: 56px;
+            height: 56px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .code-input:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        /* ========== SUCCESS STATE ========== */
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 24px;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        @media (max-width: 1024px) {
+            .auth-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-left {
+                display: none;
+            }
+
+            .auth-right {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SPLIT LAYOUT - LOGIN -->
+    <div class="section-divider">01 - Login (Split Layout)</div>
+    <div class="auth-layout">
+        <div class="auth-left">
+            <div class="auth-left-content">
+                <div class="auth-illustration">🔐</div>
+                <h1>Welcome back</h1>
+                <p>Access your dashboard and manage your projects with ease. Secure, fast, and reliable.</p>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-form-container">
+                <div class="logo">YourBrand</div>
+                <div class="auth-header">
+                    <h2>Sign in to your account</h2>
+                    <p>Enter your credentials to access your account</p>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="you@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="••••••••">
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" style="font-size: 14px; color: #7C3AED; text-decoration: none; font-weight: 600;">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <span class="divider-text">Or continue with</span>
+                    <div class="divider-line"></div>
+                </div>
+
+                <button class="btn btn-social">
+                    <span style="font-size: 20px;">🔵</span>
+                    <span>Continue with Google</span>
+                </button>
+                <button class="btn btn-social">
+                    <span style="font-size: 20px;">⚫</span>
+                    <span>Continue with GitHub</span>
+                </button>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="#">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENTERED - SIGN UP -->
+    <div class="section-divider">02 - Sign Up (Centered)</div>
+    <div class="auth-centered">
+        <div class="auth-card">
+            <div class="logo" style="text-align: center;">YourBrand</div>
+            <div class="auth-header" style="text-align: center;">
+                <h2>Create your account</h2>
+                <p>Get started with a free account</p>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Full name</label>
+                    <input type="text" class="form-input" placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-input" placeholder="you@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="#">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD -->
+    <div class="section-divider">03 - Forgot Password</div>
+    <div class="auth-centered">
+        <div class="auth-card">
+            <div style="text-align: center; font-size: 64px; margin-bottom: 24px;">🔑</div>
+            <div class="auth-header" style="text-align: center;">
+                <h2>Reset your password</h2>
+                <p>Enter your email and we'll send you a reset link</p>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-input" placeholder="you@example.com">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send reset link</button>
+            </form>
+
+            <div class="auth-footer">
+                Remember your password? <a href="#">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESET PASSWORD -->
+    <div class="section-divider">04 - Reset Password</div>
+    <div class="auth-centered">
+        <div class="auth-card">
+            <div class="auth-header" style="text-align: center;">
+                <h2>Create new password</h2>
+                <p>Enter your new password below</p>
+            </div>
+
+            <div class="alert alert-warning">
+                ⚠️ Password must be at least 8 characters with uppercase, lowercase, and numbers
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">New password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm new password</label>
+                    <input type="password" class="form-input" placeholder="••••••••">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Reset password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TWO-FACTOR AUTHENTICATION -->
+    <div class="section-divider">05 - Two-Factor Authentication (2FA)</div>
+    <div class="auth-centered">
+        <div class="auth-card">
+            <div style="text-align: center; font-size: 64px; margin-bottom: 24px;">📱</div>
+            <div class="auth-header" style="text-align: center;">
+                <h2>Two-factor authentication</h2>
+                <p>Enter the 6-digit code from your authenticator app</p>
+            </div>
+
+            <form>
+                <div class="code-inputs">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                    <input type="text" class="code-input" maxlength="1" pattern="[0-9]">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Verify code</button>
+            </form>
+
+            <div class="auth-footer">
+                Didn't receive a code? <a href="#">Resend</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMAIL VERIFICATION -->
+    <div class="section-divider">06 - Email Verification Sent</div>
+    <div class="auth-centered">
+        <div class="auth-card" style="text-align: center;">
+            <div style="font-size: 64px; margin-bottom: 24px;">📧</div>
+            <div class="auth-header">
+                <h2>Check your email</h2>
+                <p>We've sent a verification link to<br><strong>john@example.com</strong></p>
+            </div>
+
+            <div class="alert alert-success">
+                ✓ Verification email sent successfully
+            </div>
+
+            <button class="btn btn-primary">Resend verification email</button>
+
+            <div class="auth-footer" style="margin-top: 24px;">
+                Wrong email? <a href="#">Change email address</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="section-divider">07 - Success / Confirmation</div>
+    <div class="auth-centered">
+        <div class="auth-card" style="text-align: center;">
+            <div class="success-icon">✓</div>
+            <div class="auth-header">
+                <h2>Password reset successful!</h2>
+                <p>Your password has been changed successfully. You can now sign in with your new password.</p>
+            </div>
+
+            <button class="btn btn-primary">Continue to sign in</button>
+        </div>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="section-divider">08 - Error State</div>
+    <div class="auth-centered">
+        <div class="auth-card">
+            <div class="auth-header" style="text-align: center;">
+                <h2>Sign in to your account</h2>
+                <p>Enter your credentials to continue</p>
+            </div>
+
+            <div class="alert alert-error">
+                ✕ Invalid email or password. Please try again.
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-input" value="wrong@example.com" style="border-color: #ef4444;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" style="border-color: #ef4444;">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+
+            <div class="auth-footer">
+                <a href="#">Forgot password?</a> • <a href="#">Need help?</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER NOTE -->
+    <div style="padding: 80px 24px; text-align: center; background: #f9fafb;">
+        <h2 style="margin-bottom: 16px; color: #111827;">Complete Authentication UI Collection</h2>
+        <p style="color: #6b7280; max-width: 700px; margin: 0 auto 32px; font-size: 18px; line-height: 1.7;">
+            Premium authentication pages with split layouts, centered cards, social login, 2FA,
+            email verification, success/error states - everything you need for auth flows.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary" style="width: auto;" onclick="window.location='demo-marketing-complete.html'">Marketing</button>
+            <button class="btn btn-primary" style="width: auto;" onclick="window.location='demo-ecommerce-complete.html'">eCommerce</button>
+            <button class="btn btn-primary" style="width: auto;" onclick="window.location='demo-dashboard-complete.html'">Dashboard</button>
+        </div>
+    </div>
+</body>
+</html>

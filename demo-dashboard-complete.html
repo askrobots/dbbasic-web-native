@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard / Application UI - Complete Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #f9fafb;
+            color: #1a1a1a;
+        }
+
+        .section-divider {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 20px 48px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========== DASHBOARD LAYOUT ========== */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+            min-height: 100vh;
+            background: #ffffff;
+        }
+
+        .sidebar {
+            background: #111827;
+            color: white;
+            padding: 24px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-section {
+            margin-bottom: 32px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: #1f2937;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            color: white;
+        }
+
+        .main-content {
+            background: #f9fafb;
+            padding: 32px;
+            overflow-x: auto;
+        }
+
+        /* ========== STATS CARDS ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        /* ========== DATA TABLE ========== */
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 32px;
+        }
+
+        .card-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .card-body {
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            padding: 16px 24px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 16px 24px;
+            font-size: 14px;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* ========== CHART PLACEHOLDER ========== */
+        .chart-container {
+            padding: 24px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        /* ========== ACTIVITY FEED ========== */
+        .activity-feed {
+            padding: 24px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .activity-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* ========== FORMS ========== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        /* ========== USER CARDS ========== */
+        .user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .user-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .user-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .user-avatar-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 16px;
+        }
+
+        .user-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .user-stat-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .user-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FULL DASHBOARD LAYOUT -->
+    <div class="section-divider">01 - Complete Dashboard Layout</div>
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="logo">Dashboard</div>
+
+            <nav class="nav-section">
+                <div class="nav-label">Main</div>
+                <a class="nav-item active">
+                    <span>📊</span>
+                    <span>Overview</span>
+                </a>
+                <a class="nav-item">
+                    <span>📈</span>
+                    <span>Analytics</span>
+                </a>
+                <a class="nav-item">
+                    <span>💰</span>
+                    <span>Revenue</span>
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">Management</div>
+                <a class="nav-item">
+                    <span>👥</span>
+                    <span>Users</span>
+                </a>
+                <a class="nav-item">
+                    <span>📦</span>
+                    <span>Products</span>
+                </a>
+                <a class="nav-item">
+                    <span>🛒</span>
+                    <span>Orders</span>
+                </a>
+            </nav>
+
+            <nav class="nav-section">
+                <div class="nav-label">Settings</div>
+                <a class="nav-item">
+                    <span>⚙️</span>
+                    <span>Settings</span>
+                </a>
+                <a class="nav-item">
+                    <span>🔔</span>
+                    <span>Notifications</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 32px;">Dashboard Overview</h1>
+
+            <!-- STATS CARDS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Total Revenue</div>
+                            <div class="stat-value">$45,231</div>
+                            <div class="stat-change positive">↑ 12.5% from last month</div>
+                        </div>
+                        <div class="stat-icon" style="background: #dbeafe;">💰</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Active Users</div>
+                            <div class="stat-value">2,845</div>
+                            <div class="stat-change positive">↑ 8.2% from last month</div>
+                        </div>
+                        <div class="stat-icon" style="background: #d1fae5;">👥</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Orders</div>
+                            <div class="stat-value">1,234</div>
+                            <div class="stat-change negative">↓ 3.1% from last month</div>
+                        </div>
+                        <div class="stat-icon" style="background: #fef3c7;">📦</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-label">Conversion Rate</div>
+                            <div class="stat-value">3.65%</div>
+                            <div class="stat-change positive">↑ 0.3% from last month</div>
+                        </div>
+                        <div class="stat-icon" style="background: #fae8ff;">📈</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Revenue Over Time</div>
+                    <button class="btn btn-secondary">Export</button>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">📊 Chart Placeholder</div>
+                </div>
+            </div>
+
+            <!-- DATA TABLE -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Recent Orders</div>
+                    <button class="btn btn-secondary">View All</button>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#ORD-001</td>
+                                <td>John Smith</td>
+                                <td>Premium T-Shirt</td>
+                                <td>$29.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>2025-11-03</td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-002</td>
+                                <td>Sarah Chen</td>
+                                <td>Wireless Headphones</td>
+                                <td>$199.00</td>
+                                <td><span class="badge badge-warning">Processing</span></td>
+                                <td>2025-11-03</td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-003</td>
+                                <td>Mike Johnson</td>
+                                <td>Running Shoes</td>
+                                <td>$89.00</td>
+                                <td><span class="badge badge-success">Completed</span></td>
+                                <td>2025-11-02</td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-004</td>
+                                <td>Emma Davis</td>
+                                <td>Smart Watch</td>
+                                <td>$299.00</td>
+                                <td><span class="badge badge-info">Shipped</span></td>
+                                <td>2025-11-02</td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-005</td>
+                                <td>Alex Brown</td>
+                                <td>Laptop Stand</td>
+                                <td>$45.00</td>
+                                <td><span class="badge badge-error">Cancelled</span></td>
+                                <td>2025-11-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="section-divider">02 - Activity Feed</div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Recent Activity</div>
+            </div>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-avatar">JS</div>
+                    <div class="activity-content">
+                        <div class="activity-text"><strong>John Smith</strong> placed a new order #ORD-001</div>
+                        <div class="activity-time">2 minutes ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">SC</div>
+                    <div class="activity-content">
+                        <div class="activity-text"><strong>Sarah Chen</strong> updated their profile</div>
+                        <div class="activity-time">15 minutes ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">MJ</div>
+                    <div class="activity-content">
+                        <div class="activity-text"><strong>Mike Johnson</strong> left a 5-star review</div>
+                        <div class="activity-time">1 hour ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">ED</div>
+                    <div class="activity-content">
+                        <div class="activity-text"><strong>Emma Davis</strong> subscribed to newsletter</div>
+                        <div class="activity-time">3 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMS -->
+    <div class="section-divider">03 - Form Components</div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">User Information</div>
+                <button class="btn btn-primary">Save Changes</button>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-input" placeholder="John" value="John">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-input" placeholder="Doe" value="Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="john@example.com" value="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <select class="form-select">
+                        <option>Admin</option>
+                        <option>Manager</option>
+                        <option>User</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" placeholder="+1 (555) 123-4567">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Country</label>
+                    <select class="form-select">
+                        <option>United States</option>
+                        <option>Canada</option>
+                        <option>United Kingdom</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- USER CARDS -->
+    <div class="section-divider">04 - Team Members / User Cards</div>
+    <div class="container">
+        <h2 style="font-size: 32px; font-weight: 800; margin-bottom: 32px;">Team Members</h2>
+        <div class="user-grid">
+            <div class="user-card">
+                <div class="user-avatar-large">JS</div>
+                <div class="user-name">John Smith</div>
+                <div class="user-role">Frontend Developer</div>
+                <button class="btn btn-primary" style="width: 100%;">View Profile</button>
+                <div class="user-stats">
+                    <div>
+                        <div class="user-stat-value">24</div>
+                        <div class="user-stat-label">Projects</div>
+                    </div>
+                    <div>
+                        <div class="user-stat-value">156</div>
+                        <div class="user-stat-label">Tasks</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-avatar-large" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">SC</div>
+                <div class="user-name">Sarah Chen</div>
+                <div class="user-role">Product Designer</div>
+                <button class="btn btn-primary" style="width: 100%;">View Profile</button>
+                <div class="user-stats">
+                    <div>
+                        <div class="user-stat-value">18</div>
+                        <div class="user-stat-label">Projects</div>
+                    </div>
+                    <div>
+                        <div class="user-stat-value">203</div>
+                        <div class="user-stat-label">Tasks</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-avatar-large" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">MJ</div>
+                <div class="user-name">Mike Johnson</div>
+                <div class="user-role">Backend Developer</div>
+                <button class="btn btn-primary" style="width: 100%;">View Profile</button>
+                <div class="user-stats">
+                    <div>
+                        <div class="user-stat-value">31</div>
+                        <div class="user-stat-label">Projects</div>
+                    </div>
+                    <div>
+                        <div class="user-stat-value">287</div>
+                        <div class="user-stat-label">Tasks</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-card">
+                <div class="user-avatar-large" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">ED</div>
+                <div class="user-name">Emma Davis</div>
+                <div class="user-role">Project Manager</div>
+                <button class="btn btn-primary" style="width: 100%;">View Profile</button>
+                <div class="user-stats">
+                    <div>
+                        <div class="user-stat-value">42</div>
+                        <div class="user-stat-label">Projects</div>
+                    </div>
+                    <div>
+                        <div class="user-stat-value">512</div>
+                        <div class="user-stat-label">Tasks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER NOTE -->
+    <div style="padding: 80px 24px; text-align: center; background: #f9fafb;">
+        <h2 style="margin-bottom: 16px; color: #111827;">Complete Dashboard / Application UI Collection</h2>
+        <p style="color: #6b7280; max-width: 700px; margin: 0 auto 32px; font-size: 18px; line-height: 1.7;">
+            Premium admin dashboard components for modern web applications.
+            Sidebar navigation, stats cards, data tables, forms, charts, and team member cards.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="window.location='demo-marketing-complete.html'">Marketing Components</button>
+            <button class="btn btn-primary" onclick="window.location='demo-ecommerce-complete.html'">eCommerce Components</button>
+        </div>
+    </div>
+</body>
+</html>

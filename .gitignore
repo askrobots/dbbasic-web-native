@@ -22,6 +22,19 @@ ENV/
 test-results/*.html
 screenshots/*.png
 
+# Debug/test files (temporary work, not for release)
+debug-*.html
+debug-*.png
+test-*.html
+test-*.png
+demo-*-screenshot.png
+demo-FIXED*.png
+demo-current-state.png
+demo-premium-real.png
+header-fullwidth.png
+hero-*.png
+*-check.png
+
 # macOS
 .DS_Store
 

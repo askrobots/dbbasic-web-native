@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Templates - Premium Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 48px 24px;
+            line-height: 1.6;
+        }
+
+        .showcase-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 64px;
+        }
+
+        .showcase-header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -0.045em;
+            margin-bottom: 16px;
+        }
+
+        .showcase-header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .email-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 48px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        /* Email Preview Frame */
+        .email-preview {
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Email Template Wrapper (600px standard) */
+        .email-template {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+
+        /* Welcome Email */
+        .email-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 48px 40px;
+            text-align: center;
+        }
+
+        .email-logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .email-body {
+            padding: 48px 40px;
+        }
+
+        .email-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .email-body p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .email-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        .email-button-secondary {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .email-footer {
+            background: #f9fafb;
+            padding: 32px 40px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .email-footer p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .email-social {
+            margin: 16px 0;
+        }
+
+        .email-social a {
+            display: inline-block;
+            margin: 0 8px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        /* Order Confirmation */
+        .order-header {
+            background: #10b981;
+            color: white;
+            padding: 32px 40px;
+            text-align: center;
+        }
+
+        .order-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .order-number {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 16px;
+            padding: 24px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .order-item-meta {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .order-item-price {
+            font-weight: 600;
+            color: #111827;
+            text-align: right;
+        }
+
+        .order-summary {
+            margin-top: 24px;
+            padding: 24px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 18px;
+            color: #111827;
+            padding-top: 12px;
+            border-top: 2px solid #e5e7eb;
+            margin-top: 12px;
+        }
+
+        /* Password Reset */
+        .alert-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 8px;
+        }
+
+        .alert-box p {
+            color: #92400e;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .code-box {
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            padding: 24px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .code-box .code {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Newsletter */
+        .newsletter-hero {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            margin-bottom: 32px;
+        }
+
+        .article-card {
+            margin-bottom: 32px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .article-card:last-child {
+            border-bottom: none;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .article-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .article-excerpt {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .article-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /* Invoice */
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 48px;
+            padding: 40px 40px 0;
+        }
+
+        .invoice-logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #111827;
+        }
+
+        .invoice-info {
+            text-align: right;
+        }
+
+        .invoice-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .invoice-date {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .invoice-addresses {
+            display: flex;
+            gap: 32px;
+            padding: 0 40px;
+            margin-bottom: 48px;
+        }
+
+        .address-block {
+            flex: 1;
+        }
+
+        .address-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .address-content {
+            font-size: 14px;
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        .invoice-table th {
+            background: #f9fafb;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .invoice-table td {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #111827;
+            font-size: 15px;
+        }
+
+        .invoice-table th:last-child,
+        .invoice-table td:last-child {
+            text-align: right;
+        }
+
+        .invoice-total {
+            padding: 0 40px;
+            margin-top: 24px;
+        }
+
+        .invoice-total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 15px;
+        }
+
+        .invoice-total-row.final {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            padding-top: 16px;
+            border-top: 2px solid #e5e7eb;
+            margin-top: 8px;
+        }
+
+        /* Notification Email */
+        .notification-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin: 0 auto 24px;
+        }
+
+        .notification-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .activity-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .activity-meta {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .email-preview {
+                padding: 24px;
+            }
+
+            .email-body,
+            .email-header,
+            .email-footer,
+            .order-header {
+                padding: 32px 24px;
+            }
+
+            .invoice-addresses {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .invoice-header {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .invoice-info {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="showcase-header">
+        <h1>📧 Email Templates</h1>
+        <p>Professional transactional & marketing emails</p>
+    </div>
+
+    <div class="email-container">
+        <!-- Welcome Email -->
+        <div>
+            <h2 class="section-title">Welcome Email</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="email-header">
+                        <div class="email-logo">ACME</div>
+                    </div>
+
+                    <div class="email-body">
+                        <h2>Welcome to ACME! 👋</h2>
+                        <p>Hi Sarah,</p>
+                        <p>We're thrilled to have you on board! Your account has been successfully created and you're ready to start exploring all the amazing features we have to offer.</p>
+                        <p>Here's what you can do next:</p>
+                        <ul style="color: #6b7280; margin-bottom: 24px; padding-left: 20px;">
+                            <li style="margin-bottom: 8px;">Complete your profile to personalize your experience</li>
+                            <li style="margin-bottom: 8px;">Explore our product catalog and find what you need</li>
+                            <li style="margin-bottom: 8px;">Connect with our community of users</li>
+                        </ul>
+                        <a href="#" class="email-button">Get Started</a>
+                        <a href="#" class="email-button email-button-secondary" style="margin-left: 12px;">View Tutorial</a>
+                    </div>
+
+                    <div class="email-footer">
+                        <p><strong>ACME Inc.</strong></p>
+                        <p>123 Business Street, Suite 100<br>San Francisco, CA 94103</p>
+                        <div class="email-social">
+                            <a href="#">📘</a>
+                            <a href="#">🐦</a>
+                            <a href="#">📸</a>
+                            <a href="#">💼</a>
+                        </div>
+                        <p style="margin-top: 16px;">
+                            <a href="#" style="color: #6b7280; font-size: 13px;">Unsubscribe</a> |
+                            <a href="#" style="color: #6b7280; font-size: 13px;">Preferences</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Confirmation -->
+        <div>
+            <h2 class="section-title">Order Confirmation</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="order-header">
+                        <div style="font-size: 48px; margin-bottom: 8px;">✓</div>
+                        <h2>Order Confirmed!</h2>
+                        <div class="order-number">Order #ACM-2847</div>
+                    </div>
+
+                    <div class="email-body">
+                        <p>Hi John,</p>
+                        <p>Thank you for your order! We're getting it ready to ship. You'll receive another email when your items are on their way.</p>
+
+                        <div class="order-item">
+                            <div class="order-item-image">👕</div>
+                            <div class="order-item-details">
+                                <div class="order-item-name">Premium Cotton T-Shirt</div>
+                                <div class="order-item-meta">Size: Large • Color: Navy • Qty: 2</div>
+                            </div>
+                            <div class="order-item-price">$58.00</div>
+                        </div>
+
+                        <div class="order-item">
+                            <div class="order-item-image">👖</div>
+                            <div class="order-item-details">
+                                <div class="order-item-name">Slim Fit Jeans</div>
+                                <div class="order-item-meta">Size: 32x32 • Color: Dark Wash • Qty: 1</div>
+                            </div>
+                            <div class="order-item-price">$89.00</div>
+                        </div>
+
+                        <div class="order-item">
+                            <div class="order-item-image">👟</div>
+                            <div class="order-item-details">
+                                <div class="order-item-name">Classic Sneakers</div>
+                                <div class="order-item-meta">Size: 10 • Color: White • Qty: 1</div>
+                            </div>
+                            <div class="order-item-price">$120.00</div>
+                        </div>
+
+                        <div class="order-summary">
+                            <div class="summary-row">
+                                <span style="color: #6b7280;">Subtotal</span>
+                                <span>$267.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span style="color: #6b7280;">Shipping</span>
+                                <span>$12.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span style="color: #6b7280;">Tax</span>
+                                <span>$23.95</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span>$302.95</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 32px; padding: 24px; background: #f9fafb; border-radius: 12px;">
+                            <div style="font-weight: 600; color: #111827; margin-bottom: 8px;">Shipping Address</div>
+                            <div style="color: #6b7280; font-size: 14px;">
+                                John Smith<br>
+                                456 Oak Avenue, Apt 3B<br>
+                                Portland, OR 97201
+                            </div>
+                            <div style="font-weight: 600; color: #111827; margin-top: 16px; margin-bottom: 8px;">Estimated Delivery</div>
+                            <div style="color: #6b7280; font-size: 14px;">November 8-10, 2025</div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 32px;">
+                            <a href="#" class="email-button">Track Your Order</a>
+                        </div>
+                    </div>
+
+                    <div class="email-footer">
+                        <p>Questions? Contact us at support@acme.com or call 1-800-ACME-HELP</p>
+                        <p style="margin-top: 16px;"><strong>ACME Store</strong> • 123 Business Street, San Francisco, CA 94103</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Reset -->
+        <div>
+            <h2 class="section-title">Password Reset</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="email-header">
+                        <div class="email-logo">🔒 ACME</div>
+                    </div>
+
+                    <div class="email-body">
+                        <h2>Reset Your Password</h2>
+                        <p>Hi there,</p>
+                        <p>We received a request to reset your password. Use the code below to complete the process:</p>
+
+                        <div class="code-box">
+                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Verification Code</div>
+                            <div class="code">847293</div>
+                            <div style="font-size: 13px; color: #6b7280; margin-top: 8px;">Expires in 15 minutes</div>
+                        </div>
+
+                        <div class="alert-box">
+                            <p><strong>⚠️ Security Notice:</strong> If you didn't request this password reset, please ignore this email and ensure your account is secure.</p>
+                        </div>
+
+                        <p style="margin-top: 24px;">Alternatively, you can click the button below:</p>
+                        <a href="#" class="email-button">Reset Password</a>
+
+                        <p style="margin-top: 32px; font-size: 14px; color: #9ca3af;">This link will expire in 1 hour for your security.</p>
+                    </div>
+
+                    <div class="email-footer">
+                        <p>For security reasons, this link can only be used once.</p>
+                        <p><strong>ACME Inc.</strong> • 123 Business Street, San Francisco, CA 94103</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+            <h2 class="section-title">Newsletter</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="email-header">
+                        <div class="email-logo">ACME WEEKLY</div>
+                        <div style="color: white; opacity: 0.9; font-size: 14px; margin-top: 8px;">Your weekly dose of insights • Nov 4, 2025</div>
+                    </div>
+
+                    <div class="email-body">
+                        <div class="newsletter-hero">📰</div>
+
+                        <h2 style="margin-bottom: 8px;">This Week's Top Stories</h2>
+                        <p style="margin-bottom: 40px;">Curated insights and updates from the ACME team</p>
+
+                        <div class="article-card">
+                            <span class="article-category">Product</span>
+                            <div class="article-title">Introducing our new dashboard redesign</div>
+                            <p class="article-excerpt">We've completely reimagined the dashboard experience with a focus on clarity, speed, and user control. The new design includes customizable widgets, dark mode support, and...</p>
+                            <a href="#" class="article-link">Read more →</a>
+                        </div>
+
+                        <div class="article-card">
+                            <span class="article-category" style="background: #fce7f3; color: #9f1239;">Engineering</span>
+                            <div class="article-title">How we scaled to 1M users</div>
+                            <p class="article-excerpt">A deep dive into the infrastructure changes, database optimizations, and architectural decisions that allowed us to handle 100x growth in just 6 months...</p>
+                            <a href="#" class="article-link">Read more →</a>
+                        </div>
+
+                        <div class="article-card">
+                            <span class="article-category" style="background: #d1fae5; color: #065f46;">Company</span>
+                            <div class="article-title">We're hiring! Join our growing team</div>
+                            <p class="article-excerpt">We're looking for talented engineers, designers, and product managers to help us build the future of work. Check out our open positions and see where you fit...</p>
+                            <a href="#" class="article-link">View open roles →</a>
+                        </div>
+
+                        <div style="margin-top: 48px; padding: 32px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 24px; margin-bottom: 8px;">💡</div>
+                            <h3 style="color: white; margin-bottom: 12px; font-size: 20px;">Quick Tip of the Week</h3>
+                            <p style="color: white; opacity: 0.95; margin-bottom: 20px;">Did you know you can export your data in multiple formats? Just head to Settings > Data > Export and choose your preferred format.</p>
+                            <a href="#" style="background: white; color: #667eea; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">Try it now</a>
+                        </div>
+                    </div>
+
+                    <div class="email-footer">
+                        <p><strong>Thanks for reading!</strong></p>
+                        <p>You're receiving this because you subscribed to ACME Weekly.</p>
+                        <div class="email-social">
+                            <a href="#">📘</a>
+                            <a href="#">🐦</a>
+                            <a href="#">📸</a>
+                            <a href="#">💼</a>
+                        </div>
+                        <p style="margin-top: 16px;">
+                            <a href="#" style="color: #6b7280; font-size: 13px;">Update preferences</a> |
+                            <a href="#" style="color: #6b7280; font-size: 13px;">Unsubscribe</a>
+                        </p>
+                        <p style="margin-top: 16px;"><strong>ACME Inc.</strong> • 123 Business Street, San Francisco, CA 94103</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice -->
+        <div>
+            <h2 class="section-title">Invoice</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="invoice-header">
+                        <div>
+                            <div class="invoice-logo">ACME</div>
+                            <div style="color: #6b7280; font-size: 14px; margin-top: 4px;">Professional Services</div>
+                        </div>
+                        <div class="invoice-info">
+                            <div class="invoice-number">INVOICE #1847</div>
+                            <div class="invoice-date">Due: November 15, 2025</div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-addresses">
+                        <div class="address-block">
+                            <div class="address-label">From</div>
+                            <div class="address-content">
+                                <strong>ACME Inc.</strong><br>
+                                123 Business Street, Suite 100<br>
+                                San Francisco, CA 94103<br>
+                                Tax ID: 12-3456789
+                            </div>
+                        </div>
+                        <div class="address-block">
+                            <div class="address-label">Bill To</div>
+                            <div class="address-content">
+                                <strong>TechCorp Solutions</strong><br>
+                                456 Innovation Drive<br>
+                                Austin, TX 78701<br>
+                                Attn: Finance Department
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="padding: 0 40px;">
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Rate</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; margin-bottom: 4px;">Website Development</div>
+                                        <div style="font-size: 13px; color: #6b7280;">Custom responsive website with CMS integration</div>
+                                    </td>
+                                    <td>1</td>
+                                    <td>$8,500.00</td>
+                                    <td>$8,500.00</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; margin-bottom: 4px;">UI/UX Design</div>
+                                        <div style="font-size: 13px; color: #6b7280;">Complete design system and prototypes</div>
+                                    </td>
+                                    <td>1</td>
+                                    <td>$4,200.00</td>
+                                    <td>$4,200.00</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; margin-bottom: 4px;">Consulting Hours</div>
+                                        <div style="font-size: 13px; color: #6b7280;">Strategy and technical consulting (40 hours @ $150/hr)</div>
+                                    </td>
+                                    <td>40</td>
+                                    <td>$150.00</td>
+                                    <td>$6,000.00</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600; margin-bottom: 4px;">Premium Support</div>
+                                        <div style="font-size: 13px; color: #6b7280;">3 months of priority support and maintenance</div>
+                                    </td>
+                                    <td>3</td>
+                                    <td>$500.00</td>
+                                    <td>$1,500.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="invoice-total">
+                        <div class="invoice-total-row">
+                            <span style="color: #6b7280;">Subtotal</span>
+                            <span>$20,200.00</span>
+                        </div>
+                        <div class="invoice-total-row">
+                            <span style="color: #6b7280;">Tax (8.5%)</span>
+                            <span>$1,717.00</span>
+                        </div>
+                        <div class="invoice-total-row final">
+                            <span>Total Due</span>
+                            <span>$21,917.00</span>
+                        </div>
+                    </div>
+
+                    <div style="padding: 32px 40px; margin-top: 32px; background: #f9fafb; border-radius: 12px; margin: 32px 40px;">
+                        <div style="font-weight: 600; color: #111827; margin-bottom: 12px;">Payment Information</div>
+                        <div style="color: #6b7280; font-size: 14px; line-height: 1.8;">
+                            <strong>Bank Transfer:</strong><br>
+                            Account: 1234-5678-9012<br>
+                            Routing: 987654321<br>
+                            Swift: ACMEUSXX<br><br>
+                            <strong>Online Payment:</strong><br>
+                            Visit acme.com/pay/invoice-1847
+                        </div>
+                    </div>
+
+                    <div class="email-footer">
+                        <p>Thank you for your business!</p>
+                        <p style="margin-top: 8px; font-size: 13px;">Please reference invoice #1847 with your payment</p>
+                        <p style="margin-top: 16px;"><strong>ACME Inc.</strong> • support@acme.com • 1-800-ACME-HELP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div>
+            <h2 class="section-title">Activity Notification</h2>
+            <div class="email-preview">
+                <div class="email-template">
+                    <div class="email-header">
+                        <div class="email-logo">ACME</div>
+                    </div>
+
+                    <div class="email-body" style="text-align: center;">
+                        <div class="notification-icon">🔔</div>
+                        <span class="notification-badge">3 New Activities</span>
+                        <h2 style="margin-bottom: 8px;">You have new activity</h2>
+                        <p style="margin-bottom: 32px;">Here's what happened while you were away</p>
+                    </div>
+
+                    <div style="padding: 0 40px 48px;">
+                        <div class="activity-item">
+                            <div class="activity-avatar">JD</div>
+                            <div class="activity-content">
+                                <div class="activity-title">John Doe commented on your post</div>
+                                <div class="activity-meta">"Great insights! I'd love to discuss this further..." • 2 hours ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">SM</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Sarah Miller liked your project</div>
+                                <div class="activity-meta">"Modern Dashboard Redesign" • 5 hours ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-avatar" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">AT</div>
+                            <div class="activity-content">
+                                <div class="activity-title">Alex Thompson started following you</div>
+                                <div class="activity-meta">Product Designer at TechCorp • 1 day ago</div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 32px;">
+                            <a href="#" class="email-button">View All Activity</a>
+                        </div>
+
+                        <div style="margin-top: 32px; padding: 20px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+                            <div style="font-weight: 600; color: #92400e; margin-bottom: 4px;">💡 Tip: Stay connected</div>
+                            <div style="color: #92400e; font-size: 14px;">Turn on push notifications to get instant updates on your mobile device.</div>
+                        </div>
+                    </div>
+
+                    <div class="email-footer">
+                        <p>You're receiving this because you have activity notifications enabled.</p>
+                        <p style="margin-top: 8px;">
+                            <a href="#" style="color: #6b7280; font-size: 13px;">Manage notification settings</a>
+                        </p>
+                        <p style="margin-top: 16px;"><strong>ACME Inc.</strong> • 123 Business Street, San Francisco, CA 94103</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

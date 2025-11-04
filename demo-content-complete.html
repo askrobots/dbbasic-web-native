@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog, Portfolio & Social - Complete Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .section-divider {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            padding: 20px 48px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* ========== BLOG GRID ========== */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 32px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .blog-content {
+            padding: 32px;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .blog-category {
+            padding: 4px 12px;
+            background: #f3e8ff;
+            color: #7C3AED;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .blog-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .blog-excerpt {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .author-date {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* ========== BLOG POST ========== */
+        .blog-post-header {
+            max-width: 800px;
+            margin: 0 auto 48px;
+            text-align: center;
+        }
+
+        .blog-post-header h1 {
+            font-size: 56px;
+            font-weight: 900;
+            color: #111827;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .blog-post-meta {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .blog-post-image {
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            margin: 0 auto 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+        }
+
+        .blog-post-content {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .blog-post-content h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #111827;
+            margin: 48px 0 24px;
+        }
+
+        .blog-post-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #374151;
+            margin-bottom: 24px;
+        }
+
+        /* ========== PORTFOLIO GRID ========== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 32px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-description {
+            font-size: 16px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* ========== TEAM SECTION ========== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: 800;
+        }
+
+        .team-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .team-role {
+            font-size: 16px;
+            color: #7C3AED;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .team-bio {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: #7C3AED;
+            transform: translateY(-2px);
+        }
+
+        /* ========== COMMENTS SECTION ========== */
+        .comments-section {
+            max-width: 800px;
+            margin: 64px auto;
+            padding: 48px;
+            background: #f9fafb;
+            border-radius: 16px;
+        }
+
+        .comments-header {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 32px;
+        }
+
+        .comment {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .comment-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .comment-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .comment-meta {
+            flex: 1;
+        }
+
+        .comment-author {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .comment-date {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .comment-text {
+            font-size: 15px;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .comment-action {
+            color: #6b7280;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .comment-action:hover {
+            color: #7C3AED;
+        }
+
+        /* ========== SOCIAL FEED ========== */
+        .feed-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .feed-post {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .post-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .post-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .post-meta {
+            flex: 1;
+        }
+
+        .post-author {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .post-time {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .post-content {
+            font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #6b7280;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .post-action:hover {
+            color: #7C3AED;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .blog-grid, .portfolio-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- BLOG GRID -->
+    <div class="section-divider">01 - Blog Grid / Article Listing</div>
+    <div class="container">
+        <h2 style="font-size: 48px; font-weight: 900; margin-bottom: 48px;">Latest Articles</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <div class="blog-image">📝</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Development</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h3 class="blog-title">Building Modern Web Applications</h3>
+                    <p class="blog-excerpt">Learn how to build scalable, performant web applications using modern frameworks and best practices.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <div class="author-name">John Smith</div>
+                            <div class="author-date">Nov 3, 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🎨</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Design</span>
+                        <span>•</span>
+                        <span>8 min read</span>
+                    </div>
+                    <h3 class="blog-title">The Art of User Interface Design</h3>
+                    <p class="blog-excerpt">Explore the principles of creating intuitive, beautiful interfaces that users love to interact with.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">SC</div>
+                        <div class="author-info">
+                            <div class="author-name">Sarah Chen</div>
+                            <div class="author-date">Nov 2, 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">💡</div>
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span class="blog-category">Business</span>
+                        <span>•</span>
+                        <span>6 min read</span>
+                    </div>
+                    <h3 class="blog-title">Growing Your Startup in 2025</h3>
+                    <p class="blog-excerpt">Proven strategies for scaling your startup from zero to one million users and beyond.</p>
+                    <div class="blog-author">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">MJ</div>
+                        <div class="author-info">
+                            <div class="author-name">Mike Johnson</div>
+                            <div class="author-date">Nov 1, 2025</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG POST -->
+    <div class="section-divider">02 - Full Blog Post / Article Page</div>
+    <div class="container">
+        <div class="blog-post-header">
+            <span class="blog-category">Development</span>
+            <h1>The Complete Guide to Modern Web Development</h1>
+            <div class="blog-post-meta">
+                <span><strong>John Smith</strong></span>
+                <span>•</span>
+                <span>November 3, 2025</span>
+                <span>•</span>
+                <span>12 min read</span>
+            </div>
+        </div>
+
+        <div class="blog-post-image">📝</div>
+
+        <div class="blog-post-content">
+            <p>Web development has evolved significantly over the past decade. Today's developers have access to powerful tools, frameworks, and methodologies that enable us to build better applications faster than ever before.</p>
+
+            <p>In this comprehensive guide, we'll explore the latest trends, best practices, and techniques that every modern web developer should know in 2025.</p>
+
+            <h2>The Modern Tech Stack</h2>
+            <p>Choosing the right technology stack is crucial for success. The most popular combinations today include React with Next.js, Vue with Nuxt, and Angular for enterprise applications. Each has its strengths and use cases.</p>
+
+            <p>Performance optimization has become a top priority, with Core Web Vitals now playing a significant role in SEO rankings. Developers must focus on metrics like Largest Contentful Paint (LCP), First Input Delay (FID), and Cumulative Layout Shift (CLS).</p>
+
+            <h2>Best Practices for 2025</h2>
+            <p>Modern web development requires attention to accessibility, performance, security, and user experience. Following established patterns and staying updated with the latest standards ensures your applications remain competitive and maintainable.</p>
+        </div>
+
+        <!-- COMMENTS -->
+        <div class="comments-section">
+            <h3 class="comments-header">Comments (3)</h3>
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar">SC</div>
+                    <div class="comment-meta">
+                        <div class="comment-author">Sarah Chen</div>
+                        <div class="comment-date">2 hours ago</div>
+                    </div>
+                </div>
+                <p class="comment-text">Great article! The section on performance optimization was particularly helpful. I've been struggling with LCP on my site and your tips gave me some clear action items.</p>
+                <div class="comment-actions">
+                    <span class="comment-action">👍 12 Likes</span>
+                    <span class="comment-action">Reply</span>
+                </div>
+            </div>
+
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">MJ</div>
+                    <div class="comment-meta">
+                        <div class="comment-author">Mike Johnson</div>
+                        <div class="comment-date">5 hours ago</div>
+                    </div>
+                </div>
+                <p class="comment-text">Would love to see a follow-up article on serverless architectures and edge computing. Those topics are getting more important every day.</p>
+                <div class="comment-actions">
+                    <span class="comment-action">👍 8 Likes</span>
+                    <span class="comment-action">Reply</span>
+                </div>
+            </div>
+
+            <div class="comment">
+                <div class="comment-header">
+                    <div class="comment-avatar" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">ED</div>
+                    <div class="comment-meta">
+                        <div class="comment-author">Emma Davis</div>
+                        <div class="comment-date">1 day ago</div>
+                    </div>
+                </div>
+                <p class="comment-text">Excellent overview! Bookmarking this for my team. The real-world examples really help cement the concepts.</p>
+                <div class="comment-actions">
+                    <span class="comment-action">👍 15 Likes</span>
+                    <span class="comment-action">Reply</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PORTFOLIO GRID -->
+    <div class="section-divider">03 - Portfolio / Project Showcase</div>
+    <div class="container" style="background: #f9fafb; padding: 80px 24px;">
+        <h2 style="font-size: 48px; font-weight: 900; margin-bottom: 48px; text-align: center;">Featured Projects</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">🎨</div>
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Brand Identity Design</h3>
+                    <p class="portfolio-description">Complete brand redesign for a tech startup</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">📱</div>
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Mobile App Development</h3>
+                    <p class="portfolio-description">iOS and Android app for e-commerce platform</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">🌐</div>
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">Website Redesign</h3>
+                    <p class="portfolio-description">Modern, responsive website for agency</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">💼</div>
+                <div class="portfolio-overlay">
+                    <h3 class="portfolio-title">SaaS Dashboard</h3>
+                    <p class="portfolio-description">Analytics dashboard for B2B platform</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM SECTION -->
+    <div class="section-divider">04 - Team / About Us</div>
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 64px;">
+            <h2 style="font-size: 48px; font-weight: 900; margin-bottom: 16px;">Meet Our Team</h2>
+            <p style="font-size: 20px; color: #6b7280; max-width: 600px; margin: 0 auto;">Talented individuals working together to build amazing products</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">JS</div>
+                <h3 class="team-name">John Smith</h3>
+                <div class="team-role">CEO & Founder</div>
+                <p class="team-bio">Passionate about building products that make a difference. 10+ years in tech leadership.</p>
+                <div class="social-links">
+                    <div class="social-link">🐦</div>
+                    <div class="social-link">💼</div>
+                    <div class="social-link">🔗</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">SC</div>
+                <h3 class="team-name">Sarah Chen</h3>
+                <div class="team-role">Head of Design</div>
+                <p class="team-bio">Award-winning designer with a focus on user experience and accessibility.</p>
+                <div class="social-links">
+                    <div class="social-link">🐦</div>
+                    <div class="social-link">💼</div>
+                    <div class="social-link">🔗</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">MJ</div>
+                <h3 class="team-name">Mike Johnson</h3>
+                <div class="team-role">Engineering Lead</div>
+                <p class="team-bio">Full-stack engineer passionate about scalable architecture and clean code.</p>
+                <div class="social-links">
+                    <div class="social-link">🐦</div>
+                    <div class="social-link">💼</div>
+                    <div class="social-link">🔗</div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">ED</div>
+                <h3 class="team-name">Emma Davis</h3>
+                <div class="team-role">Product Manager</div>
+                <p class="team-bio">Data-driven product leader focused on delivering value to customers.</p>
+                <div class="social-links">
+                    <div class="social-link">🐦</div>
+                    <div class="social-link">💼</div>
+                    <div class="social-link">🔗</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOCIAL FEED -->
+    <div class="section-divider">05 - Social Feed / Activity Stream</div>
+    <div class="container" style="background: #f9fafb; padding: 80px 24px;">
+        <h2 style="font-size: 48px; font-weight: 900; margin-bottom: 48px; text-align: center;">Activity Feed</h2>
+        <div class="feed-container">
+            <div class="feed-post">
+                <div class="post-header">
+                    <div class="post-avatar">JS</div>
+                    <div class="post-meta">
+                        <div class="post-author">John Smith</div>
+                        <div class="post-time">2 hours ago</div>
+                    </div>
+                </div>
+                <p class="post-content">Just launched our new dashboard redesign! Excited to hear what you all think. Check it out and let me know your feedback 🚀</p>
+                <div class="post-image">📊</div>
+                <div class="post-actions">
+                    <span class="post-action">👍 24 Likes</span>
+                    <span class="post-action">💬 5 Comments</span>
+                    <span class="post-action">🔄 3 Shares</span>
+                </div>
+            </div>
+
+            <div class="feed-post">
+                <div class="post-header">
+                    <div class="post-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">SC</div>
+                    <div class="post-meta">
+                        <div class="post-author">Sarah Chen</div>
+                        <div class="post-time">5 hours ago</div>
+                    </div>
+                </div>
+                <p class="post-content">Working on some exciting new features! Can't wait to share them with you all next week. Stay tuned ✨</p>
+                <div class="post-actions">
+                    <span class="post-action">👍 18 Likes</span>
+                    <span class="post-action">💬 8 Comments</span>
+                    <span class="post-action">🔄 2 Shares</span>
+                </div>
+            </div>
+
+            <div class="feed-post">
+                <div class="post-header">
+                    <div class="post-avatar" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">MJ</div>
+                    <div class="post-meta">
+                        <div class="post-author">Mike Johnson</div>
+                        <div class="post-time">1 day ago</div>
+                    </div>
+                </div>
+                <p class="post-content">Behind the scenes of our development process. Building scalable systems is both challenging and rewarding! 💻</p>
+                <div class="post-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">💻</div>
+                <div class="post-actions">
+                    <span class="post-action">👍 42 Likes</span>
+                    <span class="post-action">💬 12 Comments</span>
+                    <span class="post-action">🔄 7 Shares</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER NOTE -->
+    <div style="padding: 80px 24px; text-align: center; background: #ffffff;">
+        <h2 style="margin-bottom: 16px; color: #111827;">Blog, Portfolio & Social Components</h2>
+        <p style="color: #6b7280; max-width: 700px; margin: 0 auto 32px; font-size: 18px; line-height: 1.7;">
+            Complete content components including blog grids, article pages with comments,
+            portfolio showcases, team sections, and social activity feeds.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="window.location='demo-marketing-complete.html'">Marketing</button>
+            <button class="btn btn-primary" onclick="window.location='demo-ecommerce-complete.html'">eCommerce</button>
+            <button class="btn btn-primary" onclick="window.location='demo-dashboard-complete.html'">Dashboard</button>
+            <button class="btn btn-primary" onclick="window.location='demo-auth-complete.html'">Authentication</button>
+        </div>
+    </div>
+</body>
+</html>
