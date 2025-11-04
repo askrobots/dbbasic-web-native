@@ -33,10 +33,7 @@
             z-index: 100;
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
-        }
-
-        .header-content {
-            padding: 16px 32px;
+            padding: 16px 0;
         }
 
         .logo {
@@ -205,12 +202,18 @@
         semantic-card {
             width: 100%;
         }
+
+        /* Center badge container by making it auto-width */
+        semantic-stack.badge-wrapper {
+            display: inline-flex !important;
+            width: auto !important;
+        }
     </style>
 </head>
 <body>
     <!-- Header with clean semantic layout -->
     <div class="header">
-        <div class="header-content">
+        <semantic-container size="xlarge" padding>
             <semantic-stack direction="horizontal" justify="between" align="center">
                 <div class="logo">ProductName</div>
                 <semantic-stack direction="horizontal" spacing="6" align="center">
@@ -220,7 +223,7 @@
                     <semantic-action intent="primary">Sign Up Free</semantic-action>
                 </semantic-stack>
             </semantic-stack>
-        </div>
+        </semantic-container>
     </div>
 
     <!-- Hero Section -->
@@ -235,10 +238,12 @@
                     <semantic-action intent="primary" size="large">Get Started Free</semantic-action>
                     <semantic-action intent="neutral" size="large" variant="outline" style="--action-text: white; --action-border: white;">View Demo</semantic-action>
                 </semantic-stack>
-                <semantic-stack direction="horizontal" spacing="4" align="center" justify="center">
-                    <semantic-badge intent="success">No credit card required</semantic-badge>
-                    <semantic-badge intent="neutral" variant="outline" style="--badge-text: white; --badge-border: white;">14-day trial</semantic-badge>
-                </semantic-stack>
+                <div style="text-align: center;">
+                    <semantic-stack direction="horizontal" spacing="4" align="center" class="badge-wrapper">
+                        <semantic-badge intent="success">No credit card required</semantic-badge>
+                        <semantic-badge intent="neutral" variant="outline" style="--badge-text: white; --badge-border: white;">14-day trial</semantic-badge>
+                    </semantic-stack>
+                </div>
             </semantic-stack>
         </semantic-container>
     </section>
