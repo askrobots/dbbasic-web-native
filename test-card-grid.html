@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Card Grid Testing</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 80px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 30px;
+        }
+
+        .demo-section p {
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        /* Grid layouts */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .grid-auto {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .grid-masonry {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            grid-auto-flow: dense;
+        }
+
+        .grid-masonry semantic-card:nth-child(3n+1) {
+            grid-row: span 1;
+        }
+
+        .grid-masonry semantic-card:nth-child(3n+2) {
+            grid-row: span 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-3col, .grid-4col {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-2col, .grid-3col, .grid-4col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card content styling */
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .card-description {
+            color: #8a8a8a;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #8e8e93;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-card Grid Testing</h1>
+
+    <div class="demo-section">
+        <h2>2-Column Grid</h2>
+        <p>Perfect for product listings, blog posts, or featured content.</p>
+
+        <div class="grid-2col">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">MacBook Pro 16"</h3>
+                <p slot="description" class="card-description">
+                    Supercharged by M3 Pro and M3 Max chips. Up to 22 hours of battery life.
+                    <div class="stats">
+                        <span class="stat">💻 Laptop</span>
+                        <span class="stat">⭐ 4.9</span>
+                        <span class="stat">💰 $2,499</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">View Details</semantic-action>
+                    <semantic-action intent="secondary">Compare</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">iPad Air</h3>
+                <p slot="description" class="card-description">
+                    Serious performance in a thin and light design. M2 chip delivers incredible power.
+                    <div class="stats">
+                        <span class="stat">📱 Tablet</span>
+                        <span class="stat">⭐ 4.8</span>
+                        <span class="stat">💰 $599</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">View Details</semantic-action>
+                    <semantic-action intent="secondary">Compare</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">AirPods Pro</h3>
+                <p slot="description" class="card-description">
+                    Active Noise Cancellation and Adaptive Audio. USB-C charging case included.
+                    <div class="stats">
+                        <span class="stat">🎧 Audio</span>
+                        <span class="stat">⭐ 4.7</span>
+                        <span class="stat">💰 $249</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">View Details</semantic-action>
+                    <semantic-action intent="secondary">Compare</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">Apple Watch Ultra 2</h3>
+                <p slot="description" class="card-description">
+                    The most rugged and capable Apple Watch. Titanium case, precision GPS.
+                    <div class="stats">
+                        <span class="stat">⌚ Watch</span>
+                        <span class="stat">⭐ 4.9</span>
+                        <span class="stat">💰 $799</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">View Details</semantic-action>
+                    <semantic-action intent="secondary">Compare</semantic-action>
+                </div>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>3-Column Grid</h2>
+        <p>Ideal for dashboards, feature showcases, or service offerings.</p>
+
+        <div class="grid-3col">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">🚀 Performance</h3>
+                <p slot="description" class="card-description">
+                    Lightning-fast load times and smooth interactions. Optimized for speed.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">🔒 Security</h3>
+                <p slot="description" class="card-description">
+                    Enterprise-grade security with end-to-end encryption and 2FA support.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">📊 Analytics</h3>
+                <p slot="description" class="card-description">
+                    Real-time insights and detailed reports to track your progress.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">🎨 Customization</h3>
+                <p slot="description" class="card-description">
+                    Fully customizable themes, layouts, and components to match your brand.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="neutral">
+                <h3 slot="title" class="card-title">🌐 Global CDN</h3>
+                <p slot="description" class="card-description">
+                    Content delivered from edge locations worldwide for minimal latency.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">💬 Support</h3>
+                <p slot="description" class="card-description">
+                    24/7 customer support with average response time under 2 minutes.
+                </p>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>4-Column Grid</h2>
+        <p>Great for showing many items compactly, like app icons or mini-cards.</p>
+
+        <div class="grid-4col">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">📧 Email</h3>
+                <p slot="description" class="card-description">1,234 unread</p>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">✅ Tasks</h3>
+                <p slot="description" class="card-description">45 completed</p>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">📅 Calendar</h3>
+                <p slot="description" class="card-description">5 events today</p>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">🔔 Alerts</h3>
+                <p slot="description" class="card-description">3 urgent</p>
+            </semantic-card>
+
+            <semantic-card intent="neutral">
+                <h3 slot="title" class="card-title">📁 Files</h3>
+                <p slot="description" class="card-description">2.4 GB used</p>
+            </semantic-card>
+
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">👥 Team</h3>
+                <p slot="description" class="card-description">12 members</p>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">💰 Revenue</h3>
+                <p slot="description" class="card-description">$45,230</p>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">📈 Growth</h3>
+                <p slot="description" class="card-description">+23.5%</p>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Auto-Fill Responsive Grid</h2>
+        <p>Automatically adjusts columns based on available space (min 300px per card).</p>
+
+        <div class="grid-auto">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">Project Alpha</h3>
+                <p slot="description" class="card-description">
+                    Next-generation web platform with AI-powered features.
+                    <div class="stats">
+                        <span class="stat">👥 8 members</span>
+                        <span class="stat">📅 Due: Mar 15</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Open</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">Project Beta</h3>
+                <p slot="description" class="card-description">
+                    Mobile app redesign with modern UI and improved UX.
+                    <div class="stats">
+                        <span class="stat">👥 5 members</span>
+                        <span class="stat">📅 Due: Mar 20</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Open</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">Project Gamma</h3>
+                <p slot="description" class="card-description">
+                    Backend infrastructure upgrade to support 10x traffic.
+                    <div class="stats">
+                        <span class="stat">👥 12 members</span>
+                        <span class="stat">📅 Due: Apr 1</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Open</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">Project Delta</h3>
+                <p slot="description" class="card-description">
+                    Critical security patches and compliance updates.
+                    <div class="stats">
+                        <span class="stat">👥 6 members</span>
+                        <span class="stat">📅 Due: Mar 10</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Open</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="neutral">
+                <h3 slot="title" class="card-title">Project Epsilon</h3>
+                <p slot="description" class="card-description">
+                    Documentation and training materials for new features.
+                    <div class="stats">
+                        <span class="stat">👥 3 members</span>
+                        <span class="stat">📅 Due: Apr 15</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Open</semantic-action>
+                </div>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Mixed Content Lengths</h2>
+        <p>Cards with varying content heights in a 3-column grid.</p>
+
+        <div class="grid-3col">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">Short Card</h3>
+                <p slot="description" class="card-description">Brief description.</p>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">Medium Length Card</h3>
+                <p slot="description" class="card-description">
+                    This card has a moderate amount of content to display. It demonstrates how cards with different content lengths align in a grid layout.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">Longer Card with More Content</h3>
+                <p slot="description" class="card-description">
+                    This card contains significantly more text content to test how the grid layout handles varying heights. Cards should maintain consistent spacing and alignment despite content differences. The grid system ensures a clean, organized appearance regardless of individual card content length.
+                </p>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">Card with Actions</h3>
+                <p slot="description" class="card-description">
+                    This card demonstrates how action buttons affect card height.
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Primary</semantic-action>
+                    <semantic-action intent="secondary">Secondary</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="neutral">
+                <h3 slot="title" class="card-title">Another Short One</h3>
+                <p slot="description" class="card-description">Minimal content here.</p>
+            </semantic-card>
+
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">Final Card</h3>
+                <p slot="description" class="card-description">
+                    A medium-length card to complete the grid and show how the layout handles the last row.
+                </p>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World E-commerce Example</h2>
+        <p>Product grid with consistent styling and hover effects.</p>
+
+        <div class="grid-3col">
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">Wireless Keyboard</h3>
+                <p slot="description" class="card-description">
+                    Bluetooth mechanical keyboard with RGB backlighting. Cherry MX switches.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.8 (2,450)</span>
+                        <span class="stat">📦 In Stock</span>
+                        <span class="stat" style="color: #30d158; font-weight: 600;">$129.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Add to Cart</semantic-action>
+                    <semantic-action intent="secondary">♡ Save</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">Ergonomic Mouse</h3>
+                <p slot="description" class="card-description">
+                    Vertical design reduces wrist strain. Precision optical sensor.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.6 (1,820)</span>
+                        <span class="stat">📦 In Stock</span>
+                        <span class="stat" style="color: #30d158; font-weight: 600;">$79.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Add to Cart</semantic-action>
+                    <semantic-action intent="secondary">♡ Save</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="primary">
+                <h3 slot="title" class="card-title">4K Webcam</h3>
+                <p slot="description" class="card-description">
+                    Ultra HD video with auto-focus and noise cancellation.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.9 (3,100)</span>
+                        <span class="stat">📦 In Stock</span>
+                        <span class="stat" style="color: #30d158; font-weight: 600;">$199.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Add to Cart</semantic-action>
+                    <semantic-action intent="secondary">♡ Save</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="warning">
+                <h3 slot="title" class="card-title">USB-C Hub</h3>
+                <p slot="description" class="card-description">
+                    7-in-1 adapter with HDMI, USB 3.0, SD card, and 100W PD charging.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.7 (890)</span>
+                        <span class="stat" style="color: #ff9f0a;">⚠️ Low Stock</span>
+                        <span class="stat" style="color: #30d158; font-weight: 600;">$49.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Add to Cart</semantic-action>
+                    <semantic-action intent="secondary">♡ Save</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="success">
+                <h3 slot="title" class="card-title">Monitor Arm</h3>
+                <p slot="description" class="card-description">
+                    Gas spring adjustable stand for 13-32" monitors. VESA compatible.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.8 (1,560)</span>
+                        <span class="stat">📦 In Stock</span>
+                        <span class="stat" style="color: #ff453a; font-weight: 600; text-decoration: line-through;">$89.99</span>
+                        <span class="stat" style="color: #30d158; font-weight: 600;">$69.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="primary">Add to Cart</semantic-action>
+                    <semantic-action intent="secondary">♡ Save</semantic-action>
+                </div>
+            </semantic-card>
+
+            <semantic-card intent="danger">
+                <h3 slot="title" class="card-title">Gaming Headset</h3>
+                <p slot="description" class="card-description">
+                    7.1 surround sound with noise-cancelling microphone.
+                    <div class="stats">
+                        <span class="stat">⭐ 4.5 (2,780)</span>
+                        <span class="stat" style="color: #ff453a;">🔴 Out of Stock</span>
+                        <span class="stat" style="color: #8e8e93; font-weight: 600;">$159.99</span>
+                    </div>
+                </p>
+                <div slot="actions">
+                    <semantic-action intent="secondary" disabled>Notify Me</semantic-action>
+                </div>
+            </semantic-card>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Grid Performance Test</h2>
+        <p>Many cards to test rendering performance and scroll behavior.</p>
+
+        <div class="grid-4col">
+            <script>
+                // Generate 24 cards dynamically
+                for (let i = 1; i <= 24; i++) {
+                    const intents = ['primary', 'success', 'warning', 'danger', 'neutral'];
+                    const intent = intents[i % intents.length];
+                    document.write(`
+                        <semantic-card intent="${intent}">
+                            <h3 slot="title" class="card-title">Card ${i}</h3>
+                            <p slot="description" class="card-description">
+                                Performance test card #${i}
+                            </p>
+                        </semantic-card>
+                    `);
+                }
+            </script>
+        </div>
+    </div>
+
+    <script>
+        // Test interaction handlers
+        document.querySelectorAll('semantic-card').forEach((card, index) => {
+            card.addEventListener('click', (e) => {
+                // Only log if clicking the card itself, not buttons
+                if (e.target === card) {
+                    console.log(`Card ${index + 1} clicked`);
+                }
+            });
+        });
+
+        // Log grid layout info
+        console.log('Total cards on page:', document.querySelectorAll('semantic-card').length);
+    </script>
+</body>
+</html>

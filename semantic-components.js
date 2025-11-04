@@ -1251,6 +1251,21 @@ class SemanticModal extends SemanticComponent {
                     justify-content: flex-end;
                 }
 
+                /* Mobile responsive - fullscreen on small screens */
+                @media (max-width: 640px) {
+                    .modal {
+                        max-width: 100vw;
+                        max-height: 100vh;
+                        border-radius: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    .header, .content, .actions {
+                        padding: 20px;
+                    }
+                }
+
                 @media (prefers-reduced-motion: reduce) {
                     .backdrop, .modal {
                         animation: none;
@@ -2663,6 +2678,20 @@ class SemanticPopover extends SemanticComponent {
             .popover-body {
                 color: #ababab;
             }
+
+            /* Mobile responsive */
+            @media (max-width: 640px) {
+                .popover-content {
+                    max-width: calc(100vw - 32px);
+                    font-size: 13px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .popover-content {
+                    transition: none;
+                }
+            }
         `;
     }
 
@@ -2757,6 +2786,170 @@ class SemanticPopover extends SemanticComponent {
         } else if (this.shadowRoot.innerHTML && oldValue !== newValue) {
             this.render();
             this.setupEventListeners();
+        }
+    }
+}
+
+// ============================================================================
+// BREADCRUMB COMPONENT (Navigation hierarchy)
+// ============================================================================
+
+class SemanticBreadcrumb extends SemanticComponent {
+    static get observedAttributes() {
+        return ['separator'];
+    }
+
+    getCSS() {
+        return `
+            .breadcrumb-container {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-size: 14px;
+                padding: 12px 0;
+            }
+
+            .breadcrumb-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                color: #8e8e93;
+                text-decoration: none;
+                transition: color 0.15s ease;
+                min-height: 44px;
+                padding: 8px 12px;
+                border-radius: 6px;
+            }
+
+            .breadcrumb-item:hover {
+                color: #409cff;
+                background: rgba(64, 156, 255, 0.1);
+            }
+
+            .breadcrumb-item.active {
+                color: #fff;
+                font-weight: 500;
+                pointer-events: none;
+                background: transparent;
+            }
+
+            .breadcrumb-separator {
+                color: #48484a;
+                user-select: none;
+                font-size: 12px;
+                padding: 0 4px;
+            }
+
+            /* Link styles */
+            a.breadcrumb-item {
+                cursor: pointer;
+            }
+
+            a.breadcrumb-item:focus-visible {
+                outline: 2px solid #409cff;
+                outline-offset: 2px;
+                border-radius: 6px;
+            }
+
+            /* Mobile responsive */
+            @media (max-width: 640px) {
+                .breadcrumb-container {
+                    font-size: 13px;
+                }
+
+                .breadcrumb-item {
+                    padding: 10px 14px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .breadcrumb-item {
+                    transition: none;
+                }
+            }
+        `;
+    }
+
+    getHTML() {
+        return `
+            <nav class="breadcrumb-container" aria-label="Breadcrumb">
+                <slot></slot>
+            </nav>
+        `;
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getCSS()}
+            </style>
+            ${this.getHTML()}
+        `;
+    }
+
+    setupEventListeners() {
+        setTimeout(() => {
+            this.renderBreadcrumbs();
+        }, 0);
+    }
+
+    renderBreadcrumbs() {
+        const separator = this.getAttribute('separator') || '/';
+        const items = Array.from(this.querySelectorAll('breadcrumb-item'));
+        const container = this.shadowRoot.querySelector('.breadcrumb-container');
+
+        // Clear existing content
+        container.innerHTML = '';
+
+        items.forEach((item, index) => {
+            const isLast = index === items.length - 1;
+            const href = item.getAttribute('href');
+            const active = item.hasAttribute('active') || isLast;
+
+            // Create breadcrumb element
+            let breadcrumbEl;
+            if (href && !active) {
+                breadcrumbEl = document.createElement('a');
+                breadcrumbEl.href = href;
+                breadcrumbEl.addEventListener('click', (e) => {
+                    // Allow custom handling
+                    const event = new CustomEvent('breadcrumb-click', {
+                        detail: { href, index, item },
+                        cancelable: true
+                    });
+                    if (!this.dispatchEvent(event)) {
+                        e.preventDefault();
+                    }
+                });
+            } else {
+                breadcrumbEl = document.createElement('span');
+            }
+
+            breadcrumbEl.className = `breadcrumb-item ${active ? 'active' : ''}`;
+            breadcrumbEl.textContent = item.textContent.trim();
+
+            if (active) {
+                breadcrumbEl.setAttribute('aria-current', 'page');
+            }
+
+            container.appendChild(breadcrumbEl);
+
+            // Add separator if not last item
+            if (!isLast) {
+                const sep = document.createElement('span');
+                sep.className = 'breadcrumb-separator';
+                sep.textContent = separator;
+                sep.setAttribute('aria-hidden', 'true');
+                container.appendChild(sep);
+            }
+        });
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.renderBreadcrumbs();
         }
     }
 }
@@ -2881,6 +3074,13 @@ class DisclosureItem extends HTMLElement {
     }
 }
 
+class BreadcrumbItem extends HTMLElement {
+    connectedCallback() {
+        // Breadcrumb item is just a marker element, actual rendering happens in SemanticBreadcrumb
+        this.style.display = 'none';
+    }
+}
+
 customElements.define('semantic-action', SemanticAction);
 customElements.define('semantic-card', SemanticCard);
 customElements.define('semantic-feedback', SemanticFeedback);
@@ -2895,6 +3095,7 @@ customElements.define('semantic-disclosure', SemanticDisclosure);
 customElements.define('semantic-progress', SemanticProgress);
 customElements.define('semantic-badge', SemanticBadge);
 customElements.define('semantic-popover', SemanticPopover);
+customElements.define('semantic-breadcrumb', SemanticBreadcrumb);
 
 // Child elements
 customElements.define('nav-item', NavItem);
@@ -2906,6 +3107,7 @@ customElements.define('card-description', CardDescription);
 customElements.define('tab-item', TabItem);
 customElements.define('tab-panel', TabPanel);
 customElements.define('disclosure-item', DisclosureItem);
+customElements.define('breadcrumb-item', BreadcrumbItem);
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {

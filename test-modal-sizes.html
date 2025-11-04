@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Modal Size Testing</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 30px;
+        }
+
+        .demo-section p {
+            color: #8e8e93;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .demo-box {
+            background: #1c1c1e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+            color: #ebebf5;
+            margin-bottom: 24px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #3a3a3c;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .price-tag {
+            font-size: 32px;
+            font-weight: 700;
+            color: #409cff;
+            margin: 24px 0;
+        }
+
+        .price-tag small {
+            font-size: 16px;
+            color: #8e8e93;
+            font-weight: 400;
+        }
+
+        .alert-icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat-box {
+            background: #2c2c2e;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #409cff;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 4px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .content-card {
+            background: #2c2c2e;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .content-card h4 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+
+        .content-card p {
+            margin: 0;
+            font-size: 14px;
+            color: #8e8e93;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-modal Size Testing</h1>
+
+    <div class="demo-section">
+        <h2>Modal Sizes</h2>
+        <p>Test different modal sizes and their content layouts.</p>
+
+        <div class="button-grid">
+            <semantic-action intent="primary" id="btn-small">Small Modal</semantic-action>
+            <semantic-action intent="primary" id="btn-medium">Medium Modal (Default)</semantic-action>
+            <semantic-action intent="primary" id="btn-large">Large Modal</semantic-action>
+            <semantic-action intent="primary" id="btn-fullscreen">Fullscreen Modal</semantic-action>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Common Modal Patterns</h2>
+        <p>Real-world modal use cases with appropriate sizes.</p>
+
+        <div class="button-grid">
+            <semantic-action intent="primary" id="btn-confirm">Confirmation Dialog</semantic-action>
+            <semantic-action intent="primary" id="btn-form">Form Modal</semantic-action>
+            <semantic-action intent="primary" id="btn-details">Details View</semantic-action>
+            <semantic-action intent="success" id="btn-success">Success Message</semantic-action>
+            <semantic-action intent="danger" id="btn-delete">Delete Warning</semantic-action>
+            <semantic-action intent="warning" id="btn-warning">Warning Alert</semantic-action>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Complex Content Modals</h2>
+        <p>Modals with rich content and multiple sections.</p>
+
+        <div class="button-grid">
+            <semantic-action intent="primary" id="btn-pricing">Pricing Plans</semantic-action>
+            <semantic-action intent="primary" id="btn-gallery">Image Gallery</semantic-action>
+            <semantic-action intent="primary" id="btn-settings">Settings Panel</semantic-action>
+            <semantic-action intent="primary" id="btn-dashboard">Dashboard Stats</semantic-action>
+            <semantic-action intent="primary" id="btn-checkout">Checkout Flow</semantic-action>
+            <semantic-action intent="primary" id="btn-profile">User Profile</semantic-action>
+        </div>
+    </div>
+
+    <!-- Small Modal -->
+    <semantic-modal id="modal-small" size="small">
+        <div slot="header">
+            <h3 class="modal-title">Quick Note</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                This is a small modal, perfect for brief messages or simple confirmations.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="primary" onclick="document.getElementById('modal-small').close()">OK</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Medium Modal -->
+    <semantic-modal id="modal-medium">
+        <div slot="header">
+            <h3 class="modal-title">Medium Modal</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                This is the default medium-sized modal. It's suitable for most content including forms, messages, and moderate amounts of information. The width provides good readability without overwhelming the screen.
+            </p>
+            <p class="modal-body">
+                Medium modals work well for signup forms, contact forms, and detailed messages that require user attention.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-medium').close()">Close</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-medium').close()">Confirm</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Large Modal -->
+    <semantic-modal id="modal-large" size="large">
+        <div slot="header">
+            <h3 class="modal-title">Large Modal</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                Large modals provide ample space for complex content, detailed forms, or multiple sections of information. They're ideal for admin panels, data tables, or comprehensive settings pages.
+            </p>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h4>Section 1</h4>
+                    <p>Content for the first section with detailed information.</p>
+                </div>
+                <div class="content-card">
+                    <h4>Section 2</h4>
+                    <p>Content for the second section with additional details.</p>
+                </div>
+                <div class="content-card">
+                    <h4>Section 3</h4>
+                    <p>Content for the third section with more information.</p>
+                </div>
+                <div class="content-card">
+                    <h4>Section 4</h4>
+                    <p>Content for the fourth section completing the grid.</p>
+                </div>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-large').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-large').close()">Save Changes</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Fullscreen Modal -->
+    <semantic-modal id="modal-fullscreen" size="fullscreen">
+        <div slot="header">
+            <h3 class="modal-title">Fullscreen Modal</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                Fullscreen modals take over the entire viewport, perfect for immersive experiences, complex workflows, or when you need maximum space for content.
+            </p>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">1,234</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">$45.2K</div>
+                    <div class="stat-label">Revenue</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">89%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+            <p class="modal-body">
+                Use fullscreen modals for media viewers, rich text editors, data visualization dashboards, or multi-step forms that require focus.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-fullscreen').close()">Close</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Confirmation Dialog -->
+    <semantic-modal id="modal-confirm" size="small">
+        <div slot="header">
+            <h3 class="modal-title">Confirm Action</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                Are you sure you want to proceed with this action? This operation cannot be undone.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-confirm').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-confirm').close()">Confirm</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Form Modal -->
+    <semantic-modal id="modal-form">
+        <div slot="header">
+            <h3 class="modal-title">Create New Project</h3>
+        </div>
+        <div slot="body">
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <semantic-input type="text" placeholder="My Awesome Project" intent="primary"></semantic-input>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <semantic-input type="text" placeholder="Describe your project..." intent="primary"></semantic-input>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Start Date</label>
+                    <semantic-input type="date" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">End Date</label>
+                    <semantic-input type="date" intent="primary"></semantic-input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Team Members</label>
+                <semantic-input type="text" placeholder="Invite team members..." intent="primary"></semantic-input>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-form').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-form').close()">Create Project</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Details View -->
+    <semantic-modal id="modal-details" size="large">
+        <div slot="header">
+            <h3 class="modal-title">Project Details: Website Redesign</h3>
+        </div>
+        <div slot="body">
+            <p class="modal-body">
+                <strong>Status:</strong> <semantic-badge intent="success">Active</semantic-badge>
+                <strong style="margin-left: 20px;">Priority:</strong> <semantic-badge intent="warning">High</semantic-badge>
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">68%</div>
+                    <div class="stat-label">Complete</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Days Remaining</div>
+                </div>
+            </div>
+
+            <h4 style="margin: 24px 0 12px 0; font-size: 16px;">Description</h4>
+            <p class="modal-body">
+                Complete redesign of the company website with modern UI/UX, improved performance, and mobile-first approach. The project includes user research, wireframing, design mockups, and full implementation.
+            </p>
+
+            <h4 style="margin: 24px 0 12px 0; font-size: 16px;">Key Deliverables</h4>
+            <ul class="feature-list">
+                <li>✓ User research and personas</li>
+                <li>✓ Wireframes and prototypes</li>
+                <li>⏳ Visual design mockups (In Progress)</li>
+                <li>⏳ Frontend implementation</li>
+                <li>○ Testing and QA</li>
+                <li>○ Launch and deployment</li>
+            </ul>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-details').close()">Close</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-details').close()">Edit Project</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Success Message -->
+    <semantic-modal id="modal-success" size="small">
+        <div slot="body">
+            <div class="alert-icon">✅</div>
+            <h3 class="modal-title" style="text-align: center;">Success!</h3>
+            <p class="modal-body" style="text-align: center;">
+                Your changes have been saved successfully.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions" style="justify-content: center;">
+                <semantic-action intent="success" onclick="document.getElementById('modal-success').close()">Great!</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Delete Warning -->
+    <semantic-modal id="modal-delete" size="small">
+        <div slot="body">
+            <div class="alert-icon">⚠️</div>
+            <h3 class="modal-title" style="text-align: center;">Delete Item?</h3>
+            <p class="modal-body" style="text-align: center;">
+                This action cannot be undone. Are you sure you want to permanently delete this item?
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-delete').close()">Cancel</semantic-action>
+                <semantic-action intent="danger" onclick="document.getElementById('modal-delete').close()">Delete</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Warning Alert -->
+    <semantic-modal id="modal-warning" size="small">
+        <div slot="body">
+            <div class="alert-icon">⚡</div>
+            <h3 class="modal-title" style="text-align: center;">Warning</h3>
+            <p class="modal-body" style="text-align: center;">
+                Your session will expire in 5 minutes. Please save your work to avoid losing any changes.
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions" style="justify-content: center;">
+                <semantic-action intent="warning" onclick="document.getElementById('modal-warning').close()">Extend Session</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Pricing Plans -->
+    <semantic-modal id="modal-pricing" size="large">
+        <div slot="header">
+            <h3 class="modal-title">Choose Your Plan</h3>
+        </div>
+        <div slot="body">
+            <div class="content-grid">
+                <div class="content-card" style="border: 2px solid #3a3a3c;">
+                    <h4>Starter</h4>
+                    <div class="price-tag">$9<small>/month</small></div>
+                    <ul class="feature-list">
+                        <li>✓ 10 Projects</li>
+                        <li>✓ 5GB Storage</li>
+                        <li>✓ Email Support</li>
+                        <li>✓ Basic Analytics</li>
+                    </ul>
+                    <semantic-action intent="secondary" style="width: 100%;">Select Plan</semantic-action>
+                </div>
+                <div class="content-card" style="border: 2px solid #409cff;">
+                    <semantic-badge intent="primary">Popular</semantic-badge>
+                    <h4>Professional</h4>
+                    <div class="price-tag">$29<small>/month</small></div>
+                    <ul class="feature-list">
+                        <li>✓ Unlimited Projects</li>
+                        <li>✓ 100GB Storage</li>
+                        <li>✓ Priority Support</li>
+                        <li>✓ Advanced Analytics</li>
+                        <li>✓ Custom Domains</li>
+                    </ul>
+                    <semantic-action intent="primary" style="width: 100%;">Select Plan</semantic-action>
+                </div>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-pricing').close()">Maybe Later</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Image Gallery -->
+    <semantic-modal id="modal-gallery" size="large">
+        <div slot="header">
+            <h3 class="modal-title">Product Gallery</h3>
+        </div>
+        <div slot="body">
+            <div class="image-preview">📷</div>
+            <p class="modal-body" style="text-align: center;">
+                <strong>Premium Wireless Headphones</strong><br>
+                Professional audio quality with active noise cancellation
+            </p>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-gallery').close()">Close</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-gallery').close()">Add to Cart</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Settings Panel -->
+    <semantic-modal id="modal-settings" size="large">
+        <div slot="header">
+            <h3 class="modal-title">Application Settings</h3>
+        </div>
+        <div slot="body">
+            <semantic-tabs>
+                <tab-item label="General" active></tab-item>
+                <tab-item label="Privacy"></tab-item>
+                <tab-item label="Notifications"></tab-item>
+            </semantic-tabs>
+
+            <div style="margin-top: 24px;">
+                <div class="form-group">
+                    <label class="form-label">App Language</label>
+                    <semantic-input type="text" value="English" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time Zone</label>
+                    <semantic-input type="text" value="Pacific Time (PT)" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Theme</label>
+                    <semantic-input type="text" value="Dark Mode" intent="primary"></semantic-input>
+                </div>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-settings').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-settings').close()">Save Settings</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Dashboard Stats -->
+    <semantic-modal id="modal-dashboard" size="fullscreen">
+        <div slot="header">
+            <h3 class="modal-title">Analytics Dashboard</h3>
+        </div>
+        <div slot="body">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">12,458</div>
+                    <div class="stat-label">Total Visitors</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">$67.5K</div>
+                    <div class="stat-label">Revenue</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">3,247</div>
+                    <div class="stat-label">Conversions</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">4.8%</div>
+                    <div class="stat-label">Bounce Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">2m 34s</div>
+                    <div class="stat-label">Avg. Session</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">92%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h4 style="font-size: 16px; margin-bottom: 16px;">Recent Activity</h4>
+                <div style="background: #2c2c2e; padding: 20px; border-radius: 8px;">
+                    <p style="margin: 0; color: #8e8e93;">
+                        Chart and detailed analytics would be displayed here in a real dashboard.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-dashboard').close()">Close</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-dashboard').close()">Export Data</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- Checkout Flow -->
+    <semantic-modal id="modal-checkout">
+        <div slot="header">
+            <h3 class="modal-title">Secure Checkout</h3>
+        </div>
+        <div slot="body">
+            <semantic-progress value="66" max="100" intent="success"></semantic-progress>
+            <p style="color: #8e8e93; font-size: 13px; margin: 8px 0 24px 0;">Step 2 of 3: Payment Information</p>
+
+            <div class="form-group">
+                <label class="form-label">Card Number</label>
+                <semantic-input type="text" placeholder="1234 5678 9012 3456" intent="primary"></semantic-input>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Expiry Date</label>
+                    <semantic-input type="text" placeholder="MM/YY" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">CVV</label>
+                    <semantic-input type="text" placeholder="123" intent="primary"></semantic-input>
+                </div>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-checkout').close()">Back</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-checkout').close()">Continue</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <!-- User Profile -->
+    <semantic-modal id="modal-profile">
+        <div slot="header">
+            <h3 class="modal-title">Edit Profile</h3>
+        </div>
+        <div slot="body">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 40px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
+                    👤
+                </div>
+                <semantic-action intent="secondary" size="small">Change Photo</semantic-action>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <semantic-input type="text" value="John" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <semantic-input type="text" value="Doe" intent="primary"></semantic-input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <semantic-input type="email" value="john@example.com" intent="primary"></semantic-input>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Bio</label>
+                <semantic-input type="text" value="Designer & Developer" intent="primary"></semantic-input>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-profile').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-profile').close()">Save Changes</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <script>
+        // Trigger buttons
+        document.getElementById('btn-small').addEventListener('click', () => {
+            document.getElementById('modal-small').open();
+        });
+
+        document.getElementById('btn-medium').addEventListener('click', () => {
+            document.getElementById('modal-medium').open();
+        });
+
+        document.getElementById('btn-large').addEventListener('click', () => {
+            document.getElementById('modal-large').open();
+        });
+
+        document.getElementById('btn-fullscreen').addEventListener('click', () => {
+            document.getElementById('modal-fullscreen').open();
+        });
+
+        document.getElementById('btn-confirm').addEventListener('click', () => {
+            document.getElementById('modal-confirm').open();
+        });
+
+        document.getElementById('btn-form').addEventListener('click', () => {
+            document.getElementById('modal-form').open();
+        });
+
+        document.getElementById('btn-details').addEventListener('click', () => {
+            document.getElementById('modal-details').open();
+        });
+
+        document.getElementById('btn-success').addEventListener('click', () => {
+            document.getElementById('modal-success').open();
+        });
+
+        document.getElementById('btn-delete').addEventListener('click', () => {
+            document.getElementById('modal-delete').open();
+        });
+
+        document.getElementById('btn-warning').addEventListener('click', () => {
+            document.getElementById('modal-warning').open();
+        });
+
+        document.getElementById('btn-pricing').addEventListener('click', () => {
+            document.getElementById('modal-pricing').open();
+        });
+
+        document.getElementById('btn-gallery').addEventListener('click', () => {
+            document.getElementById('modal-gallery').open();
+        });
+
+        document.getElementById('btn-settings').addEventListener('click', () => {
+            document.getElementById('modal-settings').open();
+        });
+
+        document.getElementById('btn-dashboard').addEventListener('click', () => {
+            document.getElementById('modal-dashboard').open();
+        });
+
+        document.getElementById('btn-checkout').addEventListener('click', () => {
+            document.getElementById('modal-checkout').open();
+        });
+
+        document.getElementById('btn-profile').addEventListener('click', () => {
+            document.getElementById('modal-profile').open();
+        });
+
+        console.log('Total modals on page:', document.querySelectorAll('semantic-modal').length);
+    </script>
+</body>
+</html>

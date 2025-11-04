@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Project Management Dashboard</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Header */
+        .header {
+            background: #1c1c1e;
+            border-bottom: 1px solid #3a3a3c;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #409cff;
+        }
+
+        .search-bar {
+            position: relative;
+            width: 400px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8e8e93;
+            font-size: 16px;
+        }
+
+        .search-bar semantic-input {
+            padding-left: 36px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 73px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #1c1c1e;
+            border-right: 1px solid #3a3a3c;
+            padding: 24px 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 32px;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 24px;
+            margin-bottom: 12px;
+        }
+
+        .sidebar-item {
+            padding: 10px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ebebf5;
+            transition: background 0.2s;
+        }
+
+        .sidebar-item:hover {
+            background: #2c2c2e;
+        }
+
+        .sidebar-item.active {
+            background: #2c2c2e;
+            color: #409cff;
+            border-left: 3px solid #409cff;
+            padding-left: 21px;
+        }
+
+        .sidebar-icon {
+            font-size: 18px;
+            width: 20px;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .breadcrumb-container {
+            margin-bottom: 24px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            color: #8e8e93;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #1c1c1e;
+            border: 1px solid #3a3a3c;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: #8e8e93;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            color: #30d158;
+        }
+
+        .stat-change.negative {
+            color: #ff453a;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .project-card {
+            background: #1c1c1e;
+            border: 2px solid #3a3a3c;
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: #409cff;
+            transform: translateY(-4px);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #8e8e93;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: #8e8e93;
+        }
+
+        .project-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .project-progress {
+            margin-bottom: 12px;
+        }
+
+        .project-progress-label {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .project-team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .team-avatars {
+            display: flex;
+            margin-left: -4px;
+        }
+
+        .team-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
+            border: 2px solid #1c1c1e;
+            margin-left: -8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+        }
+
+        .team-avatar:first-child {
+            margin-left: 0;
+        }
+
+        /* Table */
+        .table-container {
+            background: #1c1c1e;
+            border: 1px solid #3a3a3c;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            background: #2c2c2e;
+            padding: 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e93;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 16px;
+            border-top: 1px solid #3a3a3c;
+            font-size: 14px;
+        }
+
+        .table tr:hover {
+            background: #2c2c2e;
+        }
+
+        .task-name {
+            font-weight: 500;
+        }
+
+        .assignee {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .assignee-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            padding: 8px 0;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .modal-body {
+            line-height: 1.6;
+            color: #ebebf5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .stats-grid,
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-bar {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">⚡ TaskFlow</div>
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <semantic-input type="text" placeholder="Search projects, tasks, people..." intent="neutral"></semantic-input>
+            </div>
+        </div>
+        <div class="header-right">
+            <semantic-popover position="bottom" content="Create new project or task" trigger="hover">
+                <semantic-action slot="trigger" intent="primary">+ New</semantic-action>
+            </semantic-popover>
+            <semantic-popover position="bottom" content="3 unread notifications" trigger="hover">
+                <div slot="trigger" style="position: relative; cursor: pointer;">
+                    <span style="font-size: 20px;">🔔</span>
+                    <semantic-badge intent="danger" size="small" style="position: absolute; top: -4px; right: -4px;">3</semantic-badge>
+                </div>
+            </semantic-popover>
+            <semantic-popover position="bottom" content="John Doe - View Profile" trigger="hover">
+                <div slot="trigger" class="user-avatar">👤</div>
+            </semantic-popover>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Main</div>
+                <div class="sidebar-item active">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Dashboard</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">📋</span>
+                    <span>Projects</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">✓</span>
+                    <span>Tasks</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">👥</span>
+                    <span>Team</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">📅</span>
+                    <span>Calendar</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Projects</div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">🎨</span>
+                    <span>Website Redesign</span>
+                    <semantic-badge intent="warning" size="small">8</semantic-badge>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">📱</span>
+                    <span>Mobile App</span>
+                    <semantic-badge intent="primary" size="small">12</semantic-badge>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">🚀</span>
+                    <span>Product Launch</span>
+                    <semantic-badge intent="success" size="small">5</semantic-badge>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="sidebar-title">Quick Access</div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">⭐</span>
+                    <span>Favorites</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">📂</span>
+                    <span>Recent</span>
+                </div>
+                <div class="sidebar-item">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb-container">
+                <semantic-breadcrumb separator="›">
+                    <breadcrumb-item href="/">Home</breadcrumb-item>
+                    <breadcrumb-item href="/workspace">Workspace</breadcrumb-item>
+                    <breadcrumb-item>Dashboard</breadcrumb-item>
+                </semantic-breadcrumb>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">Welcome back, John! Here's what's happening with your projects today.</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Projects</div>
+                        <div class="stat-icon">📁</div>
+                    </div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change">↑ 12% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Active Tasks</div>
+                        <div class="stat-icon">✓</div>
+                    </div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-change">↑ 8% from last week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Team Members</div>
+                        <div class="stat-icon">👥</div>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change">↑ 2 new this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Completion Rate</div>
+                        <div class="stat-icon">📈</div>
+                    </div>
+                    <div class="stat-value">87%</div>
+                    <div class="stat-change class negative">↓ 3% from last week</div>
+                </div>
+            </div>
+
+            <!-- Active Projects Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Active Projects</h2>
+                    <div class="section-actions">
+                        <semantic-action intent="secondary" id="btn-view-all">View All</semantic-action>
+                        <semantic-action intent="primary" id="btn-new-project">+ New Project</semantic-action>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Website Redesign</h3>
+                                <semantic-badge intent="warning">In Progress</semantic-badge>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Complete redesign of company website with modern UI/UX and improved performance.
+                        </p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>Due: Mar 15</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>✓</span>
+                                <span>12/18 tasks</span>
+                            </div>
+                        </div>
+                        <div class="project-progress">
+                            <div class="project-progress-label">
+                                <span>Progress</span>
+                                <span>67%</span>
+                            </div>
+                            <semantic-progress value="67" max="100" intent="warning"></semantic-progress>
+                        </div>
+                        <div class="project-team">
+                            <span style="font-size: 12px; color: #8e8e93;">Team:</span>
+                            <div class="team-avatars">
+                                <div class="team-avatar">JD</div>
+                                <div class="team-avatar">SM</div>
+                                <div class="team-avatar">AK</div>
+                                <div class="team-avatar">+5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Mobile App Development</h3>
+                                <semantic-badge intent="primary">Active</semantic-badge>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            iOS and Android app with React Native for seamless cross-platform experience.
+                        </p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>Due: Apr 1</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>✓</span>
+                                <span>24/35 tasks</span>
+                            </div>
+                        </div>
+                        <div class="project-progress">
+                            <div class="project-progress-label">
+                                <span>Progress</span>
+                                <span>69%</span>
+                            </div>
+                            <semantic-progress value="69" max="100" intent="primary"></semantic-progress>
+                        </div>
+                        <div class="project-team">
+                            <span style="font-size: 12px; color: #8e8e93;">Team:</span>
+                            <div class="team-avatars">
+                                <div class="team-avatar">MJ</div>
+                                <div class="team-avatar">RH</div>
+                                <div class="team-avatar">TW</div>
+                                <div class="team-avatar">+3</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div>
+                                <h3 class="project-title">Product Launch Campaign</h3>
+                                <semantic-badge intent="success">On Track</semantic-badge>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Marketing campaign for Q2 product launch with social media and content strategy.
+                        </p>
+                        <div class="project-meta">
+                            <div class="project-meta-item">
+                                <span>📅</span>
+                                <span>Due: Mar 30</span>
+                            </div>
+                            <div class="project-meta-item">
+                                <span>✓</span>
+                                <span>28/32 tasks</span>
+                            </div>
+                        </div>
+                        <div class="project-progress">
+                            <div class="project-progress-label">
+                                <span>Progress</span>
+                                <span>88%</span>
+                            </div>
+                            <semantic-progress value="88" max="100" intent="success"></semantic-progress>
+                        </div>
+                        <div class="project-team">
+                            <span style="font-size: 12px; color: #8e8e93;">Team:</span>
+                            <div class="team-avatars">
+                                <div class="team-avatar">LC</div>
+                                <div class="team-avatar">DM</div>
+                                <div class="team-avatar">+2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Tasks Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Tasks</h2>
+                    <div class="section-actions">
+                        <semantic-tabs>
+                            <tab-item label="All" active></tab-item>
+                            <tab-item label="My Tasks"></tab-item>
+                            <tab-item label="Overdue"></tab-item>
+                        </semantic-tabs>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Project</th>
+                                <th>Assignee</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="task-name">Design homepage mockup</td>
+                                <td>Website Redesign</td>
+                                <td>
+                                    <div class="assignee">
+                                        <div class="assignee-avatar">JD</div>
+                                        <span>John Doe</span>
+                                    </div>
+                                </td>
+                                <td><semantic-badge intent="danger" size="small">High</semantic-badge></td>
+                                <td><semantic-badge intent="warning" size="small">In Progress</semantic-badge></td>
+                                <td>Mar 10</td>
+                            </tr>
+                            <tr>
+                                <td class="task-name">Implement user authentication</td>
+                                <td>Mobile App</td>
+                                <td>
+                                    <div class="assignee">
+                                        <div class="assignee-avatar">SM</div>
+                                        <span>Sarah Miller</span>
+                                    </div>
+                                </td>
+                                <td><semantic-badge intent="warning" size="small">Medium</semantic-badge></td>
+                                <td><semantic-badge intent="primary" size="small">Active</semantic-badge></td>
+                                <td>Mar 12</td>
+                            </tr>
+                            <tr>
+                                <td class="task-name">Write blog post content</td>
+                                <td>Product Launch</td>
+                                <td>
+                                    <div class="assignee">
+                                        <div class="assignee-avatar">LC</div>
+                                        <span>Lisa Chen</span>
+                                    </div>
+                                </td>
+                                <td><semantic-badge intent="neutral" size="small">Low</semantic-badge></td>
+                                <td><semantic-badge intent="success" size="small">Completed</semantic-badge></td>
+                                <td>Mar 8</td>
+                            </tr>
+                            <tr>
+                                <td class="task-name">QA testing round 2</td>
+                                <td>Mobile App</td>
+                                <td>
+                                    <div class="assignee">
+                                        <div class="assignee-avatar">AK</div>
+                                        <span>Alex Kim</span>
+                                    </div>
+                                </td>
+                                <td><semantic-badge intent="danger" size="small">High</semantic-badge></td>
+                                <td><semantic-badge intent="warning" size="small">In Progress</semantic-badge></td>
+                                <td>Mar 14</td>
+                            </tr>
+                            <tr>
+                                <td class="task-name">Update documentation</td>
+                                <td>Website Redesign</td>
+                                <td>
+                                    <div class="assignee">
+                                        <div class="assignee-avatar">MJ</div>
+                                        <span>Mike Johnson</span>
+                                    </div>
+                                </td>
+                                <td><semantic-badge intent="neutral" size="small">Low</semantic-badge></td>
+                                <td><semantic-badge intent="neutral" size="small">Pending</semantic-badge></td>
+                                <td>Mar 16</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Team Activity Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Team Activity</h2>
+                </div>
+
+                <semantic-disclosure>
+                    <div slot="summary">Recent Updates (5 new)</div>
+                    <div slot="content">
+                        <div style="padding: 16px 0;">
+                            <div style="display: flex; gap: 16px; padding: 12px; border-radius: 8px; background: #2c2c2e; margin-bottom: 12px;">
+                                <div class="assignee-avatar">SM</div>
+                                <div>
+                                    <div style="font-weight: 500; margin-bottom: 4px;">Sarah Miller completed "User Authentication"</div>
+                                    <div style="font-size: 13px; color: #8e8e93;">2 hours ago • Mobile App</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 16px; padding: 12px; border-radius: 8px; background: #2c2c2e; margin-bottom: 12px;">
+                                <div class="assignee-avatar">JD</div>
+                                <div>
+                                    <div style="font-weight: 500; margin-bottom: 4px;">John Doe added 3 new tasks</div>
+                                    <div style="font-size: 13px; color: #8e8e93;">4 hours ago • Website Redesign</div>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 16px; padding: 12px; border-radius: 8px; background: #2c2c2e;">
+                                <div class="assignee-avatar">LC</div>
+                                <div>
+                                    <div style="font-weight: 500; margin-bottom: 4px;">Lisa Chen uploaded marketing materials</div>
+                                    <div style="font-size: 13px; color: #8e8e93;">Yesterday • Product Launch</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </semantic-disclosure>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Project Modal -->
+    <semantic-modal id="modal-new-project">
+        <div slot="header">
+            <h3 class="modal-title">Create New Project</h3>
+        </div>
+        <div slot="body" class="modal-content">
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <semantic-input type="text" placeholder="Enter project name" intent="primary"></semantic-input>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <semantic-input type="text" placeholder="Brief description of the project" intent="primary"></semantic-input>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Start Date</label>
+                    <semantic-input type="date" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">End Date</label>
+                    <semantic-input type="date" intent="primary"></semantic-input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Priority</label>
+                <semantic-input type="text" placeholder="High, Medium, or Low" intent="primary"></semantic-input>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Team Members</label>
+                <semantic-input type="text" placeholder="Assign team members" intent="primary"></semantic-input>
+            </div>
+        </div>
+        <div slot="footer">
+            <div class="modal-actions">
+                <semantic-action intent="secondary" onclick="document.getElementById('modal-new-project').close()">Cancel</semantic-action>
+                <semantic-action intent="primary" onclick="document.getElementById('modal-new-project').close()">Create Project</semantic-action>
+            </div>
+        </div>
+    </semantic-modal>
+
+    <script>
+        // Open modal
+        document.getElementById('btn-new-project').addEventListener('click', () => {
+            document.getElementById('modal-new-project').open();
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                console.log('Project card clicked');
+            });
+        });
+
+        console.log('Dashboard loaded successfully!');
+    </script>
+</body>
+</html>

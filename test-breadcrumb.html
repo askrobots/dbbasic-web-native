@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Breadcrumb Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        .demo-box {
+            background: #1c1c1e;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .demo-label {
+            color: #8e8e93;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-breadcrumb Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Basic Breadcrumbs</h2>
+
+        <div class="demo-box">
+            <div class="demo-label">Default separator (/)</div>
+            <semantic-breadcrumb>
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/products">Products</breadcrumb-item>
+                <breadcrumb-item href="/products/electronics">Electronics</breadcrumb-item>
+                <breadcrumb-item>Smartphones</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Two levels</div>
+            <semantic-breadcrumb>
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item>About</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Five levels deep</div>
+            <semantic-breadcrumb>
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/docs">Documentation</breadcrumb-item>
+                <breadcrumb-item href="/docs/components">Components</breadcrumb-item>
+                <breadcrumb-item href="/docs/components/navigation">Navigation</breadcrumb-item>
+                <breadcrumb-item>Breadcrumb</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Custom Separators</h2>
+
+        <div class="demo-box">
+            <div class="demo-label">Chevron (›)</div>
+            <semantic-breadcrumb separator="›">
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/blog">Blog</breadcrumb-item>
+                <breadcrumb-item href="/blog/2025">2025</breadcrumb-item>
+                <breadcrumb-item>Getting Started with Web Components</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Arrow (→)</div>
+            <semantic-breadcrumb separator="→">
+                <breadcrumb-item href="/">Dashboard</breadcrumb-item>
+                <breadcrumb-item href="/settings">Settings</breadcrumb-item>
+                <breadcrumb-item>Profile</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Double Chevron (»)</div>
+            <semantic-breadcrumb separator="»">
+                <breadcrumb-item href="/">Projects</breadcrumb-item>
+                <breadcrumb-item href="/website">Website Redesign</breadcrumb-item>
+                <breadcrumb-item href="/website/mockups">Mockups</breadcrumb-item>
+                <breadcrumb-item>Homepage</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Greater than (>)</div>
+            <semantic-breadcrumb separator=">">
+                <breadcrumb-item href="/">C:</breadcrumb-item>
+                <breadcrumb-item href="/users">Users</breadcrumb-item>
+                <breadcrumb-item href="/users/john">John</breadcrumb-item>
+                <breadcrumb-item>Documents</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <div class="demo-label">Dot (•)</div>
+            <semantic-breadcrumb separator="•">
+                <breadcrumb-item href="/">Store</breadcrumb-item>
+                <breadcrumb-item href="/clothing">Clothing</breadcrumb-item>
+                <breadcrumb-item href="/clothing/mens">Men's</breadcrumb-item>
+                <breadcrumb-item>Shirts</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World Examples</h2>
+
+        <div class="demo-box">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 16px;">E-commerce Product Page</h3>
+            <semantic-breadcrumb>
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/shop">Shop</breadcrumb-item>
+                <breadcrumb-item href="/shop/electronics">Electronics</breadcrumb-item>
+                <breadcrumb-item href="/shop/electronics/computers">Computers</breadcrumb-item>
+                <breadcrumb-item href="/shop/electronics/computers/laptops">Laptops</breadcrumb-item>
+                <breadcrumb-item>MacBook Pro 16"</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 16px;">Documentation Site</h3>
+            <semantic-breadcrumb separator="›">
+                <breadcrumb-item href="/">Claude Code Docs</breadcrumb-item>
+                <breadcrumb-item href="/guides">Guides</breadcrumb-item>
+                <breadcrumb-item href="/guides/components">Components</breadcrumb-item>
+                <breadcrumb-item>Semantic Breadcrumb</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 16px;">Dashboard Settings</h3>
+            <semantic-breadcrumb separator="→">
+                <breadcrumb-item href="/dashboard">Dashboard</breadcrumb-item>
+                <breadcrumb-item href="/dashboard/account">Account</breadcrumb-item>
+                <breadcrumb-item href="/dashboard/account/security">Security</breadcrumb-item>
+                <breadcrumb-item>Two-Factor Authentication</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+
+        <div class="demo-box">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 16px;">File System Navigation</h3>
+            <semantic-breadcrumb separator="/">
+                <breadcrumb-item href="/files">My Files</breadcrumb-item>
+                <breadcrumb-item href="/files/projects">Projects</breadcrumb-item>
+                <breadcrumb-item href="/files/projects/2025">2025</breadcrumb-item>
+                <breadcrumb-item href="/files/projects/2025/semantic-components">semantic-components</breadcrumb-item>
+                <breadcrumb-item>README.md</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Interactive Example</h2>
+        <p style="color: #8e8e93; margin-bottom: 20px;">Click the breadcrumb links to navigate (event handling demo).</p>
+
+        <div class="demo-box">
+            <semantic-breadcrumb id="interactive-breadcrumb">
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/products">Products</breadcrumb-item>
+                <breadcrumb-item href="/products/furniture">Furniture</breadcrumb-item>
+                <breadcrumb-item>Sofas</breadcrumb-item>
+            </semantic-breadcrumb>
+
+            <div id="event-log" style="margin-top: 20px; padding: 12px; background: #2c2c2e; border-radius: 8px; font-family: monospace; font-size: 13px;">
+                <div style="color: #8e8e93; margin-bottom: 8px;">Event Log:</div>
+                <div id="log-output" style="color: #409cff;">No clicks yet</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Without Links (Display Only)</h2>
+
+        <div class="demo-box">
+            <div class="demo-label">No href attributes - display only</div>
+            <semantic-breadcrumb separator="›">
+                <breadcrumb-item>Organization</breadcrumb-item>
+                <breadcrumb-item>Department</breadcrumb-item>
+                <breadcrumb-item>Team</breadcrumb-item>
+                <breadcrumb-item>Current Page</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Truncated Breadcrumbs</h2>
+        <p style="color: #8e8e93; margin-bottom: 20px;">Very long breadcrumb paths can wrap to multiple lines.</p>
+
+        <div class="demo-box" style="max-width: 600px;">
+            <semantic-breadcrumb>
+                <breadcrumb-item href="/">Home</breadcrumb-item>
+                <breadcrumb-item href="/veryLongCategoryName">Very Long Category Name That Might Wrap</breadcrumb-item>
+                <breadcrumb-item href="/subCat">Another Subcategory With Long Name</breadcrumb-item>
+                <breadcrumb-item>Final Page With Even Longer Title</breadcrumb-item>
+            </semantic-breadcrumb>
+        </div>
+    </div>
+
+    <script>
+        // Interactive breadcrumb demo
+        const interactiveBreadcrumb = document.getElementById('interactive-breadcrumb');
+        const logOutput = document.getElementById('log-output');
+
+        interactiveBreadcrumb.addEventListener('breadcrumb-click', (e) => {
+            e.preventDefault(); // Prevent navigation for demo
+            const time = new Date().toLocaleTimeString();
+            const { href, index } = e.detail;
+            logOutput.innerHTML = `[${time}] Clicked breadcrumb #${index + 1}: ${href}`;
+        });
+    </script>
+</body>
+</html>

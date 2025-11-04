@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Input Form Testing</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 80px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 30px;
+        }
+
+        .demo-section p {
+            color: #8e8e93;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            background: #1c1c1e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+        }
+
+        /* Form layouts */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: #ff453a;
+        }
+
+        .form-help {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #8e8e93;
+        }
+
+        .form-error {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #ff453a;
+        }
+
+        .form-success {
+            display: block;
+            margin-top: 6px;
+            font-size: 13px;
+            color: #30d158;
+        }
+
+        /* Two-column layout */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        /* Three-column layout */
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* Inline form */
+        .form-inline {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .form-inline .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* Input group with addon */
+        .input-group {
+            display: flex;
+            gap: 0;
+        }
+
+        .input-addon {
+            background: #2c2c2e;
+            border: 2px solid #3a3a3c;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            color: #8e8e93;
+            font-size: 15px;
+        }
+
+        .input-addon-left {
+            border-radius: 8px 0 0 8px;
+            border-right: none;
+        }
+
+        .input-addon-right {
+            border-radius: 0 8px 8px 0;
+            border-left: none;
+        }
+
+        .input-group semantic-input {
+            flex: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row, .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .form-inline {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-inline .form-group {
+                margin-bottom: 24px;
+            }
+        }
+
+        /* Action buttons */
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #3a3a3c;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            position: relative;
+            max-width: 600px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8e8e93;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .search-bar semantic-input {
+            padding-left: 44px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-input Form Testing</h1>
+
+    <div class="demo-section">
+        <h2>Single Column Form</h2>
+        <p>Traditional vertical form layout with full-width inputs.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Create Account</h3>
+
+            <div class="form-group">
+                <label class="form-label required">Full Name</label>
+                <semantic-input type="text" placeholder="John Doe" intent="primary"></semantic-input>
+                <span class="form-help">Enter your first and last name</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Email Address</label>
+                <semantic-input type="email" placeholder="john@example.com" intent="primary"></semantic-input>
+                <span class="form-help">We'll never share your email with anyone</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Password</label>
+                <semantic-input type="password" placeholder="Enter a strong password" intent="primary"></semantic-input>
+                <span class="form-help">Must be at least 8 characters with a mix of letters and numbers</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Confirm Password</label>
+                <semantic-input type="password" placeholder="Re-enter your password" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-actions">
+                <semantic-action intent="primary">Create Account</semantic-action>
+                <semantic-action intent="secondary">Cancel</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Two-Column Form</h2>
+        <p>Efficient layout for forms with many fields, optimized for desktop.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Billing Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">First Name</label>
+                    <semantic-input type="text" placeholder="John" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Last Name</label>
+                    <semantic-input type="text" placeholder="Doe" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Street Address</label>
+                <semantic-input type="text" placeholder="123 Main Street" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">City</label>
+                    <semantic-input type="text" placeholder="San Francisco" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">State</label>
+                    <semantic-input type="text" placeholder="CA" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">ZIP Code</label>
+                    <semantic-input type="text" placeholder="94102" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Country</label>
+                    <semantic-input type="text" placeholder="United States" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">Phone Number</label>
+                    <semantic-input type="tel" placeholder="(555) 123-4567" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Company (Optional)</label>
+                    <semantic-input type="text" placeholder="Acme Inc." intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <semantic-action intent="primary">Save Billing Info</semantic-action>
+                <semantic-action intent="secondary">Cancel</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Three-Column Form</h2>
+        <p>Compact layout for related fields like date inputs.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Payment Details</h3>
+
+            <div class="form-group">
+                <label class="form-label required">Card Number</label>
+                <semantic-input type="text" placeholder="1234 5678 9012 3456" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-row-3">
+                <div class="form-group">
+                    <label class="form-label required">Month</label>
+                    <semantic-input type="text" placeholder="MM" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Year</label>
+                    <semantic-input type="text" placeholder="YY" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">CVV</label>
+                    <semantic-input type="text" placeholder="123" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Cardholder Name</label>
+                <semantic-input type="text" placeholder="Name on card" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-actions">
+                <semantic-action intent="primary">Process Payment</semantic-action>
+                <semantic-action intent="secondary">Cancel</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Inline Form</h2>
+        <p>Compact horizontal layout for simple forms like search or subscribe.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Newsletter Signup</h3>
+            <p style="color: #8e8e93; font-size: 14px; margin-bottom: 20px;">
+                Get weekly updates and exclusive content delivered to your inbox.
+            </p>
+
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <semantic-input type="email" placeholder="you@example.com" intent="primary"></semantic-input>
+                </div>
+                <semantic-action intent="primary">Subscribe</semantic-action>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h3 class="form-title">Quick Search</h3>
+
+            <div class="form-inline">
+                <div class="form-group" style="flex: 2;">
+                    <label class="form-label">Search Query</label>
+                    <semantic-input type="text" placeholder="Search products, articles, or help docs..." intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <semantic-input type="text" placeholder="All" intent="primary"></semantic-input>
+                </div>
+                <semantic-action intent="primary">Search</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Input States</h2>
+        <p>Different states and validation feedback for inputs.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Form Validation Examples</h3>
+
+            <div class="form-group">
+                <label class="form-label required">Username (Success State)</label>
+                <semantic-input type="text" value="johndoe" intent="success"></semantic-input>
+                <span class="form-success">✓ Username is available</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Email (Error State)</label>
+                <semantic-input type="email" value="invalid-email" intent="danger"></semantic-input>
+                <span class="form-error">✗ Please enter a valid email address</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Password (Warning State)</label>
+                <semantic-input type="password" value="weak" intent="warning"></semantic-input>
+                <span class="form-error" style="color: #ff9f0a;">⚠ Password is too weak</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Bio (Neutral/Default State)</label>
+                <semantic-input type="text" placeholder="Tell us about yourself..." intent="neutral"></semantic-input>
+                <span class="form-help">Optional field</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Disabled Input</label>
+                <semantic-input type="text" value="Cannot edit this" disabled intent="neutral"></semantic-input>
+                <span class="form-help">This field is read-only</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Search Bars</h2>
+        <p>Common search input patterns with icons.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Global Search</h3>
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <semantic-input type="text" placeholder="Search everything..." intent="primary" style="padding-left: 44px;"></semantic-input>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <h3 class="form-title">Compact Search</h3>
+            <semantic-input type="text" placeholder="🔍 Quick search..." intent="neutral"></semantic-input>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Input Types Grid</h2>
+        <p>All HTML5 input types in a grid layout.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">All Input Types</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Text</label>
+                    <semantic-input type="text" placeholder="Text input" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <semantic-input type="email" placeholder="email@example.com" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <semantic-input type="password" placeholder="Password" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Number</label>
+                    <semantic-input type="number" placeholder="42" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Tel</label>
+                    <semantic-input type="tel" placeholder="(555) 123-4567" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">URL</label>
+                    <semantic-input type="url" placeholder="https://example.com" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <semantic-input type="date" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Time</label>
+                    <semantic-input type="time" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Color</label>
+                    <semantic-input type="color" value="#409cff" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Range</label>
+                    <semantic-input type="range" min="0" max="100" value="50" intent="primary"></semantic-input>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World Contact Form</h2>
+        <p>Complete contact form with mixed layout and validation.</p>
+
+        <div class="form-container" style="max-width: 700px;">
+            <h3 class="form-title">Get in Touch</h3>
+            <p style="color: #8e8e93; font-size: 14px; margin-bottom: 24px;">
+                Have a question or want to work together? Fill out the form below and we'll get back to you within 24 hours.
+            </p>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label required">First Name</label>
+                    <semantic-input type="text" placeholder="John" intent="primary"></semantic-input>
+                </div>
+                <div class="form-group">
+                    <label class="form-label required">Last Name</label>
+                    <semantic-input type="text" placeholder="Doe" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Email</label>
+                <semantic-input type="email" placeholder="john@example.com" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Phone</label>
+                <semantic-input type="tel" placeholder="(555) 123-4567" intent="primary"></semantic-input>
+                <span class="form-help">Optional - we'll only call if necessary</span>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Subject</label>
+                <semantic-input type="text" placeholder="What can we help you with?" intent="primary"></semantic-input>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Message</label>
+                <semantic-input type="text" placeholder="Tell us more about your inquiry..." intent="primary"></semantic-input>
+                <span class="form-help">Minimum 10 characters</span>
+            </div>
+
+            <div class="form-actions">
+                <semantic-action intent="primary">Send Message</semantic-action>
+                <semantic-action intent="secondary">Clear Form</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Settings Form</h2>
+        <p>Multi-section settings form with various input types.</p>
+
+        <div class="form-container">
+            <h3 class="form-title">Account Settings</h3>
+
+            <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 16px; margin: 0 0 16px 0; color: #409cff;">Profile Information</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Display Name</label>
+                        <semantic-input type="text" value="John Doe" intent="primary"></semantic-input>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <semantic-input type="text" value="@johndoe" intent="primary"></semantic-input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio</label>
+                    <semantic-input type="text" value="Designer & Developer" intent="primary"></semantic-input>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 32px;">
+                <h4 style="font-size: 16px; margin: 0 0 16px 0; color: #30d158;">Security</h4>
+                <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <semantic-input type="password" placeholder="Enter current password" intent="primary"></semantic-input>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">New Password</label>
+                        <semantic-input type="password" placeholder="Enter new password" intent="primary"></semantic-input>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm New Password</label>
+                        <semantic-input type="password" placeholder="Confirm new password" intent="primary"></semantic-input>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="font-size: 16px; margin: 0 0 16px 0; color: #ff9f0a;">Notifications</h4>
+                <div class="form-group">
+                    <label class="form-label">Email Notifications</label>
+                    <semantic-input type="email" value="john@example.com" intent="primary"></semantic-input>
+                    <span class="form-help">Where you'll receive updates and alerts</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <semantic-action intent="primary">Save Changes</semantic-action>
+                <semantic-action intent="secondary">Reset</semantic-action>
+                <semantic-action intent="secondary">Delete Account</semantic-action>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Log form interactions
+        document.querySelectorAll('semantic-input').forEach((input, index) => {
+            input.addEventListener('change', (e) => {
+                console.log(`Input ${index + 1} changed:`, e.target.value);
+            });
+        });
+
+        console.log('Total inputs on page:', document.querySelectorAll('semantic-input').length);
+    </script>
+</body>
+</html>
