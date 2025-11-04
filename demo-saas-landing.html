@@ -12,6 +12,12 @@
             box-sizing: border-box;
         }
 
+        /* Allow semantic-container to use auto margins for centering */
+        semantic-container {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
@@ -195,11 +201,6 @@
         /* Ensure cards take full width in grid */
         semantic-card {
             width: 100%;
-        }
-
-        /* Force grids to span full width */
-        semantic-grid {
-            width: 100% !important;
         }
     </style>
 </head>

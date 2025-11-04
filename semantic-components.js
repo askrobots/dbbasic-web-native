@@ -3229,18 +3229,21 @@ class SemanticGrid extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 :host {
+                    display: block;
+                    width: 100%;
+                }
+
+                .grid-container {
                     display: grid;
                     grid-template-columns: ${gridTemplate};
                     gap: ${spacingMap[gap] || '16px'};
                     width: 100%;
-                    box-sizing: border-box;
-                    align-self: stretch;
                 }
 
                 ${responsive ? `
                 /* Mobile responsive - stack on small screens */
                 @media (max-width: 640px) {
-                    :host {
+                    .grid-container {
                         grid-template-columns: 1fr;
                     }
                 }
@@ -3259,11 +3262,13 @@ class SemanticGrid extends HTMLElement {
                 }
 
                 /* Ensure grid items can grow to fill available space */
-                ::slotted(*) {
+                .grid-container ::slotted(*) {
                     min-width: 0;
                 }
             </style>
-            <slot></slot>
+            <div class="grid-container">
+                <slot></slot>
+            </div>
         `;
     }
 }
@@ -3310,15 +3315,21 @@ class SemanticContainer extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 :host {
-                    display: flex;
-                    flex-direction: column;
-                    max-width: ${sizeMap[size] || '1024px'};
-                    margin-left: auto;
-                    margin-right: auto;
+                    display: block;
                     width: 100%;
+                    max-width: ${sizeMap[size] || '1024px'};
+                    margin: 0 auto;
                     ${padding ? 'padding: 0 20px;' : ''}
                 }
 
+                .container-inner {
+                    display: grid;
+                    grid-template-columns: minmax(0, 1fr);
+                }
+
+                .container-inner ::slotted(*) {
+                    min-width: 0;
+                }
 
                 ${padding ? `
                 /* Responsive padding */
@@ -3340,7 +3351,9 @@ class SemanticContainer extends HTMLElement {
                     role: region;
                 }
             </style>
-            <slot></slot>
+            <div class="container-inner">
+                <slot></slot>
+            </div>
         `;
     }
 }
