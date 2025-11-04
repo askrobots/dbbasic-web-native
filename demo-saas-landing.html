@@ -28,12 +28,15 @@
         .header {
             background: white;
             border-bottom: 1px solid #e0e0e0;
-            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(10px);
             background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            padding: 16px 32px;
         }
 
         .logo {
@@ -207,7 +210,7 @@
 <body>
     <!-- Header with clean semantic layout -->
     <div class="header">
-        <semantic-container size="xlarge">
+        <div class="header-content">
             <semantic-stack direction="horizontal" justify="between" align="center">
                 <div class="logo">ProductName</div>
                 <semantic-stack direction="horizontal" spacing="6" align="center">
@@ -217,7 +220,7 @@
                     <semantic-action intent="primary">Sign Up Free</semantic-action>
                 </semantic-stack>
             </semantic-stack>
-        </semantic-container>
+        </div>
     </div>
 
     <!-- Hero Section -->
@@ -232,7 +235,7 @@
                     <semantic-action intent="primary" size="large">Get Started Free</semantic-action>
                     <semantic-action intent="neutral" size="large" variant="outline" style="--action-text: white; --action-border: white;">View Demo</semantic-action>
                 </semantic-stack>
-                <semantic-stack direction="horizontal" spacing="4" align="center">
+                <semantic-stack direction="horizontal" spacing="4" align="center" justify="center">
                     <semantic-badge intent="success">No credit card required</semantic-badge>
                     <semantic-badge intent="neutral" variant="outline" style="--badge-text: white; --badge-border: white;">14-day trial</semantic-badge>
                 </semantic-stack>
