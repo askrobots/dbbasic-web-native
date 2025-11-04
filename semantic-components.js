@@ -2308,6 +2308,219 @@ class SemanticProgress extends SemanticComponent {
 }
 
 // ============================================================================
+// BADGE COMPONENT (Notification indicators, status badges, counts)
+// ============================================================================
+
+class SemanticBadge extends SemanticComponent {
+    static get observedAttributes() {
+        return ['intent', 'variant', 'size', 'pulse'];
+    }
+
+    getCSS() {
+        return `
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-weight: 600;
+                border-radius: 12px;
+                white-space: nowrap;
+                box-sizing: border-box;
+                position: relative;
+            }
+
+            /* Sizes */
+            .badge.small {
+                height: 16px;
+                padding: 0 6px;
+                font-size: 11px;
+                min-width: 16px;
+            }
+
+            .badge.medium {
+                height: 20px;
+                padding: 0 8px;
+                font-size: 12px;
+                min-width: 20px;
+            }
+
+            .badge.large {
+                height: 24px;
+                padding: 0 10px;
+                font-size: 14px;
+                min-width: 24px;
+            }
+
+            /* Dot variant (for notification indicators) */
+            .badge.dot {
+                width: 8px;
+                height: 8px;
+                min-width: 8px;
+                padding: 0;
+                border-radius: 50%;
+            }
+
+            .badge.dot.medium {
+                width: 10px;
+                height: 10px;
+                min-width: 10px;
+            }
+
+            .badge.dot.large {
+                width: 12px;
+                height: 12px;
+                min-width: 12px;
+            }
+
+            /* Intent colors - filled variant */
+            .badge.filled.intent-primary {
+                background: #409cff;
+                color: #fff;
+            }
+
+            .badge.filled.intent-success {
+                background: #30d158;
+                color: #fff;
+            }
+
+            .badge.filled.intent-warning {
+                background: #ff9f0a;
+                color: #000;
+            }
+
+            .badge.filled.intent-danger {
+                background: #ff3b30;
+                color: #fff;
+            }
+
+            .badge.filled.intent-neutral {
+                background: #8e8e93;
+                color: #fff;
+            }
+
+            /* Intent colors - outline variant */
+            .badge.outline.intent-primary {
+                background: transparent;
+                color: #409cff;
+                border: 1px solid #409cff;
+            }
+
+            .badge.outline.intent-success {
+                background: transparent;
+                color: #30d158;
+                border: 1px solid #30d158;
+            }
+
+            .badge.outline.intent-warning {
+                background: transparent;
+                color: #ff9f0a;
+                border: 1px solid #ff9f0a;
+            }
+
+            .badge.outline.intent-danger {
+                background: transparent;
+                color: #ff3b30;
+                border: 1px solid #ff3b30;
+            }
+
+            .badge.outline.intent-neutral {
+                background: transparent;
+                color: #8e8e93;
+                border: 1px solid #8e8e93;
+            }
+
+            /* Intent colors - subtle variant */
+            .badge.subtle.intent-primary {
+                background: rgba(64, 156, 255, 0.15);
+                color: #409cff;
+            }
+
+            .badge.subtle.intent-success {
+                background: rgba(48, 209, 88, 0.15);
+                color: #30d158;
+            }
+
+            .badge.subtle.intent-warning {
+                background: rgba(255, 159, 10, 0.15);
+                color: #ff9f0a;
+            }
+
+            .badge.subtle.intent-danger {
+                background: rgba(255, 59, 48, 0.15);
+                color: #ff3b30;
+            }
+
+            .badge.subtle.intent-neutral {
+                background: rgba(142, 142, 147, 0.15);
+                color: #8e8e93;
+            }
+
+            /* Pulse animation */
+            .badge.pulse::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: inherit;
+                background: inherit;
+                animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                z-index: -1;
+            }
+
+            @keyframes pulse {
+                0%, 100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.5;
+                    transform: scale(1.1);
+                }
+            }
+        `;
+    }
+
+    getHTML() {
+        const intent = this.getAttribute('intent') || 'primary';
+        const variant = this.getAttribute('variant') || 'filled';
+        const size = this.getAttribute('size') || 'medium';
+        const pulse = this.hasAttribute('pulse');
+        const content = this.textContent.trim();
+
+        // If variant is dot, don't show content
+        const displayContent = variant === 'dot' ? '' : content;
+
+        return `
+            <span class="badge ${variant} ${size} intent-${intent} ${pulse ? 'pulse' : ''}" role="status" aria-label="${content || 'notification'}">
+                ${displayContent}
+            </span>
+        `;
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getCSS()}
+            </style>
+            ${this.getHTML()}
+        `;
+    }
+
+    setupEventListeners() {
+        // No event listeners needed for badge component
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.render();
+        }
+    }
+}
+
+// ============================================================================
 // CHILD ELEMENTS (for use within parent components)
 // ============================================================================
 
@@ -2439,6 +2652,7 @@ customElements.define('semantic-menu', SemanticMenu);
 customElements.define('semantic-tabs', SemanticTabs);
 customElements.define('semantic-disclosure', SemanticDisclosure);
 customElements.define('semantic-progress', SemanticProgress);
+customElements.define('semantic-badge', SemanticBadge);
 
 // Child elements
 customElements.define('nav-item', NavItem);

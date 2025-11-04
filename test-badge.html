@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Badge Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        .demo-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-label {
+            color: #8e8e93;
+            font-size: 14px;
+            min-width: 100px;
+        }
+
+        .badge-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-badge Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Filled Badges (Default)</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Primary:</span>
+            <semantic-badge intent="primary">New</semantic-badge>
+            <semantic-badge intent="primary">5</semantic-badge>
+            <semantic-badge intent="primary">Beta</semantic-badge>
+            <semantic-badge intent="primary">99+</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Success:</span>
+            <semantic-badge intent="success">Active</semantic-badge>
+            <semantic-badge intent="success">Online</semantic-badge>
+            <semantic-badge intent="success">Verified</semantic-badge>
+            <semantic-badge intent="success">✓ Paid</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Warning:</span>
+            <semantic-badge intent="warning">Pending</semantic-badge>
+            <semantic-badge intent="warning">3</semantic-badge>
+            <semantic-badge intent="warning">Limited</semantic-badge>
+            <semantic-badge intent="warning">⚠ Review</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Danger:</span>
+            <semantic-badge intent="danger">Error</semantic-badge>
+            <semantic-badge intent="danger">12</semantic-badge>
+            <semantic-badge intent="danger">Urgent</semantic-badge>
+            <semantic-badge intent="danger">! Failed</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Neutral:</span>
+            <semantic-badge intent="neutral">Draft</semantic-badge>
+            <semantic-badge intent="neutral">7</semantic-badge>
+            <semantic-badge intent="neutral">Archived</semantic-badge>
+            <semantic-badge intent="neutral">Info</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Outline Badges</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Primary:</span>
+            <semantic-badge intent="primary" variant="outline">New</semantic-badge>
+            <semantic-badge intent="primary" variant="outline">5</semantic-badge>
+            <semantic-badge intent="primary" variant="outline">Beta</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Success:</span>
+            <semantic-badge intent="success" variant="outline">Active</semantic-badge>
+            <semantic-badge intent="success" variant="outline">Online</semantic-badge>
+            <semantic-badge intent="success" variant="outline">Verified</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Warning:</span>
+            <semantic-badge intent="warning" variant="outline">Pending</semantic-badge>
+            <semantic-badge intent="warning" variant="outline">3</semantic-badge>
+            <semantic-badge intent="warning" variant="outline">Limited</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Danger:</span>
+            <semantic-badge intent="danger" variant="outline">Error</semantic-badge>
+            <semantic-badge intent="danger" variant="outline">12</semantic-badge>
+            <semantic-badge intent="danger" variant="outline">Urgent</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Subtle Badges</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Primary:</span>
+            <semantic-badge intent="primary" variant="subtle">New</semantic-badge>
+            <semantic-badge intent="primary" variant="subtle">5</semantic-badge>
+            <semantic-badge intent="primary" variant="subtle">Beta</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Success:</span>
+            <semantic-badge intent="success" variant="subtle">Active</semantic-badge>
+            <semantic-badge intent="success" variant="subtle">Online</semantic-badge>
+            <semantic-badge intent="success" variant="subtle">Verified</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Warning:</span>
+            <semantic-badge intent="warning" variant="subtle">Pending</semantic-badge>
+            <semantic-badge intent="warning" variant="subtle">3</semantic-badge>
+            <semantic-badge intent="warning" variant="subtle">Limited</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Danger:</span>
+            <semantic-badge intent="danger" variant="subtle">Error</semantic-badge>
+            <semantic-badge intent="danger" variant="subtle">12</semantic-badge>
+            <semantic-badge intent="danger" variant="subtle">Urgent</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Sizes</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Small:</span>
+            <semantic-badge size="small" intent="primary">New</semantic-badge>
+            <semantic-badge size="small" intent="success">5</semantic-badge>
+            <semantic-badge size="small" intent="warning">Beta</semantic-badge>
+            <semantic-badge size="small" intent="danger">99+</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Medium:</span>
+            <semantic-badge size="medium" intent="primary">New</semantic-badge>
+            <semantic-badge size="medium" intent="success">5</semantic-badge>
+            <semantic-badge size="medium" intent="warning">Beta</semantic-badge>
+            <semantic-badge size="medium" intent="danger">99+</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Large:</span>
+            <semantic-badge size="large" intent="primary">New</semantic-badge>
+            <semantic-badge size="large" intent="success">5</semantic-badge>
+            <semantic-badge size="large" intent="warning">Beta</semantic-badge>
+            <semantic-badge size="large" intent="danger">99+</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Dot Indicators</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Small:</span>
+            <semantic-badge variant="dot" size="small" intent="primary">notification</semantic-badge>
+            <semantic-badge variant="dot" size="small" intent="success">online</semantic-badge>
+            <semantic-badge variant="dot" size="small" intent="warning">away</semantic-badge>
+            <semantic-badge variant="dot" size="small" intent="danger">busy</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Medium:</span>
+            <semantic-badge variant="dot" size="medium" intent="primary">notification</semantic-badge>
+            <semantic-badge variant="dot" size="medium" intent="success">online</semantic-badge>
+            <semantic-badge variant="dot" size="medium" intent="warning">away</semantic-badge>
+            <semantic-badge variant="dot" size="medium" intent="danger">busy</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Large:</span>
+            <semantic-badge variant="dot" size="large" intent="primary">notification</semantic-badge>
+            <semantic-badge variant="dot" size="large" intent="success">online</semantic-badge>
+            <semantic-badge variant="dot" size="large" intent="warning">away</semantic-badge>
+            <semantic-badge variant="dot" size="large" intent="danger">busy</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Pulse Animation</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Filled:</span>
+            <semantic-badge intent="danger" pulse>Live</semantic-badge>
+            <semantic-badge intent="success" pulse>3</semantic-badge>
+            <semantic-badge intent="warning" pulse>Alert</semantic-badge>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Dots:</span>
+            <semantic-badge variant="dot" intent="danger" pulse>live</semantic-badge>
+            <semantic-badge variant="dot" intent="success" pulse>recording</semantic-badge>
+            <semantic-badge variant="dot" intent="warning" pulse>processing</semantic-badge>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World Use Cases</h2>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 12px;">
+                Notifications
+                <semantic-badge intent="danger">12</semantic-badge>
+            </h3>
+            <p style="color: #ababab; margin: 0;">You have unread notifications</p>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 12px;">
+                <semantic-badge variant="dot" intent="success" pulse>online</semantic-badge>
+                John Doe
+                <semantic-badge intent="success" variant="subtle" size="small">Pro</semantic-badge>
+            </h3>
+            <p style="color: #ababab; margin: 0;">Active now</p>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px;">Tasks</h3>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #ababab;">
+                    <span>Todo</span>
+                    <semantic-badge intent="neutral" size="small">5</semantic-badge>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #ababab;">
+                    <span>In Progress</span>
+                    <semantic-badge intent="primary" size="small">3</semantic-badge>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #ababab;">
+                    <span>Done</span>
+                    <semantic-badge intent="success" size="small">12</semantic-badge>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #ababab;">
+                    <span>Blocked</span>
+                    <semantic-badge intent="danger" size="small">2</semantic-badge>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px;">Product Versions</h3>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #ababab;">v2.0.1</span>
+                    <semantic-badge intent="success" size="small">Stable</semantic-badge>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #ababab;">v2.1.0</span>
+                    <semantic-badge intent="primary" size="small">Beta</semantic-badge>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="color: #ababab;">v1.9.5</span>
+                    <semantic-badge intent="neutral" size="small" variant="outline">Legacy</semantic-badge>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px;">
+            <h3 style="margin-top: 0; font-size: 16px; display: flex; align-items: center; gap: 12px;">
+                <semantic-badge variant="dot" intent="danger" pulse>live</semantic-badge>
+                Live Stream
+                <semantic-badge intent="danger" pulse>LIVE</semantic-badge>
+            </h3>
+            <p style="color: #ababab; margin: 0;">Currently broadcasting</p>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Dynamic Badge Example</h2>
+        <p style="color: #8e8e93; font-size: 14px; margin-bottom: 20px;">Click the button to increment the notification count.</p>
+
+        <div class="demo-row">
+            <semantic-action id="inbox-btn" intent="secondary">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    Inbox
+                    <semantic-badge id="inbox-count" intent="danger">0</semantic-badge>
+                </span>
+            </semantic-action>
+            <semantic-action id="increment-btn" intent="primary">Add Notification</semantic-action>
+            <semantic-action id="clear-btn" intent="secondary">Clear All</semantic-action>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic badge demo
+        const inboxCount = document.getElementById('inbox-count');
+        const incrementBtn = document.getElementById('increment-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        let count = 0;
+
+        incrementBtn.addEventListener('click', () => {
+            count++;
+            inboxCount.textContent = count > 99 ? '99+' : count;
+            if (count > 0) {
+                inboxCount.setAttribute('pulse', '');
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            count = 0;
+            inboxCount.textContent = '0';
+            inboxCount.removeAttribute('pulse');
+        });
+    </script>
+</body>
+</html>
