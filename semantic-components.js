@@ -3317,8 +3317,8 @@ class SemanticContainer extends HTMLElement {
                     ${padding ? 'padding: 0 20px;' : ''}
                 }
 
-                /* Ensure slotted children fill width */
-                ::slotted(*) {
+                /* Ensure semantic-grid children fill width */
+                ::slotted(semantic-grid) {
                     width: 100%;
                     box-sizing: border-box;
                 }
