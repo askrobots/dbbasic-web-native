@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Components Test - Semantic Components</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0;
+            padding: 40px 0;
+            background: #f5f5f5;
+        }
+
+        .test-section {
+            margin-bottom: 60px;
+        }
+
+        .test-section h2 {
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .test-section p {
+            margin-bottom: 24px;
+            color: #666;
+        }
+
+        .demo-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .demo-item {
+            background: #e3f2fd;
+            padding: 16px;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        semantic-action {
+            margin: 4px;
+        }
+    </style>
+</head>
+<body>
+    <semantic-container size="xlarge">
+        <h1 style="margin-bottom: 32px; text-align: center;">Layout Components Test Suite</h1>
+
+        <!-- ======================================== -->
+        <!-- SEMANTIC-STACK TESTS -->
+        <!-- ======================================== -->
+        <div class="test-section">
+            <h2>semantic-stack</h2>
+            <p>Vertical or horizontal stacking with consistent spacing</p>
+
+            <!-- Vertical Stack -->
+            <div class="demo-box">
+                <h3>Vertical Stack (default)</h3>
+                <semantic-stack spacing="4">
+                    <div class="demo-item">Item 1</div>
+                    <div class="demo-item">Item 2</div>
+                    <div class="demo-item">Item 3</div>
+                </semantic-stack>
+                <div class="code-block">&lt;semantic-stack spacing="4"&gt;...&lt;/semantic-stack&gt;</div>
+            </div>
+
+            <!-- Horizontal Stack -->
+            <div class="demo-box">
+                <h3>Horizontal Stack</h3>
+                <semantic-stack direction="horizontal" spacing="3">
+                    <div class="demo-item">Item 1</div>
+                    <div class="demo-item">Item 2</div>
+                    <div class="demo-item">Item 3</div>
+                </semantic-stack>
+                <div class="code-block">&lt;semantic-stack direction="horizontal" spacing="3"&gt;...&lt;/semantic-stack&gt;</div>
+            </div>
+
+            <!-- Different Spacing -->
+            <div class="demo-box">
+                <h3>Different Spacing Values</h3>
+                <semantic-grid cols="3" gap="4">
+                    <div>
+                        <h4>spacing="1"</h4>
+                        <semantic-stack spacing="1">
+                            <div class="demo-item">Item</div>
+                            <div class="demo-item">Item</div>
+                        </semantic-stack>
+                    </div>
+                    <div>
+                        <h4>spacing="4"</h4>
+                        <semantic-stack spacing="4">
+                            <div class="demo-item">Item</div>
+                            <div class="demo-item">Item</div>
+                        </semantic-stack>
+                    </div>
+                    <div>
+                        <h4>spacing="8"</h4>
+                        <semantic-stack spacing="8">
+                            <div class="demo-item">Item</div>
+                            <div class="demo-item">Item</div>
+                        </semantic-stack>
+                    </div>
+                </semantic-grid>
+            </div>
+
+            <!-- Alignment Options -->
+            <div class="demo-box">
+                <h3>Alignment Options</h3>
+                <semantic-grid cols="3" gap="4">
+                    <div>
+                        <h4>align="start"</h4>
+                        <semantic-stack align="start" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                            <div class="demo-item" style="width: 80%;">Item</div>
+                            <div class="demo-item" style="width: 60%;">Item</div>
+                        </semantic-stack>
+                    </div>
+                    <div>
+                        <h4>align="center"</h4>
+                        <semantic-stack align="center" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                            <div class="demo-item" style="width: 80%;">Item</div>
+                            <div class="demo-item" style="width: 60%;">Item</div>
+                        </semantic-stack>
+                    </div>
+                    <div>
+                        <h4>align="end"</h4>
+                        <semantic-stack align="end" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                            <div class="demo-item" style="width: 80%;">Item</div>
+                            <div class="demo-item" style="width: 60%;">Item</div>
+                        </semantic-stack>
+                    </div>
+                </semantic-grid>
+            </div>
+
+            <!-- Justify Options (Horizontal) -->
+            <div class="demo-box">
+                <h3>Justify Options (Horizontal Stack)</h3>
+                <div style="margin-bottom: 16px;">
+                    <h4>justify="start"</h4>
+                    <semantic-stack direction="horizontal" justify="start" spacing="2" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                        <div class="demo-item">A</div>
+                        <div class="demo-item">B</div>
+                        <div class="demo-item">C</div>
+                    </semantic-stack>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <h4>justify="center"</h4>
+                    <semantic-stack direction="horizontal" justify="center" spacing="2" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                        <div class="demo-item">A</div>
+                        <div class="demo-item">B</div>
+                        <div class="demo-item">C</div>
+                    </semantic-stack>
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <h4>justify="between"</h4>
+                    <semantic-stack direction="horizontal" justify="between" spacing="2" style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                        <div class="demo-item">A</div>
+                        <div class="demo-item">B</div>
+                        <div class="demo-item">C</div>
+                    </semantic-stack>
+                </div>
+            </div>
+
+            <!-- Wrapping -->
+            <div class="demo-box">
+                <h3>Wrapping with wrap attribute</h3>
+                <semantic-stack direction="horizontal" spacing="2" wrap style="background: #f0f0f0; padding: 12px; border-radius: 4px;">
+                    <div class="demo-item">Item 1</div>
+                    <div class="demo-item">Item 2</div>
+                    <div class="demo-item">Item 3</div>
+                    <div class="demo-item">Item 4</div>
+                    <div class="demo-item">Item 5</div>
+                    <div class="demo-item">Item 6</div>
+                    <div class="demo-item">Item 7</div>
+                    <div class="demo-item">Item 8</div>
+                </semantic-stack>
+                <div class="code-block">&lt;semantic-stack direction="horizontal" wrap&gt;...&lt;/semantic-stack&gt;</div>
+            </div>
+
+            <!-- Real-world Example: Button Group -->
+            <div class="demo-box">
+                <h3>Real-world: Button Groups</h3>
+                <semantic-stack direction="horizontal" spacing="2" wrap>
+                    <semantic-action intent="primary">Save</semantic-action>
+                    <semantic-action intent="secondary">Cancel</semantic-action>
+                    <semantic-action intent="neutral">Reset</semantic-action>
+                </semantic-stack>
+            </div>
+
+            <!-- Real-world Example: Form Layout -->
+            <div class="demo-box">
+                <h3>Real-world: Form Layout</h3>
+                <semantic-stack spacing="4">
+                    <semantic-input label="Full Name" required></semantic-input>
+                    <semantic-input label="Email" type="email" required></semantic-input>
+                    <semantic-input label="Message" type="textarea"></semantic-input>
+                    <semantic-stack direction="horizontal" justify="end" spacing="2">
+                        <semantic-action intent="secondary">Cancel</semantic-action>
+                        <semantic-action intent="primary">Submit</semantic-action>
+                    </semantic-stack>
+                </semantic-stack>
+            </div>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- SEMANTIC-GRID TESTS -->
+        <!-- ======================================== -->
+        <div class="test-section">
+            <h2>semantic-grid</h2>
+            <p>Responsive grid layouts with automatic columns</p>
+
+            <!-- 3 Column Grid -->
+            <div class="demo-box">
+                <h3>3 Column Grid</h3>
+                <semantic-grid cols="3" gap="4">
+                    <div class="demo-item">Column 1</div>
+                    <div class="demo-item">Column 2</div>
+                    <div class="demo-item">Column 3</div>
+                </semantic-grid>
+                <div class="code-block">&lt;semantic-grid cols="3" gap="4"&gt;...&lt;/semantic-grid&gt;</div>
+            </div>
+
+            <!-- Auto-fit Grid -->
+            <div class="demo-box">
+                <h3>Auto-fit Grid (automatically adjusts columns)</h3>
+                <semantic-grid cols="auto-fit" min-width="200px" gap="4">
+                    <div class="demo-item">Item 1</div>
+                    <div class="demo-item">Item 2</div>
+                    <div class="demo-item">Item 3</div>
+                    <div class="demo-item">Item 4</div>
+                    <div class="demo-item">Item 5</div>
+                </semantic-grid>
+                <div class="code-block">&lt;semantic-grid cols="auto-fit" min-width="200px" gap="4"&gt;...&lt;/semantic-grid&gt;</div>
+            </div>
+
+            <!-- Different Gap Sizes -->
+            <div class="demo-box">
+                <h3>Different Gap Sizes</h3>
+                <semantic-stack spacing="6">
+                    <div>
+                        <h4>gap="1" (4px)</h4>
+                        <semantic-grid cols="3" gap="1">
+                            <div class="demo-item">A</div>
+                            <div class="demo-item">B</div>
+                            <div class="demo-item">C</div>
+                        </semantic-grid>
+                    </div>
+                    <div>
+                        <h4>gap="4" (16px)</h4>
+                        <semantic-grid cols="3" gap="4">
+                            <div class="demo-item">A</div>
+                            <div class="demo-item">B</div>
+                            <div class="demo-item">C</div>
+                        </semantic-grid>
+                    </div>
+                    <div>
+                        <h4>gap="8" (32px)</h4>
+                        <semantic-grid cols="3" gap="8">
+                            <div class="demo-item">A</div>
+                            <div class="demo-item">B</div>
+                            <div class="demo-item">C</div>
+                        </semantic-grid>
+                    </div>
+                </semantic-stack>
+            </div>
+
+            <!-- Real-world: Card Grid -->
+            <div class="demo-box">
+                <h3>Real-world: Card Grid</h3>
+                <semantic-grid cols="3" gap="6">
+                    <semantic-card>
+                        <h3 slot="title">Feature 1</h3>
+                        <p slot="description">Description of feature 1</p>
+                        <semantic-action intent="primary">Learn More</semantic-action>
+                    </semantic-card>
+                    <semantic-card>
+                        <h3 slot="title">Feature 2</h3>
+                        <p slot="description">Description of feature 2</p>
+                        <semantic-action intent="primary">Learn More</semantic-action>
+                    </semantic-card>
+                    <semantic-card>
+                        <h3 slot="title">Feature 3</h3>
+                        <p slot="description">Description of feature 3</p>
+                        <semantic-action intent="primary">Learn More</semantic-action>
+                    </semantic-card>
+                </semantic-grid>
+            </div>
+
+            <!-- Real-world: Stats Grid -->
+            <div class="demo-box">
+                <h3>Real-world: Stats Dashboard</h3>
+                <semantic-grid cols="4" gap="4">
+                    <semantic-card>
+                        <h2 slot="title" style="color: #2196f3; font-size: 36px; margin: 0;">1,234</h2>
+                        <p slot="description" style="margin: 0;">Total Users</p>
+                    </semantic-card>
+                    <semantic-card>
+                        <h2 slot="title" style="color: #4caf50; font-size: 36px; margin: 0;">567</h2>
+                        <p slot="description" style="margin: 0;">Active Projects</p>
+                    </semantic-card>
+                    <semantic-card>
+                        <h2 slot="title" style="color: #ff9800; font-size: 36px; margin: 0;">89%</h2>
+                        <p slot="description" style="margin: 0;">Completion Rate</p>
+                    </semantic-card>
+                    <semantic-card>
+                        <h2 slot="title" style="color: #f44336; font-size: 36px; margin: 0;">12</h2>
+                        <p slot="description" style="margin: 0;">Issues</p>
+                    </semantic-card>
+                </semantic-grid>
+            </div>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- SEMANTIC-CONTAINER TESTS -->
+        <!-- ======================================== -->
+        <div class="test-section">
+            <h2>semantic-container</h2>
+            <p>Max-width containers with responsive padding</p>
+
+            <!-- Different Sizes -->
+            <div class="demo-box">
+                <h3>Different Container Sizes</h3>
+                <semantic-stack spacing="4">
+                    <div>
+                        <h4>Small (640px)</h4>
+                        <semantic-container size="small" style="background: #e3f2fd; padding: 12px;">
+                            <p>This container has a max-width of 640px</p>
+                        </semantic-container>
+                    </div>
+                    <div>
+                        <h4>Medium (768px)</h4>
+                        <semantic-container size="medium" style="background: #e8f5e9; padding: 12px;">
+                            <p>This container has a max-width of 768px</p>
+                        </semantic-container>
+                    </div>
+                    <div>
+                        <h4>Large (1024px) - Default</h4>
+                        <semantic-container size="large" style="background: #fff3e0; padding: 12px;">
+                            <p>This container has a max-width of 1024px</p>
+                        </semantic-container>
+                    </div>
+                    <div>
+                        <h4>XLarge (1280px)</h4>
+                        <semantic-container size="xlarge" style="background: #fce4ec; padding: 12px;">
+                            <p>This container has a max-width of 1280px</p>
+                        </semantic-container>
+                    </div>
+                </semantic-stack>
+                <div class="code-block">&lt;semantic-container size="small|medium|large|xlarge"&gt;...&lt;/semantic-container&gt;</div>
+            </div>
+
+            <!-- With and Without Padding -->
+            <div class="demo-box">
+                <h3>Padding Control</h3>
+                <semantic-stack spacing="4">
+                    <div>
+                        <h4>With Padding (default)</h4>
+                        <semantic-container size="medium" style="background: #e3f2fd;">
+                            <div style="background: white; padding: 12px;">Content with container padding</div>
+                        </semantic-container>
+                    </div>
+                    <div>
+                        <h4>Without Padding</h4>
+                        <semantic-container size="medium" padding="false" style="background: #e3f2fd;">
+                            <div style="background: white; padding: 12px;">Content without container padding</div>
+                        </semantic-container>
+                    </div>
+                </semantic-stack>
+            </div>
+        </div>
+
+        <!-- ======================================== -->
+        <!-- COMBINED EXAMPLES -->
+        <!-- ======================================== -->
+        <div class="test-section">
+            <h2>Combined Layout Examples</h2>
+            <p>Real-world examples using multiple layout components together</p>
+
+            <!-- Example 1: Pricing Page -->
+            <div class="demo-box">
+                <h3>Pricing Page Layout</h3>
+                <semantic-container size="large">
+                    <semantic-stack spacing="6" align="center">
+                        <div style="text-align: center;">
+                            <h2 style="margin: 0 0 8px 0;">Choose Your Plan</h2>
+                            <p style="margin: 0; color: #666;">Select the perfect plan for your needs</p>
+                        </div>
+                        <semantic-grid cols="3" gap="6">
+                            <semantic-card>
+                                <semantic-stack spacing="4">
+                                    <div>
+                                        <h3 slot="title" style="margin: 0 0 4px 0;">Free</h3>
+                                        <p style="font-size: 32px; font-weight: bold; margin: 0;">$0</p>
+                                        <p style="color: #666; margin: 0;">per month</p>
+                                    </div>
+                                    <semantic-stack spacing="2">
+                                        <div>✓ 5 Projects</div>
+                                        <div>✓ Basic Support</div>
+                                        <div>✓ 1GB Storage</div>
+                                    </semantic-stack>
+                                    <semantic-action intent="neutral" style="width: 100%;">Get Started</semantic-action>
+                                </semantic-stack>
+                            </semantic-card>
+                            <semantic-card>
+                                <semantic-stack spacing="4">
+                                    <div>
+                                        <semantic-badge intent="primary">Popular</semantic-badge>
+                                        <h3 slot="title" style="margin: 8px 0 4px 0;">Pro</h3>
+                                        <p style="font-size: 32px; font-weight: bold; margin: 0;">$29</p>
+                                        <p style="color: #666; margin: 0;">per month</p>
+                                    </div>
+                                    <semantic-stack spacing="2">
+                                        <div>✓ Unlimited Projects</div>
+                                        <div>✓ Priority Support</div>
+                                        <div>✓ 100GB Storage</div>
+                                        <div>✓ Advanced Analytics</div>
+                                    </semantic-stack>
+                                    <semantic-action intent="primary" style="width: 100%;">Start Trial</semantic-action>
+                                </semantic-stack>
+                            </semantic-card>
+                            <semantic-card>
+                                <semantic-stack spacing="4">
+                                    <div>
+                                        <h3 slot="title" style="margin: 0 0 4px 0;">Enterprise</h3>
+                                        <p style="font-size: 32px; font-weight: bold; margin: 0;">Custom</p>
+                                        <p style="color: #666; margin: 0;">contact us</p>
+                                    </div>
+                                    <semantic-stack spacing="2">
+                                        <div>✓ Everything in Pro</div>
+                                        <div>✓ Dedicated Support</div>
+                                        <div>✓ Unlimited Storage</div>
+                                        <div>✓ Custom Integration</div>
+                                    </semantic-stack>
+                                    <semantic-action intent="neutral" style="width: 100%;">Contact Sales</semantic-action>
+                                </semantic-stack>
+                            </semantic-card>
+                        </semantic-grid>
+                    </semantic-stack>
+                </semantic-container>
+            </div>
+
+            <!-- Example 2: Dashboard Layout -->
+            <div class="demo-box">
+                <h3>Dashboard Layout</h3>
+                <semantic-container size="xlarge">
+                    <semantic-stack spacing="6">
+                        <!-- Header -->
+                        <semantic-stack direction="horizontal" justify="between" align="center">
+                            <h2 style="margin: 0;">Dashboard</h2>
+                            <semantic-action intent="primary">New Project</semantic-action>
+                        </semantic-stack>
+
+                        <!-- Stats -->
+                        <semantic-grid cols="4" gap="4">
+                            <semantic-card>
+                                <h3 style="font-size: 28px; margin: 0;">24</h3>
+                                <p style="margin: 0; color: #666;">Active Projects</p>
+                            </semantic-card>
+                            <semantic-card>
+                                <h3 style="font-size: 28px; margin: 0;">142</h3>
+                                <p style="margin: 0; color: #666;">Total Tasks</p>
+                            </semantic-card>
+                            <semantic-card>
+                                <h3 style="font-size: 28px; margin: 0;">87%</h3>
+                                <p style="margin: 0; color: #666;">Completion</p>
+                            </semantic-card>
+                            <semantic-card>
+                                <h3 style="font-size: 28px; margin: 0;">12</h3>
+                                <p style="margin: 0; color: #666;">Team Members</p>
+                            </semantic-card>
+                        </semantic-grid>
+
+                        <!-- Main Content -->
+                        <semantic-grid cols="2" gap="6">
+                            <semantic-card>
+                                <h3 slot="title">Recent Activity</h3>
+                                <semantic-stack spacing="3">
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 4px;">
+                                        <strong>Project Alpha</strong> - Task completed
+                                    </div>
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 4px;">
+                                        <strong>Project Beta</strong> - New comment
+                                    </div>
+                                    <div style="padding: 12px; background: #f5f5f5; border-radius: 4px;">
+                                        <strong>Project Gamma</strong> - File uploaded
+                                    </div>
+                                </semantic-stack>
+                            </semantic-card>
+                            <semantic-card>
+                                <h3 slot="title">Quick Actions</h3>
+                                <semantic-stack spacing="3">
+                                    <semantic-action intent="primary" style="width: 100%;">Create Task</semantic-action>
+                                    <semantic-action intent="secondary" style="width: 100%;">Upload File</semantic-action>
+                                    <semantic-action intent="neutral" style="width: 100%;">View Reports</semantic-action>
+                                </semantic-stack>
+                            </semantic-card>
+                        </semantic-grid>
+                    </semantic-stack>
+                </semantic-container>
+            </div>
+        </div>
+
+        <!-- Mobile Responsiveness Note -->
+        <div class="demo-box" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+            <h3 style="margin-top: 0;">📱 Mobile Responsiveness</h3>
+            <p style="margin-bottom: 8px;">All layout components are mobile-responsive by default:</p>
+            <ul style="margin: 0; padding-left: 20px;">
+                <li><strong>semantic-grid</strong> automatically becomes single column on screens &lt;640px</li>
+                <li><strong>semantic-container</strong> has responsive padding that adjusts based on screen size</li>
+                <li><strong>semantic-stack</strong> with wrap will automatically reflow items</li>
+            </ul>
+            <p style="margin-top: 12px; margin-bottom: 0;"><em>Try resizing your browser to see the responsive behavior!</em></p>
+        </div>
+    </semantic-container>
+</body>
+</html>

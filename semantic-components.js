@@ -3081,6 +3081,261 @@ class BreadcrumbItem extends HTMLElement {
     }
 }
 
+// ============================================================================
+// LAYOUT COMPONENTS (Phase 2)
+// ============================================================================
+
+/**
+ * SemanticStack - Vertical or horizontal stacking with consistent spacing
+ *
+ * Attributes:
+ * - direction: "vertical" | "horizontal" (default: "vertical")
+ * - spacing: "1" | "2" | "3" | "4" | "6" | "8" (default: "4")
+ * - align: "start" | "center" | "end" | "stretch" (default: "stretch")
+ * - justify: "start" | "center" | "end" | "between" | "around" (default: "start")
+ * - wrap: boolean (default: false)
+ */
+class SemanticStack extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    static get observedAttributes() {
+        return ['direction', 'spacing', 'align', 'justify', 'wrap'];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        if (this.shadowRoot.innerHTML) {
+            this.render();
+        }
+    }
+
+    render() {
+        const direction = this.getAttribute('direction') || 'vertical';
+        const spacing = this.getAttribute('spacing') || '4';
+        const align = this.getAttribute('align') || 'stretch';
+        const justify = this.getAttribute('justify') || 'start';
+        const wrap = this.hasAttribute('wrap');
+
+        const spacingMap = {
+            '1': '4px',
+            '2': '8px',
+            '3': '12px',
+            '4': '16px',
+            '6': '24px',
+            '8': '32px'
+        };
+
+        const alignMap = {
+            'start': 'flex-start',
+            'center': 'center',
+            'end': 'flex-end',
+            'stretch': 'stretch'
+        };
+
+        const justifyMap = {
+            'start': 'flex-start',
+            'center': 'center',
+            'end': 'flex-end',
+            'between': 'space-between',
+            'around': 'space-around'
+        };
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: flex;
+                    flex-direction: ${direction === 'horizontal' ? 'row' : 'column'};
+                    gap: ${spacingMap[spacing] || '16px'};
+                    align-items: ${alignMap[align] || 'stretch'};
+                    justify-content: ${justifyMap[justify] || 'flex-start'};
+                    ${wrap ? 'flex-wrap: wrap;' : ''}
+                    width: 100%;
+                }
+
+                /* Accessibility: make stack keyboard navigable if it contains focusable items */
+                :host(:focus-within) {
+                    outline: 2px solid transparent;
+                }
+
+                /* Reduced motion support */
+                @media (prefers-reduced-motion: reduce) {
+                    :host {
+                        transition: none;
+                    }
+                }
+            </style>
+            <slot></slot>
+        `;
+    }
+}
+
+/**
+ * SemanticGrid - Responsive grid layouts with automatic columns
+ *
+ * Attributes:
+ * - cols: "1" | "2" | "3" | "4" | "auto-fit" | "auto-fill" (default: "auto-fit")
+ * - gap: "1" | "2" | "3" | "4" | "6" | "8" (default: "4")
+ * - min-width: minimum column width for auto layouts (default: "250px")
+ * - responsive: boolean - automatically adjust columns on mobile (default: true)
+ */
+class SemanticGrid extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    static get observedAttributes() {
+        return ['cols', 'gap', 'min-width', 'responsive'];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        if (this.shadowRoot.innerHTML) {
+            this.render();
+        }
+    }
+
+    render() {
+        const cols = this.getAttribute('cols') || 'auto-fit';
+        const gap = this.getAttribute('gap') || '4';
+        const minWidth = this.getAttribute('min-width') || '250px';
+        const responsive = this.hasAttribute('responsive') !== false;
+
+        const spacingMap = {
+            '1': '4px',
+            '2': '8px',
+            '3': '12px',
+            '4': '16px',
+            '6': '24px',
+            '8': '32px'
+        };
+
+        let gridTemplate;
+        if (cols === 'auto-fit' || cols === 'auto-fill') {
+            gridTemplate = `repeat(${cols}, minmax(${minWidth}, 1fr))`;
+        } else {
+            gridTemplate = `repeat(${cols}, 1fr)`;
+        }
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: grid;
+                    grid-template-columns: ${gridTemplate};
+                    gap: ${spacingMap[gap] || '16px'};
+                    width: 100%;
+                }
+
+                ${responsive ? `
+                /* Mobile responsive - stack on small screens */
+                @media (max-width: 640px) {
+                    :host {
+                        grid-template-columns: 1fr;
+                    }
+                }
+                ` : ''}
+
+                /* Accessibility */
+                :host(:focus-within) {
+                    outline: 2px solid transparent;
+                }
+
+                /* Reduced motion support */
+                @media (prefers-reduced-motion: reduce) {
+                    :host {
+                        transition: none;
+                    }
+                }
+            </style>
+            <slot></slot>
+        `;
+    }
+}
+
+/**
+ * SemanticContainer - Max-width containers with responsive padding
+ *
+ * Attributes:
+ * - size: "small" | "medium" | "large" | "xlarge" | "full" (default: "large")
+ * - padding: boolean - add responsive padding (default: true)
+ */
+class SemanticContainer extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    static get observedAttributes() {
+        return ['size', 'padding'];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        if (this.shadowRoot.innerHTML) {
+            this.render();
+        }
+    }
+
+    render() {
+        const size = this.getAttribute('size') || 'large';
+        const padding = this.hasAttribute('padding') !== false;
+
+        const sizeMap = {
+            'small': '640px',
+            'medium': '768px',
+            'large': '1024px',
+            'xlarge': '1280px',
+            'full': '100%'
+        };
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                    max-width: ${sizeMap[size] || '1024px'};
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 100%;
+                    ${padding ? 'padding: 0 20px;' : ''}
+                }
+
+                ${padding ? `
+                /* Responsive padding */
+                @media (min-width: 640px) {
+                    :host {
+                        padding: 0 24px;
+                    }
+                }
+
+                @media (min-width: 1024px) {
+                    :host {
+                        padding: 0 32px;
+                    }
+                }
+                ` : ''}
+
+                /* Accessibility: container as landmark */
+                :host {
+                    role: region;
+                }
+            </style>
+            <slot></slot>
+        `;
+    }
+}
+
 customElements.define('semantic-action', SemanticAction);
 customElements.define('semantic-card', SemanticCard);
 customElements.define('semantic-feedback', SemanticFeedback);
@@ -3096,6 +3351,9 @@ customElements.define('semantic-progress', SemanticProgress);
 customElements.define('semantic-badge', SemanticBadge);
 customElements.define('semantic-popover', SemanticPopover);
 customElements.define('semantic-breadcrumb', SemanticBreadcrumb);
+customElements.define('semantic-stack', SemanticStack);
+customElements.define('semantic-grid', SemanticGrid);
+customElements.define('semantic-container', SemanticContainer);
 
 // Child elements
 customElements.define('nav-item', NavItem);

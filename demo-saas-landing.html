@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Landing Page - Built with Semantic Components</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2196f3;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 48px;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 0;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 16px 0;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #263238;
+            color: #b0bec5;
+            padding: 60px 0 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .footer a {
+            color: #b0bec5;
+            text-decoration: none;
+            display: block;
+            padding: 6px 0;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            margin-top: 40px;
+            border-top: 1px solid #37474f;
+            color: #78909c;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: white;
+            padding: 80px 0;
+        }
+
+        .testimonial-card {
+            padding: 32px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .testimonial-text {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #2196f3;
+        }
+
+        /* Ensure cards take full width in grid */
+        semantic-card {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with clean semantic layout -->
+    <div class="header">
+        <semantic-container size="xlarge">
+            <semantic-stack direction="horizontal" justify="between" align="center">
+                <div class="logo">ProductName</div>
+                <semantic-stack direction="horizontal" spacing="6" align="center">
+                    <a href="#features" style="color: #666; text-decoration: none;">Features</a>
+                    <a href="#pricing" style="color: #666; text-decoration: none;">Pricing</a>
+                    <a href="#testimonials" style="color: #666; text-decoration: none;">Testimonials</a>
+                    <semantic-action intent="primary">Sign Up Free</semantic-action>
+                </semantic-stack>
+            </semantic-stack>
+        </semantic-container>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <semantic-container size="large">
+            <semantic-stack spacing="6" align="center">
+                <div>
+                    <h1>Ship Faster with<br>Better Components</h1>
+                    <p>Build modern web applications with semantic, accessible components that work everywhere. No framework required.</p>
+                </div>
+                <semantic-stack direction="horizontal" spacing="3" justify="center" wrap>
+                    <semantic-action intent="primary" size="large">Get Started Free</semantic-action>
+                    <semantic-action intent="neutral" size="large" variant="outline" style="--action-text: white; --action-border: white;">View Demo</semantic-action>
+                </semantic-stack>
+                <semantic-stack direction="horizontal" spacing="4" align="center">
+                    <semantic-badge intent="success">No credit card required</semantic-badge>
+                    <semantic-badge intent="neutral" variant="outline" style="--badge-text: white; --badge-border: white;">14-day trial</semantic-badge>
+                </semantic-stack>
+            </semantic-stack>
+        </semantic-container>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <semantic-container size="xlarge">
+            <h2 class="section-title">Everything You Need</h2>
+            <semantic-grid cols="3" gap="8">
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Native Web Components load instantly. No framework overhead, no bundle bloat.</p>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">♿</div>
+                        <h3>Accessible by Default</h3>
+                        <p>WCAG AAA compliant components with keyboard navigation, screen reader support built-in.</p>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile First</h3>
+                        <p>44px touch targets, responsive layouts, and gesture support out of the box.</p>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Easily Customizable</h3>
+                        <p>CSS custom properties make theming simple. Your brand, your style.</p>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Shadow DOM</h3>
+                        <p>True encapsulation means no CSS conflicts, ever. Style isolation built-in.</p>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="3">
+                        <div class="feature-icon">🌐</div>
+                        <h3>Universal</h3>
+                        <p>Works with React, Vue, Angular, or vanilla JS. Framework-agnostic by design.</p>
+                    </semantic-stack>
+                </semantic-card>
+            </semantic-grid>
+        </semantic-container>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonial" id="testimonials">
+        <semantic-container size="large">
+            <h2 class="section-title">What Developers Say</h2>
+            <semantic-grid cols="3" gap="6">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Finally, components that just work. No build step, no config, no headaches. Just drop them in and ship."</p>
+                    <p class="testimonial-author">Sarah Chen, Frontend Lead</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"The accessibility features saved us months of work. Our customers love the keyboard navigation."</p>
+                    <p class="testimonial-author">Marcus Johnson, CTO</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"We migrated from Bootstrap in a weekend. The semantic approach makes so much more sense."</p>
+                    <p class="testimonial-author">Emma Rodriguez, Dev Manager</p>
+                </div>
+            </semantic-grid>
+        </semantic-container>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <semantic-container size="large">
+            <div class="pricing-header">
+                <h2 class="section-title">Simple, Transparent Pricing</h2>
+                <p style="font-size: 18px; color: #666;">Start free, upgrade when you need more</p>
+            </div>
+            <semantic-grid cols="3" gap="6">
+                <semantic-card>
+                    <semantic-stack spacing="4">
+                        <div>
+                            <h3>Starter</h3>
+                            <div class="price">$0</div>
+                            <div class="price-period">forever free</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>All components</li>
+                            <li>Community support</li>
+                            <li>MIT license</li>
+                            <li>Updates</li>
+                        </ul>
+                        <semantic-action intent="neutral" style="width: 100%;">Get Started</semantic-action>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card style="border: 2px solid #2196f3;">
+                    <semantic-stack spacing="4">
+                        <div>
+                            <semantic-badge intent="primary">Most Popular</semantic-badge>
+                            <h3 style="margin-top: 8px;">Pro</h3>
+                            <div class="price">$49</div>
+                            <div class="price-period">per month</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Everything in Starter</li>
+                            <li>Priority support</li>
+                            <li>Advanced components</li>
+                            <li>Figma design system</li>
+                            <li>Custom themes</li>
+                        </ul>
+                        <semantic-action intent="primary" style="width: 100%;">Start Free Trial</semantic-action>
+                    </semantic-stack>
+                </semantic-card>
+
+                <semantic-card>
+                    <semantic-stack spacing="4">
+                        <div>
+                            <h3>Enterprise</h3>
+                            <div class="price">Custom</div>
+                            <div class="price-period">tailored for teams</div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Everything in Pro</li>
+                            <li>Dedicated support</li>
+                            <li>Custom components</li>
+                            <li>SLA guarantee</li>
+                            <li>Training sessions</li>
+                        </ul>
+                        <semantic-action intent="neutral" style="width: 100%;">Contact Sales</semantic-action>
+                    </semantic-stack>
+                </semantic-card>
+            </semantic-grid>
+        </semantic-container>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <semantic-container size="medium">
+            <semantic-stack spacing="4" align="center">
+                <h2>Ready to Build Better?</h2>
+                <p>Join thousands of developers building accessible, fast, and beautiful web applications.</p>
+                <semantic-stack direction="horizontal" spacing="3" justify="center" wrap>
+                    <semantic-action intent="primary" size="large">Get Started Free</semantic-action>
+                    <semantic-action intent="neutral" size="large" variant="outline" style="--action-text: white; --action-border: white;">Schedule Demo</semantic-action>
+                </semantic-stack>
+            </semantic-stack>
+        </semantic-container>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <semantic-container size="xlarge">
+            <semantic-stack spacing="8">
+                <semantic-grid cols="4" gap="8">
+                    <div>
+                        <h4>Product</h4>
+                        <a href="#">Features</a>
+                        <a href="#">Pricing</a>
+                        <a href="#">Documentation</a>
+                        <a href="#">Changelog</a>
+                    </div>
+                    <div>
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Contact</a>
+                    </div>
+                    <div>
+                        <h4>Resources</h4>
+                        <a href="#">Tutorials</a>
+                        <a href="#">Community</a>
+                        <a href="#">Support</a>
+                        <a href="#">Status</a>
+                    </div>
+                    <div>
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                        <a href="#">License</a>
+                    </div>
+                </semantic-grid>
+
+                <div class="footer-bottom">
+                    © 2025 ProductName. Built with Semantic Components. All rights reserved.
+                </div>
+            </semantic-stack>
+        </semantic-container>
+    </footer>
+</body>
+</html>
