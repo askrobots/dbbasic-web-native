@@ -3376,6 +3376,349 @@ customElements.define('semantic-breadcrumb', SemanticBreadcrumb);
 customElements.define('semantic-stack', SemanticStack);
 customElements.define('semantic-grid', SemanticGrid);
 customElements.define('semantic-container', SemanticContainer);
+customElements.define('semantic-hero', SemanticHero);
+
+/**
+ * Semantic Hero - Premium marketing hero sections
+ *
+ * Variants:
+ * - centered: Classic centered hero (default)
+ * - split: Content left, image right
+ * - minimal: Clean single CTA
+ * - background: Full background image/video
+ *
+ * Usage:
+ * <semantic-hero variant="centered" height="large">
+ *   <h1 slot="heading">Your Amazing Product</h1>
+ *   <p slot="subheading">The best solution for your needs</p>
+ *   <div slot="actions">
+ *     <semantic-action intent="primary" size="large">Get Started</semantic-action>
+ *   </div>
+ *   <img slot="image" src="hero.jpg" alt="Product">
+ * </semantic-hero>
+ */
+class SemanticHero extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    static get observedAttributes() {
+        return ['variant', 'height', 'background', 'background-video', 'align'];
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    attributeChangedCallback() {
+        if (this.shadowRoot.innerHTML) {
+            this.render();
+        }
+    }
+
+    render() {
+        const variant = this.getAttribute('variant') || 'centered';
+        const height = this.getAttribute('height') || 'medium';
+        const background = this.getAttribute('background') || '';
+        const backgroundVideo = this.getAttribute('background-video') || '';
+        const align = this.getAttribute('align') || 'center';
+
+        const heightMap = {
+            'small': '400px',
+            'medium': '600px',
+            'large': '100vh',
+            'auto': 'auto'
+        };
+
+        const alignMap = {
+            'left': 'flex-start',
+            'center': 'center',
+            'right': 'flex-end'
+        };
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                    position: relative;
+                    width: 100%;
+                    min-height: ${heightMap[height] || '600px'};
+                    overflow: hidden;
+                }
+
+                .hero-container {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    min-height: inherit;
+                    display: flex;
+                    align-items: center;
+                    justify-content: ${alignMap[align] || 'center'};
+                    padding: 80px 32px;
+                    box-sizing: border-box;
+                }
+
+                /* Background styling */
+                .hero-background {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                }
+
+                .hero-background.image {
+                    background-image: url('${background}');
+                    background-size: cover;
+                    background-position: center;
+                }
+
+                .hero-background.video video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .hero-background-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: ${background || backgroundVideo ? 'rgba(0, 0, 0, 0.4)' : 'transparent'};
+                    z-index: 1;
+                }
+
+                .hero-content {
+                    position: relative;
+                    z-index: 2;
+                    max-width: 1280px;
+                    width: 100%;
+                    margin: 0 auto;
+                }
+
+                /* Centered variant (default) */
+                .hero-content.centered {
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 24px;
+                }
+
+                .centered ::slotted([slot="heading"]) {
+                    font-size: 56px;
+                    font-weight: 800;
+                    line-height: 1.2;
+                    margin: 0;
+                    max-width: 800px;
+                }
+
+                .centered ::slotted([slot="subheading"]) {
+                    font-size: 20px;
+                    line-height: 1.6;
+                    margin: 0;
+                    max-width: 600px;
+                    opacity: 0.9;
+                }
+
+                .centered ::slotted([slot="actions"]) {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                .centered ::slotted([slot="badge"]) {
+                    margin-bottom: 16px;
+                }
+
+                /* Split variant */
+                .hero-content.split {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 64px;
+                    align-items: center;
+                }
+
+                .split .content-col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                }
+
+                .split ::slotted([slot="heading"]) {
+                    font-size: 48px;
+                    font-weight: 800;
+                    line-height: 1.2;
+                    margin: 0;
+                }
+
+                .split ::slotted([slot="subheading"]) {
+                    font-size: 18px;
+                    line-height: 1.6;
+                    margin: 0;
+                    opacity: 0.9;
+                }
+
+                .split ::slotted([slot="actions"]) {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                }
+
+                .split ::slotted([slot="image"]) {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                }
+
+                /* Minimal variant */
+                .hero-content.minimal {
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 32px;
+                    max-width: 600px;
+                }
+
+                .minimal ::slotted([slot="heading"]) {
+                    font-size: 64px;
+                    font-weight: 800;
+                    line-height: 1.1;
+                    margin: 0;
+                }
+
+                .minimal ::slotted([slot="subheading"]) {
+                    font-size: 18px;
+                    line-height: 1.6;
+                    margin: 0;
+                    opacity: 0.7;
+                }
+
+                .minimal ::slotted([slot="actions"]) {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                /* Background variant */
+                .hero-content.background {
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 24px;
+                    color: white;
+                }
+
+                .background ::slotted([slot="heading"]) {
+                    font-size: 56px;
+                    font-weight: 800;
+                    line-height: 1.2;
+                    margin: 0;
+                    max-width: 800px;
+                    color: white;
+                    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+                }
+
+                .background ::slotted([slot="subheading"]) {
+                    font-size: 20px;
+                    line-height: 1.6;
+                    margin: 0;
+                    max-width: 600px;
+                    color: white;
+                    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                }
+
+                .background ::slotted([slot="actions"]) {
+                    display: flex;
+                    gap: 16px;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                /* Responsive */
+                @media (max-width: 768px) {
+                    .hero-container {
+                        padding: 60px 24px;
+                    }
+
+                    .hero-content.split {
+                        grid-template-columns: 1fr;
+                        gap: 40px;
+                    }
+
+                    .centered ::slotted([slot="heading"]),
+                    .background ::slotted([slot="heading"]) {
+                        font-size: 40px;
+                    }
+
+                    .split ::slotted([slot="heading"]) {
+                        font-size: 36px;
+                    }
+
+                    .minimal ::slotted([slot="heading"]) {
+                        font-size: 48px;
+                    }
+
+                    .centered ::slotted([slot="subheading"]),
+                    .split ::slotted([slot="subheading"]),
+                    .background ::slotted([slot="subheading"]) {
+                        font-size: 18px;
+                    }
+
+                    .minimal ::slotted([slot="subheading"]) {
+                        font-size: 16px;
+                    }
+                }
+
+                /* Accessibility */
+                @media (prefers-reduced-motion: reduce) {
+                    * {
+                        animation: none !important;
+                        transition: none !important;
+                    }
+                }
+            </style>
+
+            ${background ? `<div class="hero-background image"></div>` : ''}
+            ${backgroundVideo ? `
+                <div class="hero-background video">
+                    <video autoplay muted loop playsinline>
+                        <source src="${backgroundVideo}" type="video/mp4">
+                    </video>
+                </div>
+            ` : ''}
+            ${background || backgroundVideo ? '<div class="hero-background-overlay"></div>' : ''}
+
+            <div class="hero-container">
+                <div class="hero-content ${variant}">
+                    ${variant === 'split' ? `
+                        <div class="content-col">
+                            <slot name="badge"></slot>
+                            <slot name="heading"></slot>
+                            <slot name="subheading"></slot>
+                            <slot name="actions"></slot>
+                        </div>
+                        <div class="image-col">
+                            <slot name="image"></slot>
+                        </div>
+                    ` : `
+                        <slot name="badge"></slot>
+                        <slot name="heading"></slot>
+                        <slot name="subheading"></slot>
+                        <slot name="actions"></slot>
+                        <slot name="image"></slot>
+                    `}
+                </div>
+            </div>
+        `;
+    }
+}
 
 // Child elements
 customElements.define('nav-item', NavItem);
