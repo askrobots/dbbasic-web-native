@@ -3234,6 +3234,7 @@ class SemanticGrid extends HTMLElement {
                     gap: ${spacingMap[gap] || '16px'};
                     width: 100%;
                     box-sizing: border-box;
+                    align-self: stretch;
                 }
 
                 ${responsive ? `
@@ -3309,7 +3310,8 @@ class SemanticContainer extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 :host {
-                    display: block;
+                    display: flex;
+                    flex-direction: column;
                     max-width: ${sizeMap[size] || '1024px'};
                     margin-left: auto;
                     margin-right: auto;
@@ -3317,11 +3319,6 @@ class SemanticContainer extends HTMLElement {
                     ${padding ? 'padding: 0 20px;' : ''}
                 }
 
-                /* Ensure semantic-grid children fill width */
-                ::slotted(semantic-grid) {
-                    width: 100%;
-                    box-sizing: border-box;
-                }
 
                 ${padding ? `
                 /* Responsive padding */
