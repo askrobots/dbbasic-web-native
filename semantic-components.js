@@ -1895,6 +1895,245 @@ class SemanticTabs extends SemanticComponent {
 }
 
 // ============================================================================
+// DISCLOSURE COMPONENT (Accordion/Collapsible)
+// ============================================================================
+
+class SemanticDisclosure extends SemanticComponent {
+    static get observedAttributes() {
+        return ['open', 'mode'];
+    }
+
+    constructor() {
+        super();
+        this.items = [];
+    }
+
+    getCSS() {
+        return `
+            .disclosure-container {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                background: #1c1c1e;
+                border-radius: 12px;
+                overflow: hidden;
+            }
+
+            .disclosure-item {
+                border-bottom: 1px solid #38383a;
+            }
+
+            .disclosure-item:last-child {
+                border-bottom: none;
+            }
+
+            .disclosure-header {
+                all: unset;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                padding: 16px;
+                background: transparent;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.15s ease;
+                box-sizing: border-box;
+                min-height: 44px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+
+            .disclosure-header:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .disclosure-header:active {
+                background: rgba(255, 255, 255, 0.08);
+            }
+
+            .disclosure-header:focus-visible {
+                outline: 3px solid #4d9fff;
+                outline-offset: -3px;
+            }
+
+            .disclosure-icon {
+                font-size: 14px;
+                color: #8e8e93;
+                transition: transform 0.2s ease;
+                user-select: none;
+            }
+
+            .disclosure-icon.open {
+                transform: rotate(90deg);
+            }
+
+            .disclosure-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease;
+                padding: 0 16px;
+                box-sizing: border-box;
+            }
+
+            .disclosure-content.open {
+                max-height: 2000px;
+                padding: 0 16px 16px 16px;
+            }
+
+            .disclosure-content-inner {
+                color: #ababab;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        `;
+    }
+
+    getHTML() {
+        return `<div class="disclosure-container" role="region"></div>`;
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getCSS()}
+            </style>
+            ${this.getHTML()}
+        `;
+    }
+
+    setupEventListeners() {
+        setTimeout(() => {
+            this.collectItems();
+            this.renderItems();
+            this.setupMode();
+        }, 0);
+    }
+
+    collectItems() {
+        this.items = Array.from(this.querySelectorAll('disclosure-item'));
+    }
+
+    renderItems() {
+        const container = this.shadowRoot.querySelector('.disclosure-container');
+
+        this.items.forEach((item, index) => {
+            const header = item.getAttribute('header') || `Item ${index + 1}`;
+            const open = item.hasAttribute('open');
+            const disabled = item.hasAttribute('disabled');
+
+            const itemEl = document.createElement('div');
+            itemEl.className = 'disclosure-item';
+            itemEl.setAttribute('data-index', index);
+
+            const headerButton = document.createElement('button');
+            headerButton.className = 'disclosure-header';
+            headerButton.setAttribute('role', 'button');
+            headerButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+            headerButton.setAttribute('aria-controls', `disclosure-content-${index}`);
+
+            if (disabled) {
+                headerButton.disabled = true;
+                headerButton.style.opacity = '0.4';
+                headerButton.style.cursor = 'not-allowed';
+            }
+
+            const headerText = document.createElement('span');
+            headerText.textContent = header;
+
+            const icon = document.createElement('span');
+            icon.className = `disclosure-icon ${open ? 'open' : ''}`;
+            icon.textContent = '▶';
+            icon.setAttribute('aria-hidden', 'true');
+
+            headerButton.appendChild(headerText);
+            headerButton.appendChild(icon);
+
+            const content = document.createElement('div');
+            content.className = `disclosure-content ${open ? 'open' : ''}`;
+            content.id = `disclosure-content-${index}`;
+            content.setAttribute('role', 'region');
+            content.setAttribute('aria-labelledby', `disclosure-header-${index}`);
+
+            const contentInner = document.createElement('div');
+            contentInner.className = 'disclosure-content-inner';
+            contentInner.innerHTML = item.innerHTML;
+
+            content.appendChild(contentInner);
+
+            itemEl.appendChild(headerButton);
+            itemEl.appendChild(content);
+
+            container.appendChild(itemEl);
+
+            if (!disabled) {
+                headerButton.addEventListener('click', () => {
+                    this.toggleItem(index);
+                });
+            }
+        });
+    }
+
+    setupMode() {
+        const mode = this.getAttribute('mode') || 'multiple';
+        this.mode = mode;
+    }
+
+    toggleItem(index) {
+        const container = this.shadowRoot.querySelector('.disclosure-container');
+        const items = container.querySelectorAll('.disclosure-item');
+        const item = items[index];
+        const content = item.querySelector('.disclosure-content');
+        const icon = item.querySelector('.disclosure-icon');
+        const button = item.querySelector('.disclosure-header');
+        const isOpen = content.classList.contains('open');
+
+        if (this.mode === 'single' && !isOpen) {
+            // Close all other items
+            items.forEach((otherItem, otherIndex) => {
+                if (otherIndex !== index) {
+                    const otherContent = otherItem.querySelector('.disclosure-content');
+                    const otherIcon = otherItem.querySelector('.disclosure-icon');
+                    const otherButton = otherItem.querySelector('.disclosure-header');
+                    otherContent.classList.remove('open');
+                    otherIcon.classList.remove('open');
+                    otherButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Toggle current item
+        if (isOpen) {
+            content.classList.remove('open');
+            icon.classList.remove('open');
+            button.setAttribute('aria-expanded', 'false');
+            this.items[index].removeAttribute('open');
+        } else {
+            content.classList.add('open');
+            icon.classList.add('open');
+            button.setAttribute('aria-expanded', 'true');
+            this.items[index].setAttribute('open', '');
+        }
+
+        // Emit event
+        this.dispatchEvent(new CustomEvent('disclosure-change', {
+            detail: {
+                index,
+                open: !isOpen,
+                item: this.items[index]
+            }
+        }));
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'mode' && this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.setupMode();
+        }
+    }
+}
+
+// ============================================================================
 // CHILD ELEMENTS (for use within parent components)
 // ============================================================================
 
@@ -2007,6 +2246,13 @@ class TabPanel extends HTMLElement {
     }
 }
 
+class DisclosureItem extends HTMLElement {
+    connectedCallback() {
+        // Disclosure item is just a marker element, actual rendering happens in SemanticDisclosure
+        this.style.display = 'none';
+    }
+}
+
 customElements.define('semantic-action', SemanticAction);
 customElements.define('semantic-card', SemanticCard);
 customElements.define('semantic-feedback', SemanticFeedback);
@@ -2017,6 +2263,7 @@ customElements.define('semantic-navigator', SemanticNavigator);
 customElements.define('semantic-list', SemanticList);
 customElements.define('semantic-menu', SemanticMenu);
 customElements.define('semantic-tabs', SemanticTabs);
+customElements.define('semantic-disclosure', SemanticDisclosure);
 
 // Child elements
 customElements.define('nav-item', NavItem);
@@ -2027,6 +2274,7 @@ customElements.define('card-title', CardTitle);
 customElements.define('card-description', CardDescription);
 customElements.define('tab-item', TabItem);
 customElements.define('tab-panel', TabPanel);
+customElements.define('disclosure-item', DisclosureItem);
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {

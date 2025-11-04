@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Disclosure Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        semantic-disclosure {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-disclosure Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Basic Disclosure (Multiple Mode)</h2>
+        <semantic-disclosure mode="multiple">
+            <disclosure-item header="What is a disclosure component?">
+                <p>A disclosure component (also known as accordion or collapsible) allows users to show and hide content sections. This helps organize information and reduce cognitive load by allowing users to focus on one section at a time.</p>
+            </disclosure-item>
+
+            <disclosure-item header="How do I use it?">
+                <p>Simply click on any header to expand or collapse that section. In multiple mode, you can have several sections open at once.</p>
+                <p>The component is fully keyboard accessible and follows WCAG AAA guidelines.</p>
+            </disclosure-item>
+
+            <disclosure-item header="What are the key features?">
+                <ul style="color: #ababab; line-height: 1.8;">
+                    <li>Smooth expand/collapse animations</li>
+                    <li>Single or multiple open modes</li>
+                    <li>Keyboard accessible</li>
+                    <li>ARIA compliant for screen readers</li>
+                    <li>44px minimum touch targets</li>
+                    <li>Disabled state support</li>
+                </ul>
+            </disclosure-item>
+
+            <disclosure-item header="Can sections be disabled?">
+                <p>Yes! See the example below with disabled sections.</p>
+            </disclosure-item>
+        </semantic-disclosure>
+    </div>
+
+    <div class="demo-section">
+        <h2>Single Mode (Accordion)</h2>
+        <p style="color: #8e8e93; margin-bottom: 20px; font-size: 14px;">In single mode, only one section can be open at a time (classic accordion behavior).</p>
+        <semantic-disclosure mode="single">
+            <disclosure-item header="📱 Mobile Development" open>
+                <p>Build native mobile applications for iOS and Android using modern frameworks like React Native, Flutter, or Swift/Kotlin.</p>
+                <p>Mobile-first design ensures your app works great on any device size.</p>
+            </disclosure-item>
+
+            <disclosure-item header="💻 Web Development">
+                <p>Create responsive web applications using HTML, CSS, and JavaScript. Modern frameworks like React, Vue, and Angular make building complex UIs easier.</p>
+                <p>Progressive Web Apps (PWAs) bridge the gap between web and native mobile apps.</p>
+            </disclosure-item>
+
+            <disclosure-item header="🖥️ Desktop Applications">
+                <p>Build cross-platform desktop apps using Electron, Tauri, or native frameworks. Desktop apps can offer more powerful features than web apps.</p>
+            </disclosure-item>
+
+            <disclosure-item header="☁️ Cloud Services">
+                <p>Deploy your applications to the cloud using services like AWS, Azure, or Google Cloud. Cloud deployment offers scalability, reliability, and global reach.</p>
+            </disclosure-item>
+        </semantic-disclosure>
+    </div>
+
+    <div class="demo-section">
+        <h2>With Disabled Items</h2>
+        <semantic-disclosure mode="multiple">
+            <disclosure-item header="✅ Available Feature" open>
+                <p>This feature is available and ready to use. Click the header to collapse this section.</p>
+            </disclosure-item>
+
+            <disclosure-item header="🔒 Premium Feature (Locked)" disabled>
+                <p>You shouldn't be able to see this content as this section is disabled.</p>
+            </disclosure-item>
+
+            <disclosure-item header="✅ Another Available Feature">
+                <p>This is another active section that you can expand and collapse freely.</p>
+            </disclosure-item>
+
+            <disclosure-item header="🚧 Coming Soon" disabled>
+                <p>This content is under development.</p>
+            </disclosure-item>
+
+            <disclosure-item header="✅ Documentation">
+                <p>Full documentation is available for all active features. Check our docs site for detailed guides and API references.</p>
+            </disclosure-item>
+        </semantic-disclosure>
+    </div>
+
+    <div class="demo-section">
+        <h2>Event Handling</h2>
+        <semantic-disclosure id="event-disclosure" mode="single">
+            <disclosure-item header="Section 1">
+                <p>First section content. Try expanding different sections to see the event log update.</p>
+            </disclosure-item>
+
+            <disclosure-item header="Section 2">
+                <p>Second section content with some additional information.</p>
+            </disclosure-item>
+
+            <disclosure-item header="Section 3">
+                <p>Third section demonstrating event emission.</p>
+            </disclosure-item>
+        </semantic-disclosure>
+        <div id="event-log" style="margin-top: 20px; padding: 12px; background: #1c1c1e; border-radius: 8px; font-family: monospace; font-size: 13px;">
+            <div style="color: #8e8e93; margin-bottom: 8px;">Event Log:</div>
+            <div id="log-output" style="color: #409cff;"></div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>FAQ Example</h2>
+        <semantic-disclosure mode="single">
+            <disclosure-item header="How much does it cost?">
+                <p><strong>Free tier:</strong> $0/month - Perfect for personal projects and getting started</p>
+                <p><strong>Pro tier:</strong> $29/month - Advanced features, priority support, and increased limits</p>
+                <p><strong>Enterprise:</strong> Custom pricing - White-label options, dedicated support, and custom integrations</p>
+            </disclosure-item>
+
+            <disclosure-item header="What payment methods do you accept?">
+                <p>We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and wire transfers for enterprise accounts.</p>
+                <p>All payments are processed securely through Stripe.</p>
+            </disclosure-item>
+
+            <disclosure-item header="Can I cancel anytime?">
+                <p>Yes! You can cancel your subscription at any time with no penalties or fees. Your access will continue until the end of your current billing period.</p>
+                <p>We also offer a 30-day money-back guarantee for annual plans.</p>
+            </disclosure-item>
+
+            <disclosure-item header="Do you offer refunds?">
+                <p>We offer a full refund within 30 days of purchase if you're not satisfied with our service. After 30 days, refunds are issued on a case-by-case basis.</p>
+            </disclosure-item>
+
+            <disclosure-item header="How do I get support?">
+                <p>Free users can access our community forums and documentation. Pro users get email support with 24-hour response times. Enterprise users get dedicated support with 1-hour response SLAs and a dedicated account manager.</p>
+            </disclosure-item>
+        </semantic-disclosure>
+    </div>
+
+    <script>
+        // Event handling demo
+        const eventDisclosure = document.getElementById('event-disclosure');
+        const logOutput = document.getElementById('log-output');
+
+        eventDisclosure.addEventListener('disclosure-change', (e) => {
+            const time = new Date().toLocaleTimeString();
+            const header = e.detail.item ? e.detail.item.getAttribute('header') : 'Unknown';
+            const state = e.detail.open ? 'opened' : 'closed';
+            logOutput.innerHTML = `[${time}] "${header}" was ${state} (index: ${e.detail.index})`;
+        });
+    </script>
+</body>
+</html>
