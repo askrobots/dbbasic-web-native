@@ -1663,6 +1663,238 @@ class SemanticMenu extends SemanticComponent {
 }
 
 // ============================================================================
+// TABS COMPONENT
+// ============================================================================
+
+class SemanticTabs extends SemanticComponent {
+    static get observedAttributes() {
+        return ['selected'];
+    }
+
+    constructor() {
+        super();
+        this.tabs = [];
+        this.panels = [];
+    }
+
+    render() {
+        const selected = parseInt(this.getAttribute('selected') || '0');
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getStyles()}
+
+                :host {
+                    display: block;
+                }
+
+                .tabs-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0;
+                }
+
+                .tab-list {
+                    display: flex;
+                    gap: 0;
+                    border-bottom: 2px solid #38383a;
+                    background: #1c1c1e;
+                }
+
+                .tab {
+                    min-height: 44px;
+                    min-width: 88px;
+                    padding: 12px 24px;
+                    border: none;
+                    background: transparent;
+                    color: #8e8e93;
+                    font-size: 15px;
+                    font-weight: 600;
+                    font-family: inherit;
+                    cursor: pointer;
+                    border-bottom: 3px solid transparent;
+                    transition: all 0.2s;
+                    position: relative;
+                    /* Support CSS custom properties for forced demo states */
+                    transform: var(--demo-transform);
+                    box-shadow: var(--demo-box-shadow);
+                    filter: var(--demo-filter);
+                    outline: var(--demo-outline);
+                    outline-offset: var(--demo-outline-offset);
+                }
+
+                .tab:hover:not(:disabled):not([aria-selected="true"]) {
+                    color: #ffffff;
+                    background: rgba(255, 255, 255, 0.05);
+                }
+
+                .tab[aria-selected="true"] {
+                    color: #409cff;
+                    border-bottom-color: #409cff;
+                    background: rgba(64, 156, 255, 0.1);
+                }
+
+                .tab:focus-visible {
+                    outline: 3px solid #4d9fff;
+                    outline-offset: -3px;
+                }
+
+                .tab:disabled {
+                    color: #48484a;
+                    cursor: not-allowed;
+                    opacity: 0.5;
+                }
+
+                .tab-panels {
+                    padding: 20px 0;
+                }
+
+                .tab-panel {
+                    display: none;
+                }
+
+                .tab-panel[aria-hidden="false"] {
+                    display: block;
+                }
+
+                @media (prefers-reduced-motion: reduce) {
+                    .tab {
+                        transition: none;
+                    }
+                }
+            </style>
+            <div class="tabs-container" role="tablist">
+                <div class="tab-list"></div>
+                <div class="tab-panels"></div>
+            </div>
+        `;
+    }
+
+    setupEventListeners() {
+        // Use setTimeout to ensure child elements are fully initialized
+        setTimeout(() => {
+            this.collectTabsAndPanels();
+            this.renderTabs();
+            this.selectTab(parseInt(this.getAttribute('selected') || '0'));
+        }, 0);
+    }
+
+    collectTabsAndPanels() {
+        // Collect tab-item and tab-panel elements from light DOM
+        this.tabs = Array.from(this.querySelectorAll('tab-item'));
+        this.panels = Array.from(this.querySelectorAll('tab-panel'));
+    }
+
+    renderTabs() {
+        const tabList = this.shadowRoot.querySelector('.tab-list');
+        const panelsContainer = this.shadowRoot.querySelector('.tab-panels');
+
+        tabList.innerHTML = '';
+        panelsContainer.innerHTML = '';
+
+        this.tabs.forEach((tabItem, index) => {
+            const button = document.createElement('button');
+            button.className = 'tab';
+            button.setAttribute('role', 'tab');
+            button.setAttribute('aria-controls', `panel-${index}`);
+            button.setAttribute('aria-selected', 'false');
+            button.setAttribute('tabindex', '-1');
+            button.setAttribute('id', `tab-${index}`);
+            button.textContent = tabItem.getAttribute('label') || `Tab ${index + 1}`;
+
+            if (tabItem.hasAttribute('disabled')) {
+                button.disabled = true;
+            }
+
+            if (tabItem.hasAttribute('badge')) {
+                const badge = document.createElement('span');
+                badge.textContent = tabItem.getAttribute('badge');
+                badge.style.cssText = 'background: #ff3b30; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; margin-left: 8px;';
+                button.appendChild(badge);
+            }
+
+            button.addEventListener('click', () => {
+                if (!button.disabled) {
+                    this.selectTab(index);
+                }
+            });
+
+            tabList.appendChild(button);
+        });
+
+        this.panels.forEach((panel, index) => {
+            panel.setAttribute('role', 'tabpanel');
+            panel.setAttribute('aria-labelledby', `tab-${index}`);
+            panel.setAttribute('id', `panel-${index}`);
+            panel.setAttribute('aria-hidden', 'true');
+            panel.className = 'tab-panel';
+            panelsContainer.appendChild(panel);
+        });
+
+        // Keyboard navigation
+        tabList.addEventListener('keydown', (e) => {
+            const tabs = Array.from(tabList.querySelectorAll('.tab:not(:disabled)'));
+            const currentIndex = tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+
+            let nextIndex = currentIndex;
+
+            switch (e.key) {
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    e.preventDefault();
+                    nextIndex = (currentIndex + 1) % tabs.length;
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    e.preventDefault();
+                    nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    nextIndex = 0;
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    nextIndex = tabs.length - 1;
+                    break;
+            }
+
+            if (nextIndex !== currentIndex) {
+                const allTabs = Array.from(tabList.querySelectorAll('.tab'));
+                const targetIndex = allTabs.indexOf(tabs[nextIndex]);
+                this.selectTab(targetIndex);
+                tabs[nextIndex].focus();
+            }
+        });
+    }
+
+    selectTab(index) {
+        const tabList = this.shadowRoot.querySelector('.tab-list');
+        const tabs = Array.from(tabList.querySelectorAll('.tab'));
+        const panels = Array.from(this.shadowRoot.querySelectorAll('.tab-panel'));
+
+        tabs.forEach((tab, i) => {
+            const isSelected = i === index;
+            tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+            tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+        });
+
+        panels.forEach((panel, i) => {
+            panel.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        });
+
+        this.setAttribute('selected', index.toString());
+        this.emitIntent('tab-change', { index, tab: this.tabs[index] });
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'selected' && this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.selectTab(parseInt(newValue || '0'));
+        }
+    }
+}
+
+// ============================================================================
 // CHILD ELEMENTS (for use within parent components)
 // ============================================================================
 
@@ -1761,6 +1993,20 @@ class CardDescription extends HTMLElement {
     }
 }
 
+class TabItem extends HTMLElement {
+    connectedCallback() {
+        // Tab item is just a marker element, actual rendering happens in SemanticTabs
+        this.style.display = 'none';
+    }
+}
+
+class TabPanel extends HTMLElement {
+    connectedCallback() {
+        // Tab panel will be moved into shadow DOM by SemanticTabs
+        // No styling needed here
+    }
+}
+
 customElements.define('semantic-action', SemanticAction);
 customElements.define('semantic-card', SemanticCard);
 customElements.define('semantic-feedback', SemanticFeedback);
@@ -1770,6 +2016,7 @@ customElements.define('semantic-modal', SemanticModal);
 customElements.define('semantic-navigator', SemanticNavigator);
 customElements.define('semantic-list', SemanticList);
 customElements.define('semantic-menu', SemanticMenu);
+customElements.define('semantic-tabs', SemanticTabs);
 
 // Child elements
 customElements.define('nav-item', NavItem);
@@ -1778,6 +2025,8 @@ customElements.define('menu-item', MenuItem);
 customElements.define('menu-divider', MenuDivider);
 customElements.define('card-title', CardTitle);
 customElements.define('card-description', CardDescription);
+customElements.define('tab-item', TabItem);
+customElements.define('tab-panel', TabPanel);
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {

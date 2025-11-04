@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Tabs Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        tab-panel {
+            color: #fff;
+        }
+
+        tab-panel h3 {
+            margin-top: 0;
+            color: #409cff;
+        }
+
+        tab-panel p {
+            line-height: 1.6;
+            color: #ababab;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-tabs Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Basic Tabs</h2>
+        <semantic-tabs>
+            <tab-item label="Overview"></tab-item>
+            <tab-item label="Features"></tab-item>
+            <tab-item label="Pricing"></tab-item>
+
+            <tab-panel>
+                <h3>Overview</h3>
+                <p>Welcome to our semantic tabs component! This tab system provides a clean, accessible interface for organizing content.</p>
+                <p>Try clicking the other tabs or using arrow keys to navigate.</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Features</h3>
+                <p>✓ Keyboard navigation (Arrow keys, Home, End)</p>
+                <p>✓ WCAG AAA compliant</p>
+                <p>✓ Smooth transitions</p>
+                <p>✓ Badge support</p>
+                <p>✓ Disabled state support</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Pricing</h3>
+                <p>Free tier: $0/month - Perfect for getting started</p>
+                <p>Pro tier: $29/month - Advanced features and support</p>
+                <p>Enterprise: Custom pricing - Full customization and dedicated support</p>
+            </tab-panel>
+        </semantic-tabs>
+    </div>
+
+    <div class="demo-section">
+        <h2>Tabs with Badges</h2>
+        <semantic-tabs>
+            <tab-item label="Inbox" badge="12"></tab-item>
+            <tab-item label="Sent"></tab-item>
+            <tab-item label="Drafts" badge="3"></tab-item>
+            <tab-item label="Spam" badge="47"></tab-item>
+
+            <tab-panel>
+                <h3>Inbox</h3>
+                <p>You have 12 new messages waiting for you.</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Sent</h3>
+                <p>Your sent messages appear here.</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Drafts</h3>
+                <p>3 draft messages saved.</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Spam</h3>
+                <p>47 spam messages filtered.</p>
+            </tab-panel>
+        </semantic-tabs>
+    </div>
+
+    <div class="demo-section">
+        <h2>Tabs with Disabled State</h2>
+        <semantic-tabs selected="1">
+            <tab-item label="Active 1"></tab-item>
+            <tab-item label="Active 2"></tab-item>
+            <tab-item label="Disabled" disabled></tab-item>
+            <tab-item label="Active 3"></tab-item>
+
+            <tab-panel>
+                <h3>Active Tab 1</h3>
+                <p>This tab is active and clickable.</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Active Tab 2</h3>
+                <p>This tab starts selected (selected="1").</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Disabled Tab</h3>
+                <p>You shouldn't be able to see this!</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Active Tab 3</h3>
+                <p>Another active tab.</p>
+            </tab-panel>
+        </semantic-tabs>
+    </div>
+
+    <div class="demo-section">
+        <h2>Event Handling</h2>
+        <semantic-tabs id="event-tabs">
+            <tab-item label="Tab 1"></tab-item>
+            <tab-item label="Tab 2"></tab-item>
+            <tab-item label="Tab 3"></tab-item>
+
+            <tab-panel>
+                <h3>Tab 1 Content</h3>
+                <p>Content for tab 1</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Tab 2 Content</h3>
+                <p>Content for tab 2</p>
+            </tab-panel>
+
+            <tab-panel>
+                <h3>Tab 3 Content</h3>
+                <p>Content for tab 3</p>
+            </tab-panel>
+        </semantic-tabs>
+        <div id="event-log" style="margin-top: 20px; padding: 12px; background: #1c1c1e; border-radius: 8px; font-family: monospace; font-size: 13px;">
+            <div style="color: #8e8e93; margin-bottom: 8px;">Event Log:</div>
+            <div id="log-output" style="color: #409cff;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Event handling demo
+        const eventTabs = document.getElementById('event-tabs');
+        const logOutput = document.getElementById('log-output');
+
+        eventTabs.addEventListener('tab-change', (e) => {
+            const time = new Date().toLocaleTimeString();
+            const label = e.detail.tab ? e.detail.tab.getAttribute('label') : 'Unknown';
+            logOutput.innerHTML = `[${time}] Tab changed to: ${label} (index: ${e.detail.index})`;
+        });
+    </script>
+</body>
+</html>
