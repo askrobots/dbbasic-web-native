@@ -2134,6 +2134,180 @@ class SemanticDisclosure extends SemanticComponent {
 }
 
 // ============================================================================
+// PROGRESS COMPONENT (Spinner & Progress Bar)
+// ============================================================================
+
+class SemanticProgress extends SemanticComponent {
+    static get observedAttributes() {
+        return ['value', 'max', 'type', 'size'];
+    }
+
+    getCSS() {
+        return `
+            .progress-container {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            /* Spinner styles */
+            .spinner {
+                display: inline-block;
+                border-radius: 50%;
+                border-style: solid;
+                animation: spin 1s linear infinite;
+            }
+
+            .spinner.small {
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+            }
+
+            .spinner.medium {
+                width: 24px;
+                height: 24px;
+                border-width: 3px;
+            }
+
+            .spinner.large {
+                width: 48px;
+                height: 48px;
+                border-width: 4px;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+
+            /* Progress bar styles */
+            .progress-bar-container {
+                width: 200px;
+                height: 8px;
+                background: #38383a;
+                border-radius: 8px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .progress-bar-container.small {
+                height: 4px;
+                width: 100px;
+            }
+
+            .progress-bar-container.medium {
+                height: 8px;
+                width: 200px;
+            }
+
+            .progress-bar-container.large {
+                height: 12px;
+                width: 300px;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: var(--progress-color, #409cff);
+                border-radius: 8px;
+                transition: width 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill.indeterminate {
+                width: 30% !important;
+                animation: indeterminate 1.5s ease-in-out infinite;
+            }
+
+            @keyframes indeterminate {
+                0% { transform: translateX(-100%); }
+                50% { transform: translateX(250%); }
+                100% { transform: translateX(-100%); }
+            }
+
+            .progress-label {
+                font-size: 14px;
+                color: #ababab;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+
+            /* Intent colors */
+            .intent-primary { --progress-color: #409cff; }
+            .intent-success { --progress-color: #30d158; }
+            .intent-warning { --progress-color: #ff9f0a; }
+            .intent-danger { --progress-color: #ff3b30; }
+        `;
+    }
+
+    getHTML() {
+        const type = this.getAttribute('type') || 'spinner';
+        const size = this.getAttribute('size') || 'medium';
+        const label = this.getAttribute('label') || '';
+        const intent = this.getAttribute('intent') || 'primary';
+        const value = parseFloat(this.getAttribute('value') || '0');
+        const max = parseFloat(this.getAttribute('max') || '100');
+        const isIndeterminate = !this.hasAttribute('value');
+
+        if (type === 'spinner') {
+            const borderColor = this.getIntentColor(intent);
+            return `
+                <div class="progress-container">
+                    <div class="spinner ${size}" style="border-color: ${borderColor} transparent transparent transparent;"></div>
+                    ${label ? `<span class="progress-label">${label}</span>` : ''}
+                </div>
+            `;
+        } else {
+            // Progress bar
+            const percentage = isIndeterminate ? 0 : Math.min(100, (value / max) * 100);
+            return `
+                <div class="progress-container">
+                    <div class="progress-bar-container ${size}">
+                        <div class="progress-bar-fill intent-${intent} ${isIndeterminate ? 'indeterminate' : ''}"
+                             style="width: ${percentage}%"
+                             role="progressbar"
+                             aria-valuenow="${value}"
+                             aria-valuemin="0"
+                             aria-valuemax="${max}">
+                        </div>
+                    </div>
+                    ${label ? `<span class="progress-label">${label}</span>` : ''}
+                </div>
+            `;
+        }
+    }
+
+    getIntentColor(intent) {
+        const colors = {
+            primary: '#409cff',
+            success: '#30d158',
+            warning: '#ff9f0a',
+            danger: '#ff3b30'
+        };
+        return colors[intent] || colors.primary;
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getCSS()}
+            </style>
+            ${this.getHTML()}
+        `;
+    }
+
+    setupEventListeners() {
+        // No event listeners needed for progress component
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.render();
+        }
+    }
+}
+
+// ============================================================================
 // CHILD ELEMENTS (for use within parent components)
 // ============================================================================
 
@@ -2264,6 +2438,7 @@ customElements.define('semantic-list', SemanticList);
 customElements.define('semantic-menu', SemanticMenu);
 customElements.define('semantic-tabs', SemanticTabs);
 customElements.define('semantic-disclosure', SemanticDisclosure);
+customElements.define('semantic-progress', SemanticProgress);
 
 // Child elements
 customElements.define('nav-item', NavItem);

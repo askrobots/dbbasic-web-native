@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Progress Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 20px;
+        }
+
+        .demo-row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-label {
+            color: #8e8e93;
+            font-size: 14px;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-progress Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Spinners</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Small:</span>
+            <semantic-progress type="spinner" size="small"></semantic-progress>
+            <semantic-progress type="spinner" size="small" intent="success"></semantic-progress>
+            <semantic-progress type="spinner" size="small" intent="warning"></semantic-progress>
+            <semantic-progress type="spinner" size="small" intent="danger"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Medium:</span>
+            <semantic-progress type="spinner" size="medium"></semantic-progress>
+            <semantic-progress type="spinner" size="medium" intent="success"></semantic-progress>
+            <semantic-progress type="spinner" size="medium" intent="warning"></semantic-progress>
+            <semantic-progress type="spinner" size="medium" intent="danger"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Large:</span>
+            <semantic-progress type="spinner" size="large"></semantic-progress>
+            <semantic-progress type="spinner" size="large" intent="success"></semantic-progress>
+            <semantic-progress type="spinner" size="large" intent="warning"></semantic-progress>
+            <semantic-progress type="spinner" size="large" intent="danger"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">With Label:</span>
+            <semantic-progress type="spinner" label="Loading..."></semantic-progress>
+            <semantic-progress type="spinner" label="Processing..." intent="success"></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Progress Bars - Determinate</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">0%:</span>
+            <semantic-progress type="bar" value="0"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">25%:</span>
+            <semantic-progress type="bar" value="25"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">50%:</span>
+            <semantic-progress type="bar" value="50"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">75%:</span>
+            <semantic-progress type="bar" value="75"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">100%:</span>
+            <semantic-progress type="bar" value="100"></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Progress Bars - Intent Colors</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Primary:</span>
+            <semantic-progress type="bar" value="70" intent="primary"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Success:</span>
+            <semantic-progress type="bar" value="70" intent="success"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Warning:</span>
+            <semantic-progress type="bar" value="70" intent="warning"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Danger:</span>
+            <semantic-progress type="bar" value="70" intent="danger"></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Progress Bars - Sizes</h2>
+
+        <div class="demo-row">
+            <span class="demo-label">Small:</span>
+            <semantic-progress type="bar" size="small" value="60"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Medium:</span>
+            <semantic-progress type="bar" size="medium" value="60"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Large:</span>
+            <semantic-progress type="bar" size="large" value="60"></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Progress Bars - Indeterminate</h2>
+        <p style="color: #8e8e93; font-size: 14px; margin-bottom: 20px;">When no value attribute is specified, the progress bar shows an animated indeterminate state.</p>
+
+        <div class="demo-row">
+            <span class="demo-label">Primary:</span>
+            <semantic-progress type="bar" intent="primary"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Success:</span>
+            <semantic-progress type="bar" intent="success"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Warning:</span>
+            <semantic-progress type="bar" intent="warning"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <span class="demo-label">Danger:</span>
+            <semantic-progress type="bar" intent="danger"></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Progress Bars - With Labels</h2>
+
+        <div class="demo-row">
+            <semantic-progress type="bar" value="33" label="Uploading file (33%)"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <semantic-progress type="bar" value="67" intent="success" label="Processing data (67%)"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <semantic-progress type="bar" value="90" intent="warning" label="Almost done (90%)"></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <semantic-progress type="bar" intent="primary" label="Analyzing..."></semantic-progress>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Dynamic Progress Example</h2>
+        <p style="color: #8e8e93; font-size: 14px; margin-bottom: 20px;">This progress bar updates automatically to demonstrate reactive updates.</p>
+
+        <div class="demo-row">
+            <semantic-progress id="dynamic-progress" type="bar" value="0" intent="success" label="Starting..."></semantic-progress>
+        </div>
+
+        <div class="demo-row">
+            <semantic-action id="start-btn" intent="primary">Start Upload</semantic-action>
+            <semantic-action id="reset-btn" intent="secondary">Reset</semantic-action>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World Use Cases</h2>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px;">File Upload</h3>
+            <semantic-progress type="bar" value="45" label="document.pdf (3.2 MB / 7.1 MB)"></semantic-progress>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px;">Installation Progress</h3>
+            <semantic-progress type="bar" value="80" intent="success" label="Installing dependencies... (8/10)"></semantic-progress>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; font-size: 16px;">Loading State</h3>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <semantic-progress type="spinner" size="small"></semantic-progress>
+                <span style="color: #ababab; font-size: 14px;">Loading your dashboard...</span>
+            </div>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 20px; border-radius: 12px;">
+            <h3 style="margin-top: 0; font-size: 16px;">Disk Usage</h3>
+            <semantic-progress type="bar" value="87" intent="warning" size="large" label="87% of 1 TB used"></semantic-progress>
+        </div>
+    </div>
+
+    <script>
+        // Dynamic progress demo
+        const dynamicProgress = document.getElementById('dynamic-progress');
+        const startBtn = document.getElementById('start-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        let interval;
+        let progress = 0;
+
+        startBtn.addEventListener('click', () => {
+            if (interval) return; // Already running
+
+            interval = setInterval(() => {
+                progress += 1;
+                dynamicProgress.setAttribute('value', progress);
+                dynamicProgress.setAttribute('label', `Uploading... (${progress}%)`);
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    interval = null;
+                    dynamicProgress.setAttribute('label', 'Upload complete!');
+                    dynamicProgress.setAttribute('intent', 'success');
+                }
+            }, 50);
+        });
+
+        resetBtn.addEventListener('click', () => {
+            if (interval) {
+                clearInterval(interval);
+                interval = null;
+            }
+            progress = 0;
+            dynamicProgress.setAttribute('value', '0');
+            dynamicProgress.setAttribute('label', 'Ready to start');
+            dynamicProgress.setAttribute('intent', 'primary');
+        });
+    </script>
+</body>
+</html>
