@@ -3255,6 +3255,11 @@ class SemanticGrid extends HTMLElement {
                         transition: none;
                     }
                 }
+
+                /* Ensure grid items can grow to fill available space */
+                ::slotted(*) {
+                    min-width: 0;
+                }
             </style>
             <slot></slot>
         `;
