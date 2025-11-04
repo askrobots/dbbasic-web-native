@@ -3223,7 +3223,7 @@ class SemanticGrid extends HTMLElement {
         if (cols === 'auto-fit' || cols === 'auto-fill') {
             gridTemplate = `repeat(${cols}, minmax(${minWidth}, 1fr))`;
         } else {
-            gridTemplate = `repeat(${cols}, 1fr)`;
+            gridTemplate = `repeat(${cols}, minmax(0, 1fr))`;
         }
 
         this.shadowRoot.innerHTML = `
@@ -3233,6 +3233,7 @@ class SemanticGrid extends HTMLElement {
                     grid-template-columns: ${gridTemplate};
                     gap: ${spacingMap[gap] || '16px'};
                     width: 100%;
+                    box-sizing: border-box;
                 }
 
                 ${responsive ? `
@@ -3314,6 +3315,12 @@ class SemanticContainer extends HTMLElement {
                     margin-right: auto;
                     width: 100%;
                     ${padding ? 'padding: 0 20px;' : ''}
+                }
+
+                /* Ensure slotted children fill width */
+                ::slotted(*) {
+                    width: 100%;
+                    box-sizing: border-box;
                 }
 
                 ${padding ? `
