@@ -2521,6 +2521,247 @@ class SemanticBadge extends SemanticComponent {
 }
 
 // ============================================================================
+// POPOVER COMPONENT (Tooltips, popovers, contextual overlays)
+// ============================================================================
+
+class SemanticPopover extends SemanticComponent {
+    static get observedAttributes() {
+        return ['open', 'position', 'trigger'];
+    }
+
+    constructor() {
+        super();
+        this.isOpen = false;
+        this.triggerElement = null;
+    }
+
+    getCSS() {
+        return `
+            :host {
+                position: relative;
+                display: inline-block;
+            }
+
+            .popover-trigger {
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .popover-content {
+                position: absolute;
+                background: #2c2c2e;
+                border: 1px solid #48484a;
+                border-radius: 8px;
+                padding: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                min-width: 150px;
+                max-width: 300px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                font-size: 14px;
+                color: #fff;
+                line-height: 1.5;
+            }
+
+            .popover-content.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            /* Positions */
+            .popover-content.top {
+                bottom: calc(100% + 8px);
+                left: 50%;
+                transform: translateX(-50%) translateY(4px);
+            }
+
+            .popover-content.top.open {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .popover-content.bottom {
+                top: calc(100% + 8px);
+                left: 50%;
+                transform: translateX(-50%) translateY(-4px);
+            }
+
+            .popover-content.bottom.open {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .popover-content.left {
+                right: calc(100% + 8px);
+                top: 50%;
+                transform: translateY(-50%) translateX(4px);
+            }
+
+            .popover-content.left.open {
+                transform: translateY(-50%) translateX(0);
+            }
+
+            .popover-content.right {
+                left: calc(100% + 8px);
+                top: 50%;
+                transform: translateY(-50%) translateX(-4px);
+            }
+
+            .popover-content.right.open {
+                transform: translateY(-50%) translateX(0);
+            }
+
+            /* Arrow */
+            .popover-arrow {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: #2c2c2e;
+                border: 1px solid #48484a;
+                transform: rotate(45deg);
+            }
+
+            .popover-content.top .popover-arrow {
+                bottom: -5px;
+                left: 50%;
+                margin-left: -4px;
+                border-top: none;
+                border-left: none;
+            }
+
+            .popover-content.bottom .popover-arrow {
+                top: -5px;
+                left: 50%;
+                margin-left: -4px;
+                border-bottom: none;
+                border-right: none;
+            }
+
+            .popover-content.left .popover-arrow {
+                right: -5px;
+                top: 50%;
+                margin-top: -4px;
+                border-left: none;
+                border-bottom: none;
+            }
+
+            .popover-content.right .popover-arrow {
+                left: -5px;
+                top: 50%;
+                margin-top: -4px;
+                border-right: none;
+                border-top: none;
+            }
+
+            .popover-title {
+                font-weight: 600;
+                margin-bottom: 4px;
+                color: #fff;
+            }
+
+            .popover-body {
+                color: #ababab;
+            }
+        `;
+    }
+
+    getHTML() {
+        const position = this.getAttribute('position') || 'top';
+        const title = this.getAttribute('title') || '';
+        const content = this.getAttribute('content') || '';
+
+        return `
+            <div class="popover-trigger">
+                <slot name="trigger"></slot>
+            </div>
+            <div class="popover-content ${position} ${this.isOpen ? 'open' : ''}" role="tooltip">
+                <div class="popover-arrow"></div>
+                ${title ? `<div class="popover-title">${title}</div>` : ''}
+                <div class="popover-body">
+                    ${content}
+                    <slot name="content"></slot>
+                </div>
+            </div>
+        `;
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                ${this.getCSS()}
+            </style>
+            ${this.getHTML()}
+        `;
+    }
+
+    setupEventListeners() {
+        const trigger = this.getAttribute('trigger') || 'hover';
+        const triggerEl = this.shadowRoot.querySelector('.popover-trigger');
+        const contentEl = this.shadowRoot.querySelector('.popover-content');
+
+        if (!triggerEl || !contentEl) return;
+
+        if (trigger === 'hover') {
+            triggerEl.addEventListener('mouseenter', () => this.show());
+            triggerEl.addEventListener('mouseleave', () => this.hide());
+            contentEl.addEventListener('mouseenter', () => this.show());
+            contentEl.addEventListener('mouseleave', () => this.hide());
+        } else if (trigger === 'click') {
+            triggerEl.addEventListener('click', () => this.toggle());
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!this.contains(e.target)) {
+                    this.hide();
+                }
+            });
+        } else if (trigger === 'focus') {
+            triggerEl.addEventListener('focusin', () => this.show());
+            triggerEl.addEventListener('focusout', () => this.hide());
+        }
+    }
+
+    show() {
+        this.isOpen = true;
+        const contentEl = this.shadowRoot.querySelector('.popover-content');
+        if (contentEl) {
+            contentEl.classList.add('open');
+        }
+        this.dispatchEvent(new CustomEvent('popover-show'));
+    }
+
+    hide() {
+        this.isOpen = false;
+        const contentEl = this.shadowRoot.querySelector('.popover-content');
+        if (contentEl) {
+            contentEl.classList.remove('open');
+        }
+        this.dispatchEvent(new CustomEvent('popover-hide'));
+    }
+
+    toggle() {
+        if (this.isOpen) {
+            this.hide();
+        } else {
+            this.show();
+        }
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'open' && this.shadowRoot.innerHTML) {
+            if (newValue !== null) {
+                this.show();
+            } else {
+                this.hide();
+            }
+        } else if (this.shadowRoot.innerHTML && oldValue !== newValue) {
+            this.render();
+            this.setupEventListeners();
+        }
+    }
+}
+
+// ============================================================================
 // CHILD ELEMENTS (for use within parent components)
 // ============================================================================
 
@@ -2653,6 +2894,7 @@ customElements.define('semantic-tabs', SemanticTabs);
 customElements.define('semantic-disclosure', SemanticDisclosure);
 customElements.define('semantic-progress', SemanticProgress);
 customElements.define('semantic-badge', SemanticBadge);
+customElements.define('semantic-popover', SemanticPopover);
 
 // Child elements
 customElements.define('nav-item', NavItem);

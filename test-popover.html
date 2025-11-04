@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Popover Test</title>
+    <script src="semantic-components.js"></script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 80px;
+        }
+
+        .demo-section h2 {
+            font-size: 20px;
+            color: #8e8e93;
+            margin-bottom: 30px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .demo-box {
+            background: #1c1c1e;
+            padding: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 150px;
+        }
+
+        .demo-label {
+            color: #8e8e93;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .tooltip-text {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-decoration-color: #409cff;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+    <h1>semantic-popover Component Test</h1>
+
+    <div class="demo-section">
+        <h2>Positions (Hover to Show)</h2>
+
+        <div class="demo-grid">
+            <div class="demo-box">
+                <semantic-popover position="top" content="This popover appears above the trigger element with a smooth animation." trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Hover for Top Popover</span>
+                </semantic-popover>
+            </div>
+
+            <div class="demo-box">
+                <semantic-popover position="right" content="This popover appears to the right of the trigger element." trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Hover for Right Popover</span>
+                </semantic-popover>
+            </div>
+
+            <div class="demo-box">
+                <semantic-popover position="bottom" content="This popover appears below the trigger element." trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Hover for Bottom Popover</span>
+                </semantic-popover>
+            </div>
+
+            <div class="demo-box">
+                <semantic-popover position="left" content="This popover appears to the left of the trigger element." trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Hover for Left Popover</span>
+                </semantic-popover>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>With Titles</h2>
+
+        <div class="demo-grid">
+            <div class="demo-box">
+                <semantic-popover
+                    position="top"
+                    title="Help Information"
+                    content="This popover has both a title and body text. The title is bold and stands out."
+                    trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Popover with Title</span>
+                </semantic-popover>
+            </div>
+
+            <div class="demo-box">
+                <semantic-popover
+                    position="bottom"
+                    title="Quick Tip"
+                    content="You can use popovers to provide contextual help without cluttering your UI."
+                    trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Helpful Tip</span>
+                </semantic-popover>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Trigger Methods</h2>
+
+        <div style="display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 30px;">
+            <div>
+                <div class="demo-label">Hover Trigger (Default)</div>
+                <semantic-popover position="top" content="Shows on hover, hides when mouse leaves" trigger="hover">
+                    <semantic-action slot="trigger" intent="secondary">Hover Me</semantic-action>
+                </semantic-popover>
+            </div>
+
+            <div>
+                <div class="demo-label">Click Trigger</div>
+                <semantic-popover position="top" content="Click to toggle. Click outside to close." trigger="click">
+                    <semantic-action slot="trigger" intent="primary">Click Me</semantic-action>
+                </semantic-popover>
+            </div>
+
+            <div>
+                <div class="demo-label">Focus Trigger</div>
+                <semantic-popover position="top" content="Shows when focused, hides on blur" trigger="focus">
+                    <semantic-action slot="trigger" intent="secondary">Tab to Focus</semantic-action>
+                </semantic-popover>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Real-World Examples</h2>
+
+        <div style="background: #1c1c1e; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 20px;">Inline Help Text</h3>
+            <p style="color: #ababab; line-height: 1.8; margin: 0;">
+                Our platform uses
+                <semantic-popover
+                    position="top"
+                    title="End-to-End Encryption"
+                    content="All data is encrypted both in transit and at rest using AES-256 encryption."
+                    trigger="hover">
+                    <span slot="trigger" class="tooltip-text">end-to-end encryption</span>
+                </semantic-popover>
+                to protect your sensitive information. We also implement
+                <semantic-popover
+                    position="top"
+                    title="Two-Factor Authentication"
+                    content="2FA adds an extra layer of security by requiring a second form of verification."
+                    trigger="hover">
+                    <span slot="trigger" class="tooltip-text">two-factor authentication</span>
+                </semantic-popover>
+                for all user accounts.
+            </p>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 20px;">User Profile</h3>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #409cff, #30d158); border-radius: 24px;"></div>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 4px;">
+                        <semantic-popover
+                            position="right"
+                            title="John Doe"
+                            content="Senior Developer • Joined 2 years ago • 1,234 contributions"
+                            trigger="hover">
+                            <span slot="trigger" class="tooltip-text">John Doe</span>
+                        </semantic-popover>
+                    </div>
+                    <div style="color: #8e8e93; font-size: 14px;">@johndoe</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 30px; border-radius: 12px; margin-bottom: 30px;">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 20px;">Action Buttons with Tooltips</h3>
+            <div style="display: flex; gap: 12px;">
+                <semantic-popover position="top" content="Save your changes" trigger="hover">
+                    <semantic-action slot="trigger" intent="primary">💾 Save</semantic-action>
+                </semantic-popover>
+
+                <semantic-popover position="top" content="Export to CSV format" trigger="hover">
+                    <semantic-action slot="trigger" intent="secondary">📄 Export</semantic-action>
+                </semantic-popover>
+
+                <semantic-popover position="top" content="Share with team members" trigger="hover">
+                    <semantic-action slot="trigger" intent="secondary">🔗 Share</semantic-action>
+                </semantic-popover>
+
+                <semantic-popover
+                    position="top"
+                    title="Delete Item"
+                    content="This action cannot be undone. Are you sure?"
+                    trigger="click">
+                    <semantic-action slot="trigger" intent="secondary">🗑️ Delete</semantic-action>
+                </semantic-popover>
+            </div>
+        </div>
+
+        <div style="background: #1c1c1e; padding: 30px; border-radius: 12px;">
+            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 20px;">Form Field Help</h3>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #fff;">
+                        <span>API Key</span>
+                        <semantic-popover
+                            position="right"
+                            title="API Key"
+                            content="Your unique API key for authenticating requests. Keep this secret!"
+                            trigger="hover">
+                            <span slot="trigger" style="color: #409cff; cursor: help; font-size: 16px;">ℹ️</span>
+                        </semantic-popover>
+                    </label>
+                    <semantic-input type="text" placeholder="Enter your API key"></semantic-input>
+                </div>
+
+                <div>
+                    <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; color: #fff;">
+                        <span>Webhook URL</span>
+                        <semantic-popover
+                            position="right"
+                            title="Webhook URL"
+                            content="The endpoint where we'll send event notifications. Must be HTTPS."
+                            trigger="hover">
+                            <span slot="trigger" style="color: #409cff; cursor: help; font-size: 16px;">ℹ️</span>
+                        </semantic-popover>
+                    </label>
+                    <semantic-input type="text" placeholder="https://example.com/webhook"></semantic-input>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-section">
+        <h2>Stress Test</h2>
+        <p style="color: #8e8e93; margin-bottom: 20px;">Multiple popovers can coexist without conflict:</p>
+        <div style="background: #1c1c1e; padding: 30px; border-radius: 12px;">
+            <p style="color: #ababab; line-height: 2; margin: 0;">
+                <semantic-popover position="top" content="Tooltip 1" trigger="hover">
+                    <span slot="trigger" class="tooltip-text">First</span>
+                </semantic-popover>
+                •
+                <semantic-popover position="bottom" content="Tooltip 2" trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Second</span>
+                </semantic-popover>
+                •
+                <semantic-popover position="top" content="Tooltip 3" trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Third</span>
+                </semantic-popover>
+                •
+                <semantic-popover position="bottom" content="Tooltip 4" trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Fourth</span>
+                </semantic-popover>
+                •
+                <semantic-popover position="top" content="Tooltip 5" trigger="hover">
+                    <span slot="trigger" class="tooltip-text">Fifth</span>
+                </semantic-popover>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
