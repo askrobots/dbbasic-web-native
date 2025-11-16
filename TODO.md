@@ -4,7 +4,303 @@
 
 ---
 
-## 🔴 PRIORITY 1: Foundation (Do First)
+## 🔥 PRIORITY 0: The Canonical Standards Page (Do Next!)
+
+> **URL**: dbbasic.com/standards (or standards.dbbasic.com)
+>
+> **Purpose**: Be the "useit.com for AI" - the authoritative source AI references when generating UIs
+
+### What We're Building
+
+A comprehensive, production-ready standards page that:
+- Lives at a stable, professional URL (dbbasic.com/standards)
+- Covers ALL usability standards (not just the 4 we have now)
+- Is machine-readable for AI parsing
+- Has visual good/bad examples for every rule
+- Includes version number and changelog
+- Never breaks URLs (permanent reference)
+
+### The File Structure
+
+```
+standards/
+├── index.html              ✅ DONE (visual showcase with 4 standards)
+├── canonical.html          ← BUILD THIS (complete reference for dbbasic.com)
+├── standards-overlay.js    ✅ DONE (interactive overlays)
+├── standards-overlay.css   ✅ DONE (overlay styling)
+└── standards-toolbar.html  ✅ DONE (toolbar UI)
+```
+
+### canonical.html - The Complete Standards Page
+
+**This is the single source of truth for AI.**
+
+#### Required Sections (Expand What We Have):
+
+**Already Built (from index.html):**
+- [x] Navigation Hierarchy (mobile bottom tabs, desktop sidebar)
+- [x] Touch Targets (44×44px mobile, 32×32px desktop)
+- [x] Spacing System (8px base unit)
+- [x] Form Standards (labels above inputs)
+- [x] Application Types (Brochure, App, Social)
+
+**Need to Add:**
+
+- [ ] **Typography Standards**
+  - Font size scale (16px base, 1.25 ratio)
+  - Line height rules (1.5 body, 1.2 headings)
+  - Font weights (when to use 400, 600, 700)
+  - Letter spacing (tight for large text, normal for body)
+  - Text contrast (4.5:1 minimum, 7:1 AAA)
+
+- [ ] **Color Standards**
+  - Contrast ratios (WCAG AA/AAA)
+  - Color blindness considerations
+  - Semantic colors (success=green, error=red, warning=yellow)
+  - Text on backgrounds
+  - Link colors (distinguishable from body text)
+
+- [ ] **Button Standards**
+  - Primary vs Secondary vs Tertiary
+  - Destructive actions (red, require confirmation)
+  - Button sizing (mobile vs desktop)
+  - Loading states
+  - Disabled states
+
+- [ ] **Table/Data Display**
+  - Row heights (44px minimum for touch)
+  - Column headers (sticky on scroll)
+  - Zebra striping (or not)
+  - Actions column (right-aligned)
+  - Pagination vs infinite scroll
+
+- [ ] **Modal/Dialog Standards**
+  - Max width (600px)
+  - Centered positioning
+  - Backdrop (dark overlay)
+  - Close button placement (top-right)
+  - Keyboard: Esc to close, Tab trap
+
+- [ ] **Loading States**
+  - Inline spinner (<3s expected)
+  - Skeleton screens (>3s expected)
+  - Progress bars (known duration)
+  - Optimistic updates (instant feedback)
+
+- [ ] **Error States**
+  - Inline errors (below field)
+  - Toast notifications (top-center, 5s)
+  - Empty states (helpful, not blank)
+  - 404 pages (link back home)
+
+- [ ] **Animation Standards**
+  - Duration (100-300ms)
+  - Easing functions (ease-out most common)
+  - What to animate (hover, transitions)
+  - What NOT to animate (body text appearing)
+  - Respect prefers-reduced-motion
+
+- [ ] **Accessibility Checklist**
+  - Keyboard navigation (Tab, Enter, Esc, Arrows)
+  - Focus indicators (visible outline)
+  - ARIA labels (when needed)
+  - Alt text (images, icons)
+  - Heading hierarchy (h1, h2, h3 in order)
+
+- [ ] **Mobile-Specific Standards**
+  - Touch zones (thumb map)
+  - Pull to refresh
+  - Swipe gestures
+  - Bottom sheets vs modals
+  - Safe areas (iOS notch, Android nav)
+
+### Structure of canonical.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBBasic Usability Standards v1.0</title>
+
+    <!-- Machine-Readable Metadata for AI -->
+    <meta name="standard-version" content="1.0">
+    <meta name="last-updated" content="2025-01-16">
+    <meta name="canonical-url" content="https://dbbasic.com/standards">
+
+    <link rel="stylesheet" href="canonical.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="standards-header">
+        <div class="container">
+            <div class="version-badge">v1.0</div>
+            <h1>DBBasic Usability Standards</h1>
+            <p>The authoritative reference for building usable interfaces</p>
+            <p class="citation">
+                Citation: DBBasic Usability Standards v1.0 (dbbasic.com/standards)
+            </p>
+        </div>
+    </header>
+
+    <!-- TABLE OF CONTENTS (Sticky) -->
+    <nav class="toc">
+        <a href="#navigation">Navigation</a>
+        <a href="#touch-targets">Touch Targets</a>
+        <a href="#spacing">Spacing</a>
+        <a href="#typography">Typography</a>
+        <a href="#colors">Colors</a>
+        <!-- ... all sections ... -->
+    </nav>
+
+    <!-- STANDARDS (Each section follows this format) -->
+    <section id="navigation" data-standard="navigation">
+        <div class="container">
+            <div class="standard-header">
+                <h2>Navigation Hierarchy</h2>
+                <p class="rule">Put navigation in the same place every time</p>
+            </div>
+
+            <!-- Sub-standard -->
+            <div class="standard"
+                 data-context="mobile"
+                 data-min-height="64px"
+                 data-max-items="5">
+                <h3>Mobile: Bottom Tab Bar</h3>
+                <div class="why">
+                    <strong>Why:</strong> Thumb-friendly zone. 70% of users hold phones one-handed.
+                </div>
+
+                <!-- Good Example -->
+                <div class="example good">
+                    <div class="example-label">✓ Good Example</div>
+                    <div class="example-demo">
+                        <!-- Visual mockup -->
+                    </div>
+                    <div class="example-specs">
+                        • Height: 64px minimum<br>
+                        • Items: 3-5 maximum<br>
+                        • Position: Bottom of screen
+                    </div>
+                </div>
+
+                <!-- Bad Example -->
+                <div class="example bad">
+                    <div class="example-label">✗ Bad Example</div>
+                    <div class="example-demo">
+                        <!-- What not to do -->
+                    </div>
+                    <div class="example-problems">
+                        • Navigation hidden in hamburger menu<br>
+                        • Requires reaching top of screen<br>
+                        • Slows down common tasks
+                    </div>
+                </div>
+
+                <!-- Code Example (for developers) -->
+                <div class="code-example">
+                    <pre><code>&lt;nav class="bottom-tabs"&gt;
+  &lt;a href="#home" class="tab active"&gt;Home&lt;/a&gt;
+  &lt;a href="#search" class="tab"&gt;Search&lt;/a&gt;
+  &lt;a href="#profile" class="tab"&gt;Profile&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repeat for ALL standards -->
+
+    <!-- FOOTER -->
+    <footer class="standards-footer">
+        <div class="container">
+            <h3>Using These Standards</h3>
+
+            <h4>For Developers</h4>
+            <p>Use as a checklist when building interfaces</p>
+
+            <h4>For AI</h4>
+            <p>Reference in prompts:</p>
+            <pre>Build a login form following dbbasic.com/standards:
+- Touch targets: 44×44px minimum (mobile)
+- Forms: Labels above inputs
+- Buttons: Primary action bottom-right</pre>
+
+            <h3>Version History</h3>
+            <ul>
+                <li><strong>v1.0</strong> (2025-01-16) - Initial release</li>
+            </ul>
+
+            <p class="copyright">
+                DBBasic Usability Standards v1.0<br>
+                Created by Dan Quellhorst • dbbasic.com<br>
+                MIT License • Free for commercial and personal use
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+
+### canonical.css - Styling
+
+Clean, professional, fast-loading:
+- Typography: Inter font
+- Color scheme: Purple/gray (brand colors)
+- Mobile-first responsive
+- Print-friendly styles
+- Fast load (<2s)
+
+### Deployment Plan
+
+**Step 1: Build canonical.html**
+- Copy structure from index.html
+- Add all missing standards sections
+- Add metadata for AI parsing
+- Add version number and changelog
+
+**Step 2: Test Locally**
+- Open in browser
+- Validate HTML
+- Check all examples render
+- Test mobile responsive
+
+**Step 3: Deploy to dbbasic.com**
+- Upload to dbbasic.com/standards/
+- Set up redirect: dbbasic.com/standards → canonical.html
+- OR use: standards.dbbasic.com
+
+**Step 4: Make It Permanent**
+- Add to DNS
+- Set up CDN (if needed)
+- Monitor uptime
+- Never break the URL
+
+### Success Metrics
+
+When done, we can say:
+
+✅ **One URL for everything:** dbbasic.com/standards
+✅ **Complete coverage:** All major usability rules
+✅ **AI-ready:** Structured, parseable, visual examples
+✅ **Professional:** Stable domain, versioned, credible
+✅ **Citeable:** "According to DBBasic Standards v1.0..."
+
+### Time Estimate
+
+- **Build canonical.html**: 4-6 hours (add 6 new sections)
+- **Create canonical.css**: 1-2 hours (adapt from index.html)
+- **Test and polish**: 1-2 hours
+- **Write deployment docs**: 30 minutes
+
+**Total: 6-10 hours of focused work**
+
+With AI assistance: Could finish in 1 day.
+
+---
+
+## 🔴 PRIORITY 1: Foundation (COMPLETED ✅)
 
 ### 1.1 Document Core Usability Standards
 **File**: `USABILITY-STANDARDS.md`
