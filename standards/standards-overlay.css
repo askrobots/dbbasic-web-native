@@ -1,0 +1,290 @@
+/**
+ * DBBasic Usability Standards Overlay CSS
+ *
+ * Styles for visual overlay system.
+ * Version: 1.0
+ * Author: Dan Quellhorst / dbbasic.com
+ */
+
+/* ========== OVERLAY CONTAINER ========== */
+.standards-overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    z-index: 10000;
+}
+
+.standards-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+/* ========== ANNOTATIONS ========== */
+.standards-annotation {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.annotation-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+
+.annotation-description {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* ========== GRID OVERLAY ========== */
+.grid-overlay .grid-container {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.grid-column {
+    transition: background 0.3s ease;
+}
+
+/* ========== TOUCH ZONES OVERLAY ========== */
+.touch-zones-overlay .touch-zone {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.touch-zone.green-zone {
+    background: rgba(34, 197, 94, 0.1);
+    border-top: 2px dashed rgba(34, 197, 94, 0.5);
+}
+
+.touch-zone.yellow-zone {
+    background: rgba(245, 158, 11, 0.1);
+    border-top: 2px dashed rgba(245, 158, 11, 0.5);
+    border-bottom: 2px dashed rgba(245, 158, 11, 0.5);
+}
+
+.touch-zone.red-zone {
+    background: rgba(239, 68, 68, 0.1);
+    border-bottom: 2px dashed rgba(239, 68, 68, 0.5);
+}
+
+/* ========== SPACING OVERLAY ========== */
+.spacing-overlay .spacing-indicator {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.spacing-label {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ========== TOUCH TARGETS OVERLAY ========== */
+.touch-targets-overlay .touch-target-highlighter {
+    animation: fadeIn 0.3s ease-out;
+    transition: all 0.2s ease;
+}
+
+.touch-target-highlighter:hover {
+    transform: scale(1.05);
+}
+
+/* ========== CONTENT BOUNDARIES OVERLAY ========== */
+.content-boundaries-overlay .content-boundary {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ========== TOOLBAR ========== */
+.standards-toolbar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 10002;
+    pointer-events: all;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.standards-toolbar.collapsed {
+    padding: 12px;
+}
+
+.toolbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.toolbar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.3px;
+}
+
+.toolbar-collapse-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    transition: opacity 0.2s;
+}
+
+.toolbar-collapse-btn:hover {
+    opacity: 0.7;
+}
+
+.toolbar-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.standards-toolbar.collapsed .toolbar-buttons {
+    display: none;
+}
+
+.toolbar-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.toolbar-btn.active {
+    background: rgba(124, 58, 237, 0.5);
+    border-color: rgba(124, 58, 237, 0.7);
+}
+
+.toolbar-btn-icon {
+    margin-right: 6px;
+}
+
+.toolbar-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-action-btn {
+    flex: 1;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toolbar-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== MOBILE TOOLBAR ========== */
+@media (max-width: 768px) {
+    .standards-toolbar {
+        bottom: 80px; /* Above bottom nav */
+        right: 16px;
+        left: 16px;
+        max-width: none;
+    }
+
+    .toolbar-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .toolbar-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ========== KEYBOARD SHORTCUT HINT ========== */
+.standards-keyboard-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Inter', -apple-system, sans-serif;
+    z-index: 10002;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.standards-keyboard-hint.show {
+    opacity: 1;
+}
+
+.standards-keyboard-hint kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    font-family: monospace;
+    margin: 0 2px;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+    .standards-overlay-container,
+    .standards-toolbar,
+    .standards-keyboard-hint {
+        display: none !important;
+    }
+}

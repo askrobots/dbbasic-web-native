@@ -1,0 +1,134 @@
+<!-- DBBasic Usability Standards Toolbar -->
+<!-- Include this snippet in any demo page to enable standards visualization -->
+
+<!-- Toolbar Container -->
+<div class="standards-toolbar" id="standards-toolbar">
+    <div class="toolbar-header">
+        <div class="toolbar-title">📐 Usability Standards</div>
+        <button class="toolbar-collapse-btn" onclick="toggleToolbar()">−</button>
+    </div>
+
+    <div class="toolbar-buttons">
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('grid')" data-type="grid">
+            <span class="toolbar-btn-icon">📊</span>
+            <span>Layout Grid</span>
+        </button>
+
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('touch')" data-type="touch">
+            <span class="toolbar-btn-icon">👆</span>
+            <span>Touch Zones</span>
+        </button>
+
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('spacing')" data-type="spacing">
+            <span class="toolbar-btn-icon">📏</span>
+            <span>Spacing</span>
+        </button>
+
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('flow')" data-type="flow">
+            <span class="toolbar-btn-icon">👁️</span>
+            <span>Visual Flow</span>
+        </button>
+
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('targets')" data-type="targets">
+            <span class="toolbar-btn-icon">🎯</span>
+            <span>Touch Targets</span>
+        </button>
+
+        <button class="toolbar-btn" onclick="window.standardsOverlay.toggle('boundaries')" data-type="boundaries">
+            <span class="toolbar-btn-icon">📦</span>
+            <span>Boundaries</span>
+        </button>
+    </div>
+
+    <div class="toolbar-actions">
+        <button class="toolbar-action-btn" onclick="window.standardsOverlay.showAll()">
+            Show All
+        </button>
+        <button class="toolbar-action-btn" onclick="window.standardsOverlay.hideAll()">
+            Hide All
+        </button>
+    </div>
+</div>
+
+<!-- Keyboard Shortcut Hint -->
+<div class="standards-keyboard-hint" id="keyboard-hint">
+    Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> to toggle overlays
+</div>
+
+<!-- Toolbar Interaction Script -->
+<script>
+    // Toggle toolbar collapsed state
+    function toggleToolbar() {
+        const toolbar = document.getElementById('standards-toolbar');
+        const btn = toolbar.querySelector('.toolbar-collapse-btn');
+        toolbar.classList.toggle('collapsed');
+        btn.textContent = toolbar.classList.contains('collapsed') ? '+' : '−';
+    }
+
+    // Update button active states when overlays change
+    function updateToolbarButtons() {
+        const buttons = document.querySelectorAll('.toolbar-btn[data-type]');
+        buttons.forEach(btn => {
+            const type = btn.dataset.type;
+            if (window.standardsOverlay && window.standardsOverlay.activeOverlays.has(type)) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // Override toggle method to update button states
+    if (window.standardsOverlay) {
+        const originalToggle = window.standardsOverlay.toggle.bind(window.standardsOverlay);
+        window.standardsOverlay.toggle = function(type) {
+            originalToggle(type);
+            updateToolbarButtons();
+        };
+
+        const originalShowAll = window.standardsOverlay.showAll.bind(window.standardsOverlay);
+        window.standardsOverlay.showAll = function() {
+            originalShowAll();
+            updateToolbarButtons();
+        };
+
+        const originalHideAll = window.standardsOverlay.hideAll.bind(window.standardsOverlay);
+        window.standardsOverlay.hideAll = function() {
+            originalHideAll();
+            updateToolbarButtons();
+        };
+    }
+
+    // Show keyboard hint briefly on page load
+    window.addEventListener('load', () => {
+        const hint = document.getElementById('keyboard-hint');
+        setTimeout(() => {
+            hint.classList.add('show');
+            setTimeout(() => {
+                hint.classList.remove('show');
+            }, 3000);
+        }, 1000);
+    });
+
+    // Show hint again when user presses Ctrl or Shift
+    let ctrlPressed = false;
+    let shiftPressed = false;
+
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey) ctrlPressed = true;
+        if (e.shiftKey) shiftPressed = true;
+
+        if (ctrlPressed && shiftPressed) {
+            document.getElementById('keyboard-hint').classList.add('show');
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (!e.ctrlKey) ctrlPressed = false;
+        if (!e.shiftKey) shiftPressed = false;
+
+        if (!ctrlPressed || !shiftPressed) {
+            document.getElementById('keyboard-hint').classList.remove('show');
+        }
+    });
+</script>
