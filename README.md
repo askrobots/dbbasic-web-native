@@ -99,6 +99,61 @@ Pure HTML/CSS. Works everywhere.
 
 ---
 
+## 📐 Usability Standards (NEW!)
+
+**The only UI library that teaches AI how to build usable apps.**
+
+### Visual Standards Documentation
+
+Every standard includes:
+- **WHY explanation** - Not just rules, but reasoning
+- **Good example** - See it done right
+- **Bad example** - Learn what to avoid
+- **Interactive overlays** - Toggle standards on any demo
+
+**👉 [View Standards Showcase](standards/index.html)** - Visual guide with live examples
+
+### For Developers
+
+Use standards as a checklist:
+- Navigation: Bottom tab bar on mobile ✓
+- Touch targets: 44×44px minimum ✓
+- Spacing: 8px base unit (8, 16, 24, 32...) ✓
+- Forms: Labels above inputs ✓
+
+### For AI
+
+**This is the key innovation:** AI can reference these standards to generate better UIs.
+
+Instead of telling AI: *"Make a mobile nav"*
+
+You can say: *"Build a mobile nav following standards/index.html - bottom tab bar, 64px height, 3-5 items max"*
+
+**AI prompt example:**
+```
+Build a login form following DBBasic standards at standards/index.html:
+- Labels above inputs (not placeholder-only)
+- 56px input height for mobile tap targets
+- Primary button bottom-right
+- Validate against touch target standards (44×44px minimum)
+```
+
+The standards become **training data** that prevents GeoCities 2.0.
+
+### Application Type Detection
+
+Standards adapt to context. The system auto-detects:
+
+- **Brochure/Marketing** - Low density, 64-96px spacing, scroll-focused
+- **App/Dashboard** - High density, 24-32px spacing, keyboard shortcuts
+- **Social/Content** - Medium density, 16-24px spacing, infinite scroll
+
+Each type has different rules because user goals differ.
+
+**📖 [Read Full Documentation](USABILITY-STANDARDS.md)** - 11,000+ word comprehensive guide
+
+---
+
 ## 🎯 Production Use
 
 These components are actively used in production on:

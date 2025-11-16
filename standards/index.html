@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBBasic Usability Standards - Visual Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* ========== CONTAINER ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== SECTIONS ========== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-eyebrow {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7C3AED;
+            margin-bottom: 12px;
+        }
+
+        .section h2 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #6b7280;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ========== STANDARD CARD ========== */
+        .standard {
+            margin-bottom: 80px;
+        }
+
+        .standard-header {
+            margin-bottom: 32px;
+        }
+
+        .standard-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .standard-why {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .standard-why strong {
+            color: #111827;
+        }
+
+        .standard-rule {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        /* ========== EXAMPLE CONTAINER ========== */
+        .example-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+
+        .example {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .example-label {
+            background: #f9fafb;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #111827;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-label.good::before {
+            content: '✓';
+            color: #22c55e;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .example-label.bad::before {
+            content: '✗';
+            color: #ef4444;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .example-content {
+            padding: 32px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========== NAVIGATION EXAMPLES ========== */
+        .nav-example-mobile {
+            width: 100%;
+            max-width: 375px;
+            height: 600px;
+            border: 8px solid #1f2937;
+            border-radius: 24px;
+            background: #f9fafb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-header {
+            background: white;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mobile-header-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .mobile-icon {
+            width: 44px;
+            height: 44px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .mobile-bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            padding: 8px 0;
+        }
+
+        .mobile-nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            gap: 4px;
+            min-height: 64px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item:hover {
+            background: #f9fafb;
+        }
+
+        .mobile-nav-item.active {
+            color: #7C3AED;
+        }
+
+        .mobile-nav-icon {
+            font-size: 24px;
+        }
+
+        .mobile-nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ========== TOUCH TARGET EXAMPLES ========== */
+        .touch-target-demo {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .touch-target {
+            position: relative;
+        }
+
+        .touch-target-button {
+            background: #7C3AED;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .touch-target-button.good {
+            width: 44px;
+            height: 44px;
+            font-size: 14px;
+        }
+
+        .touch-target-button.bad {
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+        }
+
+        .touch-target-overlay {
+            position: absolute;
+            border: 2px dashed;
+            pointer-events: none;
+        }
+
+        .touch-target.good .touch-target-overlay {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .touch-target.bad .touch-target-overlay {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .touch-target-size {
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .touch-target.good .touch-target-size {
+            background: #22c55e;
+            color: white;
+        }
+
+        .touch-target.bad .touch-target-size {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* ========== SPACING EXAMPLES ========== */
+        .spacing-demo {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .spacing-box {
+            background: #7C3AED;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .spacing-indicator {
+            height: 32px;
+            background: repeating-linear-gradient(
+                90deg,
+                #e5e7eb,
+                #e5e7eb 8px,
+                transparent 8px,
+                transparent 16px
+            );
+            position: relative;
+            margin: 16px 0;
+        }
+
+        .spacing-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #7C3AED;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ========== FORM EXAMPLES ========== */
+        .form-demo {
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #7C3AED;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-button {
+            background: #7C3AED;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        /* ========== APPLICATION TYPE CARDS ========== */
+        .app-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .app-type-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .app-type-card:hover {
+            border-color: #7C3AED;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .app-type-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .app-type-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .app-type-goal {
+            font-size: 14px;
+            color: #7C3AED;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .app-type-list {
+            list-style: none;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .app-type-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .app-type-list li:last-child {
+            border-bottom: none;
+        }
+
+        .app-type-list strong {
+            color: #111827;
+            font-weight: 600;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #7C3AED;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section h2 {
+                font-size: 28px;
+            }
+
+            .example-container {
+                grid-template-columns: 1fr;
+            }
+
+            .standard-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">📐 Prevent GeoCities 2.0</div>
+            <h1>DBBasic Usability Standards</h1>
+            <p>Visual guide to building apps people can actually use. Learn the rules, see the examples, understand the WHY.</p>
+        </div>
+    </div>
+
+    <!-- NAVIGATION STANDARDS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Navigation</div>
+                <h2>Consistent Navigation Hierarchy</h2>
+                <p class="section-description">Put navigation in the same place every time. Users shouldn't hunt for it.</p>
+            </div>
+
+            <div class="standard">
+                <div class="standard-header">
+                    <h3 class="standard-title">Mobile: Bottom Tab Bar</h3>
+                    <p class="standard-why"><strong>Why:</strong> Thumb-friendly zone. 70% of users hold phones one-handed.</p>
+                    <div class="standard-rule">✓ Height: 64px minimum • Items: 3-5 max • Always visible</div>
+                </div>
+
+                <div class="example-container">
+                    <div class="example">
+                        <div class="example-label good">Good Example</div>
+                        <div class="example-content">
+                            <div class="nav-example-mobile">
+                                <div class="mobile-header">
+                                    <div class="mobile-icon">☰</div>
+                                    <div class="mobile-header-title">Dashboard</div>
+                                    <div class="mobile-icon">⚙️</div>
+                                </div>
+                                <div class="mobile-bottom-nav">
+                                    <div class="mobile-nav-item active">
+                                        <div class="mobile-nav-icon">🏠</div>
+                                        <div class="mobile-nav-label">Home</div>
+                                    </div>
+                                    <div class="mobile-nav-item">
+                                        <div class="mobile-nav-icon">🔍</div>
+                                        <div class="mobile-nav-label">Search</div>
+                                    </div>
+                                    <div class="mobile-nav-item">
+                                        <div class="mobile-nav-icon">➕</div>
+                                        <div class="mobile-nav-label">Create</div>
+                                    </div>
+                                    <div class="mobile-nav-item">
+                                        <div class="mobile-nav-icon">👤</div>
+                                        <div class="mobile-nav-label">Profile</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <div class="example-label bad">Bad Example</div>
+                        <div class="example-content">
+                            <div class="nav-example-mobile">
+                                <div class="mobile-header">
+                                    <div class="mobile-header-title">Dashboard</div>
+                                    <div class="mobile-icon">☰</div>
+                                </div>
+                                <div style="padding: 24px; font-size: 14px; color: #ef4444;">
+                                    <p><strong>❌ Problems:</strong></p>
+                                    <ul style="margin-left: 20px; margin-top: 12px; line-height: 1.8;">
+                                        <li>No bottom navigation (must reach top-right menu)</li>
+                                        <li>Navigation hidden in hamburger</li>
+                                        <li>Requires two-handed operation</li>
+                                        <li>Slows down common tasks</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOUCH TARGETS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Touch Targets</div>
+                <h2>Minimum Tap Sizes</h2>
+                <p class="section-description">Make everything big enough to tap without frustration.</p>
+            </div>
+
+            <div class="standard">
+                <div class="standard-header">
+                    <h3 class="standard-title">Mobile: 44×44px Minimum</h3>
+                    <p class="standard-why"><strong>Why:</strong> Prevents mis-taps from "fat finger problem". WCAG 2.5.5 Level AAA standard.</p>
+                    <div class="standard-rule">✓ Mobile: 44×44px • Desktop: 32×32px • Spacing: 8px minimum</div>
+                </div>
+
+                <div class="example-container">
+                    <div class="example">
+                        <div class="example-label good">Good Example - 44×44px</div>
+                        <div class="example-content">
+                            <div class="touch-target-demo">
+                                <div class="touch-target good">
+                                    <div class="touch-target-size">44×44px</div>
+                                    <div class="touch-target-overlay" style="width: 44px; height: 44px;"></div>
+                                    <button class="touch-target-button good">✓</button>
+                                </div>
+                                <div style="max-width: 200px;">
+                                    <p style="font-size: 14px; color: #22c55e;"><strong>✓ Easy to tap</strong></p>
+                                    <p style="font-size: 13px; color: #6b7280; margin-top: 4px;">Large enough for thumbs, prevents accidental taps on nearby elements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <div class="example-label bad">Bad Example - 28×28px</div>
+                        <div class="example-content">
+                            <div class="touch-target-demo">
+                                <div class="touch-target bad">
+                                    <div class="touch-target-size">28×28px</div>
+                                    <div class="touch-target-overlay" style="width: 44px; height: 44px;"></div>
+                                    <button class="touch-target-button bad">✗</button>
+                                </div>
+                                <div style="max-width: 200px;">
+                                    <p style="font-size: 14px; color: #ef4444;"><strong>✗ Too small</strong></p>
+                                    <p style="font-size: 13px; color: #6b7280; margin-top: 4px;">Requires precision tapping, causes user frustration and errors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPACING SYSTEM -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Spacing</div>
+                <h2>Consistent Spacing System</h2>
+                <p class="section-description">Use a mathematical system. No random pixel values.</p>
+            </div>
+
+            <div class="standard">
+                <div class="standard-header">
+                    <h3 class="standard-title">8px Base Unit</h3>
+                    <p class="standard-why"><strong>Why:</strong> Creates visual rhythm, divisible by 2/4 for responsive design, works with most screen resolutions.</p>
+                    <div class="standard-rule">✓ Use: 8px, 16px, 24px, 32px, 48px, 64px • Avoid: 13px, 27px, 41px</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div class="spacing-box">Element 1</div>
+                    <div class="spacing-indicator">
+                        <div class="spacing-label">32px (4 × 8px)</div>
+                    </div>
+                    <div class="spacing-box">Element 2</div>
+                    <div class="spacing-indicator">
+                        <div class="spacing-label">24px (3 × 8px)</div>
+                    </div>
+                    <div class="spacing-box">Element 3</div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 16px; background: #fef3c7; border-radius: 8px; font-size: 14px;">
+                    <strong>Spacing Scale:</strong> 8px (small) • 16px (medium) • 24px (large) • 32px (cards) • 48px (sections mobile) • 64px (sections desktop)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORM STANDARDS -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Forms</div>
+                <h2>Form Best Practices</h2>
+                <p class="section-description">Make forms easy to complete. Every friction point = lost conversions.</p>
+            </div>
+
+            <div class="standard">
+                <div class="standard-header">
+                    <h3 class="standard-title">Labels Above Inputs</h3>
+                    <p class="standard-why"><strong>Why:</strong> Faster to scan, works for long labels, mobile-friendly. Users complete forms 30% faster.</p>
+                    <div class="standard-rule">✓ Stacked layout • 56px input height (mobile) • 16px font size minimum</div>
+                </div>
+
+                <div class="example-container">
+                    <div class="example">
+                        <div class="example-label good">Good Example</div>
+                        <div class="example-content">
+                            <form class="form-demo">
+                                <div class="form-group">
+                                    <label class="form-label">Email address</label>
+                                    <input type="email" class="form-input" placeholder="you@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-input" placeholder="••••••••">
+                                </div>
+                                <button type="submit" class="form-button">Sign In</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="example">
+                        <div class="example-label bad">Bad Example</div>
+                        <div class="example-content">
+                            <div style="padding: 24px; font-size: 14px; color: #ef4444;">
+                                <p><strong>❌ Common Mistakes:</strong></p>
+                                <ul style="margin-left: 20px; margin-top: 12px; line-height: 1.8;">
+                                    <li>Placeholder-only labels (disappear when typing)</li>
+                                    <li>Labels inside inputs (confusing)</li>
+                                    <li>Tiny inputs <44px height (hard to tap)</li>
+                                    <li>Font size <16px (iOS zooms in)</li>
+                                    <li>Poor error messaging (no inline hints)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION TYPES -->
+    <div class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Application Types</div>
+                <h2>Know What You're Building</h2>
+                <p class="section-description">Not all applications are the same. Standards adapt to context and user goals.</p>
+            </div>
+
+            <div class="app-type-grid">
+                <div class="app-type-card">
+                    <div class="app-type-icon">📄</div>
+                    <h3 class="app-type-title">Brochure/Marketing</h3>
+                    <div class="app-type-goal">Goal: Convert visitors</div>
+                    <ul class="app-type-list">
+                        <li><strong>Density:</strong> Low (airy, whitespace)</li>
+                        <li><strong>Spacing:</strong> 64-96px sections</li>
+                        <li><strong>Navigation:</strong> Simple top bar</li>
+                        <li><strong>Interaction:</strong> Scroll + Click</li>
+                        <li><strong>Examples:</strong> Landing pages, portfolios</li>
+                    </ul>
+                </div>
+
+                <div class="app-type-card">
+                    <div class="app-type-icon">📊</div>
+                    <h3 class="app-type-title">App/Dashboard</h3>
+                    <div class="app-type-goal">Goal: Complete tasks efficiently</div>
+                    <ul class="app-type-list">
+                        <li><strong>Density:</strong> High (dense, data-rich)</li>
+                        <li><strong>Spacing:</strong> 24-32px sections</li>
+                        <li><strong>Navigation:</strong> Persistent sidebar</li>
+                        <li><strong>Interaction:</strong> Keyboard + Click</li>
+                        <li><strong>Examples:</strong> Dashboards, SaaS apps</li>
+                    </ul>
+                </div>
+
+                <div class="app-type-card">
+                    <div class="app-type-icon">📱</div>
+                    <h3 class="app-type-title">Social/Content</h3>
+                    <div class="app-type-goal">Goal: Engage users, time on site</div>
+                    <ul class="app-type-list">
+                        <li><strong>Density:</strong> Medium</li>
+                        <li><strong>Spacing:</strong> 16-24px posts</li>
+                        <li><strong>Navigation:</strong> Sticky top bar</li>
+                        <li><strong>Interaction:</strong> Scroll + React</li>
+                        <li><strong>Examples:</strong> Social media, blogs, forums</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 48px; padding: 32px; background: white; border-radius: 12px; border: 2px solid #7C3AED; text-align: center;">
+                <p style="font-size: 18px; color: #111827; margin-bottom: 12px;">
+                    <strong>Each type has different standards.</strong>
+                </p>
+                <p style="font-size: 16px; color: #6b7280;">
+                    A marketing site needs big hero sections and CTAs. A dashboard needs dense data and keyboard shortcuts. Social needs infinite scroll and reactions. Use the RIGHT standards for your context.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="container">
+            <p style="font-size: 18px; margin-bottom: 16px;">
+                <strong>Ready to build with standards?</strong>
+            </p>
+            <p style="font-size: 14px; opacity: 0.9; margin-bottom: 24px;">
+                View <a href="../demo-marketing-complete.html">live demos with interactive overlays</a> or read the <a href="../USABILITY-STANDARDS.md">full documentation</a>
+            </p>
+            <p style="font-size: 12px; opacity: 0.7;">
+                DBBasic Usability Standards v1.0 • Created by <a href="https://dbbasic.com">Dan Quellhorst</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
